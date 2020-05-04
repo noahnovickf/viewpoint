@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 
 import DATABASE from "./database/firebase";
 
@@ -18,11 +17,9 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Argument App</p>
-        <button onClick={sampleButtonClick}>Click me to add to DB</button>
-      </header>
+    <div className="flex justify-center justify-center bg-blue-100 h-20 w-20">
+      <p>Argument App</p>
+      <button onClick={sampleButtonClick}>Click me to add to DB</button>
     </div>
   );
 }
