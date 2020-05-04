@@ -1,21 +1,27 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
+import DATABASE from "./database/firebase";
+
 function App() {
+  const sampleButtonClick = async () => {
+    try {
+      await DATABASE.db.collection("cities").doc("LA").set({
+        name: "Los Angeles",
+        state: "CA",
+        country: "USA",
+      });
+      alert("Success");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Initial code for Judger</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>Argument App</p>
+        <button onClick={sampleButtonClick}>Click me to add to DB</button>
       </header>
     </div>
   );
