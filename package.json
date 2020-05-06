@@ -18,12 +18,15 @@
     "postcss-cli": "^7.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "tailwindcss": "^1.4.4",
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "build:style":"tailwind build src/styles/index.css -o src/styles/tailwind.css",
+    "build:style": "tailwind build src/styles/index.css -o src/styles/tailwind.css",
     "start": "npm run build:style && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -45,6 +48,8 @@
     ]
   },
   "devDependencies": {
-    "@types/firebase": "^3.2.1"
+    "@types/firebase": "^3.2.1",
+    "@types/react-redux": "^7.1.8",
+    "redux-devtools-extension": "^2.13.8"
   }
 }
