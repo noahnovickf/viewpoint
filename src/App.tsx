@@ -17,9 +17,12 @@ function App() {
   };
 
   return (
-    <div className="flex justify-center justify-center bg-blue-100 h-20 w-20">
-      <p>Argument App</p>
-      <button onClick={sampleButtonClick}>Click me to add to DB</button>
+    <div className="App flex justify-center items-center">
+      <div className="w-full max-w-md bg-orange-600">
+        <button className="bg-blue w-full" onClick={sampleButtonClick}>
+          PRESS ME
+        </button>
+      </div>
     </div>
   );
 }
