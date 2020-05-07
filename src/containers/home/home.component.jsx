@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import SampleDummy from "components/sampleDummy";
 
-const Home = (props: any) => {
+const Home = (props) => {
   const { fetchUserThunk } = props;
 
   // This is how to fetch data from the global state

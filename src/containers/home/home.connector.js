@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Home from "./home.component";
-import { fetchUser } from "./../../store/thunks/users";
+import { fetchUser } from "../../store/thunks/users";
 
 import { useSelector } from "react-redux";
 

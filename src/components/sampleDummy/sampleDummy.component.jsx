@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  text: String;
-};
-
-const SampleDummy = ({ text }: Props) => {
+const SampleDummy = ({ text }) => {
   return <div className="w-full max-w-md">DUMB COMPONENT - {text}</div>;
 };
 
