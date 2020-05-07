@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
-import userReducer from "./users";
+import users from "store/reducers/users";
+
+// List of all the objects in the global Redux state
 export default combineReducers({
-  userReducer,
+  users,
 });

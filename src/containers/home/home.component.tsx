@@ -1,11 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Home = (props) => {
+import SampleDummy from "components/sampleDummy";
+
+const Home = (props: any) => {
   const { fetchUserThunk } = props;
-  const user = useSelector((state) => {
-    return state.userReducer.user;
-  });
+
+  // This is how to fetch data from the global state
+  const user = useSelector((state) => state.users.user);
 
   return (
     <div className="w-full max-w-md">
@@ -13,6 +15,11 @@ const Home = (props) => {
       <button className="bg-blue w-full bg-orange-600" onClick={fetchUserThunk}>
         FETCH A USER
       </button>
+
+      {/* Use of presentational components
+       * Simply pass down props and display UI
+       */}
+      <SampleDummy text="Sample Text" />
     </div>
   );
 };
