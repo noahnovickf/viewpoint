@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import firebase from "firebase";
+import { useSelector } from "react-redux";
 
 import SampleDummy from "components/sampleDummy";
 
@@ -30,7 +30,7 @@ const Home = (props) => {
     console.log(firebase.auth().currentUser);
   };
 
-  if (true) {
+  if (!firebase.auth().currentUser) {
     return (
       <div className="w-full max-w-md">
         <div className="flex justify-center">{JSON.stringify(users)}</div>
