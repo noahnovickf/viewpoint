@@ -1,18 +1,28 @@
-import React from "react";
-import firebase from "firebase";
+import React, { useEffect, useState } from "react";
 import { fetchAllUsers } from "database/users.js";
 
 const Content = (props) => {
-  let citiesArr = [];
-  citiesArr = fetchAllUsers().then((cities) => {
-    cities.docs.map((elem) => {
-      return <li>elem.data().name</li>;
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    const citiesArr = [];
+    fetchAllUsers().then((cities) => {
+      cities.docs.forEach((elem) => {
+        const cityName = elem.data().name;
+        citiesArr.push(cityName);
+      });
+
+      setCities(citiesArr);
     });
-  });
+  }, []);
 
   return (
     <div>
-      <ul>{citiesArr} </ul>
+      <ul>
+        {cities.map((city) => (
+          <li key={city}>{city}</li>
+        ))}
+      </ul>
     </div>
   );
 };
