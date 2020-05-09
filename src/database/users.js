@@ -1,4 +1,4 @@
-import DATABASE from "./index";
+import { db } from "./index";
 
 /**
  * Make database calls here
@@ -7,7 +7,7 @@ import DATABASE from "./index";
  */
 export const fetchAllUsers = async () => {
   try {
-    return DATABASE.db.collection("cities").doc("LA").get();
+    return db.collection("cities").doc("LA").get();
   } catch (error) {
     return new Promise((resolve, reject) => {
       reject("Error fetching user from Firestore");
