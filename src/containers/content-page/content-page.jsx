@@ -3,15 +3,16 @@ import firebase from "firebase";
 import { fetchAllUsers } from "database/users.js";
 
 const Content = (props) => {
-  const listOfCities = fetchAllUsers().then((cities) => {
-    cities.docs.map((city) => {
-      return city;
+  let citiesArr = [];
+  citiesArr = fetchAllUsers().then((cities) => {
+    cities.docs.map((elem) => {
+      return <li>elem.data().name</li>;
     });
   });
-  console.log(listOfCities);
+
   return (
     <div>
-      <ul>list </ul>
+      <ul>{citiesArr} </ul>
     </div>
   );
 };
