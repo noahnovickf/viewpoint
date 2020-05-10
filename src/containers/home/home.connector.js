@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
 import Home from "./home.component";
-import { signInWithGoogle, logout } from "store/thunks/users";
+import { logout } from "store/thunks/users";
 
 const mapDispatchToProps = (dispatch) => ({
-  signInWithGoogleThunk: () => dispatch(signInWithGoogle()),
   logoutThunk: () => dispatch(logout()),
 });
 
