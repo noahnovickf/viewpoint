@@ -1,10 +1,17 @@
 const INTIAL_USER_STATE = {
-  user: {},
+  user: {
+    email: "",
+    username: "",
+    posts: [],
+    full_name: "",
+    avatar_link: "",
+  },
 };
 
 export default (state = INTIAL_USER_STATE, action) => {
   switch (action.type) {
-    case "USER_FETCHED":
+    case "USER_SIGNED_IN":
+      console.log("reducers", action.payload);
       return {
         ...state,
         user: action.payload,

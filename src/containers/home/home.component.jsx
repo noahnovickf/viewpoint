@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-import { signInWithGoogle, auth } from "database";
+import { auth } from "database";
 
-const Home = () => {
+import { fetchPosts } from "database/posts";
+import { addPost } from "database/addPost";
+
+import { useSelector } from "react-redux";
+
+const Home = (props) => {
   const [user, setUser] = useState({});
+  const userFromState = useSelector((state) => state.users.user);
 
   useEffect(() => {
     auth.onAuthStateChanged(async (nextUser) => {
@@ -19,7 +25,6 @@ const Home = () => {
   const signOut = () => {
     auth.signOut();
   };
-
   return (
     <div className="flex flex-col justify-center w-full max-w-md">
       <div className="flex justify-center">
@@ -29,13 +34,34 @@ const Home = () => {
       </div>
       <button
         className="bg-blue w-full bg-blue-600 mb-2"
-        onClick={signInWithGoogle}
+        onClick={props.signInWithGoogleThunk}
       >
         Sign in With Google
       </button>
 
       <button className="bg-blue w-full bg-red-600" onClick={signOut}>
         Sign out
+      </button>
+      <button
+        className="bg-blue w-full bg-orange-600 mt-2"
+        onClick={fetchPosts}
+      >
+        get posts
+      </button>
+
+      <input
+        id="post"
+        className="border"
+        type="text"
+        placeholder="Type some post"
+      ></input>
+      <button
+        className="bg-blue w-full bg-purple-600 mt-2"
+        onClick={() => {
+          addPost(document.getElementById("post").value);
+        }}
+      >
+        POST IT
       </button>
     </div>
   );

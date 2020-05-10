@@ -1,11 +1,9 @@
 import { connect } from "react-redux";
 import Home from "./home.component";
-import { fetchUser } from "../../store/thunks/users";
-
-import { useSelector } from "react-redux";
+import { signInWithGoogle } from "store/thunks/users";
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchUserThunk: () => dispatch(fetchUser()),
+  signInWithGoogleThunk: () => dispatch(signInWithGoogle()),
 });
 
 export default connect(null, mapDispatchToProps)(Home);
