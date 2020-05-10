@@ -16,6 +16,17 @@ export default (state = INTIAL_USER_STATE, action) => {
         ...state,
         user: action.payload,
       };
+    case "USER_LOGOUT":
+      return {
+        ...state,
+        user: {
+          email: "",
+          username: "",
+          posts: [],
+          full_name: "",
+          avatar_link: "",
+        },
+      };
     default:
       return state;
   }

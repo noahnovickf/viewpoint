@@ -24,12 +24,13 @@ const Home = (props) => {
 
   const signOut = () => {
     auth.signOut();
+    props.logoutThunk();
   };
-  return (
+  return !userFromState.full_name ? (
     <div className="flex flex-col justify-center w-full max-w-md">
       <div className="flex justify-center">
-        {Object.keys(user).length
-          ? user.displayName
+        {userFromState.full_name
+          ? userFromState.full_name
           : "Please sign in with google"}
       </div>
       <button
@@ -38,7 +39,12 @@ const Home = (props) => {
       >
         Sign in With Google
       </button>
-
+    </div>
+  ) : (
+    <div>
+      <h1 className="flex justify-center">
+        {userFromState.full_name} is logged in.
+      </h1>
       <button className="bg-blue w-full bg-red-600" onClick={signOut}>
         Sign out
       </button>
@@ -51,7 +57,7 @@ const Home = (props) => {
 
       <input
         id="post"
-        className="border"
+        className="border flex justify-center"
         type="text"
         placeholder="Type some post"
       ></input>

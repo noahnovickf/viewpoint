@@ -1,4 +1,4 @@
-import { userSignedIn } from "../actions/users";
+import { userSignedIn, userLogout } from "../actions/users";
 
 import { googlePopupSignInMethod, db } from "database";
 
@@ -23,6 +23,10 @@ export const signInWithGoogle = () => (dispatch) => {
       });
     }
   });
+};
+
+export const logout = () => (dispatch) => {
+  dispatch(userLogout());
 };
 
 // HERE
