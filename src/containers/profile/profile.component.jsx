@@ -1,7 +1,20 @@
 import React from "react";
 import { auth } from "database";
 import { updateUser } from "database/updateUser";
-const Profile = () => {
+import { useSelector } from "react-redux";
+
+const Profile = (props) => {
+  const userFromState = useSelector((state) => state.users.user);
+
+  const updateUserInfo = () => {
+    const data = {
+      id: auth.currentUser.uid,
+      username: document.getElementById("username").value,
+      user: userFromState,
+    };
+    props.usernameThunk(data);
+  };
+
   return (
     <div>
       <h1>Submit a username</h1>
@@ -13,12 +26,7 @@ const Profile = () => {
       ></input>
       <button
         className="bg-blue w-full bg-purple-600 mt-2"
-        onClick={() => {
-          updateUser(
-            auth.currentUser.uid,
-            document.getElementById("username").value
-          );
-        }}
+        onClick={updateUserInfo}
       >
         Update
       </button>

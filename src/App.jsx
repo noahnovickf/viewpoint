@@ -3,7 +3,7 @@ import Home from "./containers/home";
 import Login from "./containers/login";
 import { useSelector } from "react-redux";
 import { auth } from "database";
-import Profile from "containers/profile/profile.component";
+import Profile from "containers/profile";
 
 function App() {
   console.log();

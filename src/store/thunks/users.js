@@ -1,19 +1,28 @@
 import { userSignedIn, userLogout } from "../actions/users";
 
 import { googlePopupSignInMethod, db } from "database";
+import { useSelector } from "react-redux";
 
+//CREATE NEW USER
 export const signInWithGoogle = () => (dispatch) => {
   console.log("Sign in with google");
   googlePopupSignInMethod().then((res) => {
     if (res.additionalUserInfo.isNewUser) {
       const uniqueId = res.user.uid;
-      db.collection("users").doc(uniqueId).set({
-        email: res.user.email,
-        username: "",
-        posts: [],
-        full_name: res.user.displayName,
-        avatar_link: "",
-      });
+      db.collection("users")
+        .doc(uniqueId)
+        .set({
+          email: res.user.email,
+          username: "",
+          posts: [],
+          full_name: res.user.displayName,
+          avatar_link: "",
+        })
+        .then(() => {
+          handleReturningUserSignIn(res).then((user) => {
+            dispatch(userSignedIn(user));
+          });
+        });
       console.log("added");
     } else {
       //console.log("returning user");
@@ -24,9 +33,24 @@ export const signInWithGoogle = () => (dispatch) => {
     }
   });
 };
-
+//LOGOUT
 export const logout = () => (dispatch) => {
   dispatch(userLogout());
+};
+
+export const username = (info) => (dispatch) => {
+  console.log("thunk", info);
+  db.collection("users")
+    .doc(info.id)
+    .set({ username: info.username }, { merge: true })
+    .then(() => {
+      db.collection("users")
+        .doc(info.id)
+        .get()
+        .then((res) => {
+          dispatch(userSignedIn(res.data()));
+        });
+    });
 };
 
 // HERE
@@ -38,7 +62,6 @@ export const handleReturningUserSignIn = async (response) => {
   const user = userQuery.data();
   return user;
 };
-
 // 5 steps in Redux
 // 1. Your component (button) will call a thunk
 // 2. Your thunk makes an API call, waits for it resolve
