@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { auth } from "database";
-import { useSelector } from "react-redux";
-import Home from "containers/home";
+import React from "react";
 
 const Login = (props) => {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    setUser(userFromState);
-  }, []);
-
-  const userFromState = useSelector((state) => state.users.user);
-  console.log("state", user);
-  console.log(userFromState.full_name);
-  return !userFromState.full_name ? (
+  return (
     <div className="flex flex-col justify-center w-full max-w-md">
       <div className="flex justify-center">Please sign in with google</div>
       <button
@@ -23,8 +11,6 @@ const Login = (props) => {
         Sign in With Google
       </button>
     </div>
-  ) : (
-    <Home />
   );
 };
 export default Login;
