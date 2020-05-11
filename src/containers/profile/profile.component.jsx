@@ -1,6 +1,5 @@
 import React from "react";
 import { auth } from "database";
-import { updateUser } from "database/updateUser";
 import { useSelector } from "react-redux";
 
 const Profile = (props) => {

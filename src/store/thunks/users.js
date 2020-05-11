@@ -25,7 +25,6 @@ export const signInWithGoogle = () => (dispatch) => {
         });
       console.log("added");
     } else {
-      //console.log("returning user");
       // Call a thunk here with payload of whatever the user in state needs to have
       handleReturningUserSignIn(res).then((user) => {
         dispatch(userSignedIn(user));
