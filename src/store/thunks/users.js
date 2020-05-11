@@ -16,7 +16,7 @@ export const signInWithGoogle = () => (dispatch) => {
       });
       console.log("added");
     } else {
-      console.log("returning user");
+      //console.log("returning user");
       // Call a thunk here with payload of whatever the user in state needs to have
       handleReturningUserSignIn(res).then((user) => {
         dispatch(userSignedIn(user));
@@ -31,11 +31,10 @@ export const logout = () => (dispatch) => {
 
 // HERE
 export const handleReturningUserSignIn = async (response) => {
-  console.log("res", response);
   const uniqueUserId = response.user.uid;
-  console.log("uniqueUserId", uniqueUserId);
+
   const userQuery = await db.collection("users").doc(uniqueUserId).get();
-  console.log(userQuery.data());
+
   const user = userQuery.data();
   return user;
 };

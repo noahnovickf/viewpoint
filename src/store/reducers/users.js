@@ -11,7 +11,6 @@ const INTIAL_USER_STATE = {
 export default (state = INTIAL_USER_STATE, action) => {
   switch (action.type) {
     case "USER_SIGNED_IN":
-      console.log("reducers", action.payload);
       return {
         ...state,
         user: action.payload,
