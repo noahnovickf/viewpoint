@@ -18,13 +18,7 @@ export default (state = INTIAL_USER_STATE, action) => {
     case "USER_LOGOUT":
       return {
         ...state,
-        user: {
-          email: "",
-          username: "",
-          posts: [],
-          full_name: "",
-          avatar_link: "",
-        },
+        user: INTIAL_USER_STATE.user,
       };
     default:
       return state;
