@@ -21,12 +21,15 @@ export const signInWithGoogle = () => (dispatch) => {
           handleReturningUserSignIn(res).then((user) => {
             dispatch(userSignedIn(user));
           });
-        });
+        })
+        .catch(console.error);
     } else {
       // Call a thunk here with payload of whatever the user in state needs to have
-      handleReturningUserSignIn(res).then((user) => {
-        dispatch(userSignedIn(user));
-      });
+      handleReturningUserSignIn(res)
+        .then((user) => {
+          dispatch(userSignedIn(user));
+        })
+        .catch(console.error);
     }
   });
 };
@@ -46,7 +49,8 @@ export const addUsernameToState = (info) => (dispatch) => {
         .then((res) => {
           dispatch(userSignedIn(res.data()));
         });
-    });
+    })
+    .catch(console.error);
 };
 
 // HERE
