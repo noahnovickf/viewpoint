@@ -6,7 +6,6 @@ import { auth } from "database";
 import Profile from "containers/profile";
 
 function App() {
-  console.log();
   const [user, setUser] = useState({});
 
   useEffect(() => {

@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 //CREATE NEW USER
 export const signInWithGoogle = () => (dispatch) => {
-  console.log("Sign in with google");
   googlePopupSignInMethod().then((res) => {
     if (res.additionalUserInfo.isNewUser) {
       const uniqueId = res.user.uid;
@@ -23,7 +22,6 @@ export const signInWithGoogle = () => (dispatch) => {
             dispatch(userSignedIn(user));
           });
         });
-      console.log("added");
     } else {
       // Call a thunk here with payload of whatever the user in state needs to have
       handleReturningUserSignIn(res).then((user) => {
@@ -38,7 +36,6 @@ export const logout = () => (dispatch) => {
 };
 
 export const addUsernameToState = (info) => (dispatch) => {
-  console.log("thunk", info);
   db.collection("users")
     .doc(info.id)
     .set({ username: info.username }, { merge: true })
