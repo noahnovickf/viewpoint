@@ -3,7 +3,6 @@ import React from "react";
 import { auth } from "database";
 
 import { fetchPosts } from "database/posts";
-import { addPost } from "database/addPost";
 
 import { useSelector } from "react-redux";
 
@@ -15,15 +14,11 @@ const Home = (props) => {
     props.logoutThunk();
   };
 
-  const addPostToDB = () => {
-    addPost(document.getElementById("post").value);
-    document.getElementById("post").value = "";
-  };
-
   return (
     <div>
       <h1 className="flex justify-center">
-        {userFromState.full_name} is logged in.
+        {userFromState.full_name} is logged in with the username:
+        {userFromState.username}
       </h1>
       <button className="bg-blue w-full bg-red-600" onClick={signOut}>
         Sign out
@@ -33,19 +28,6 @@ const Home = (props) => {
         onClick={fetchPosts}
       >
         get posts
-      </button>
-
-      <input
-        id="post"
-        className="border flex justify-center"
-        type="text"
-        placeholder="Type some post"
-      ></input>
-      <button
-        className="bg-blue w-full bg-purple-600 mt-2"
-        onClick={addPostToDB}
-      >
-        POST IT
       </button>
     </div>
   );
