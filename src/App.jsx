@@ -1,11 +1,10 @@
 import React from "react";
-import Home from "./containers/home";
-import Login from "./containers/login";
+import Home from "containers/home";
 
 function App() {
   return (
     <div className="flex justify-center items-center">
-      <Login />
+      <Home />
     </div>
   );
 }
