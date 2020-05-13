@@ -13,11 +13,16 @@ function App() {
   }, []);
 
   const userFromState = useSelector((state) => state.users.user);
-  return !userFromState.full_name ? (
+
+  const isUserLoggedIn = useSelector((state) => state.users.user.full_name);
+
+  const firstTimeUser = useSelector((state) => state.users.user.username);
+
+  return !isUserLoggedIn ? (
     <div className="flex justify-center items-center">
       <Login />
     </div>
-  ) : !userFromState.username ? (
+  ) : !firstTimeUser ? (
     <div className="flex justify-center items-center">
       <Profile />
     </div>
