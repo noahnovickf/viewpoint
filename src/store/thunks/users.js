@@ -37,7 +37,7 @@ export const logout = () => (dispatch) => {
   dispatch(userLogout());
 };
 
-export const username = (info) => (dispatch) => {
+export const addUsernameToState = (info) => (dispatch) => {
   console.log("thunk", info);
   db.collection("users")
     .doc(info.id)

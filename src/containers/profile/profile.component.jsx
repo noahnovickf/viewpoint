@@ -11,7 +11,7 @@ const Profile = (props) => {
       username: document.getElementById("username").value,
       user: userFromState,
     };
-    props.usernameThunk(data);
+    props.addUsernameToStateThunk(data);
   };
 
   return (
