@@ -5,12 +5,12 @@ import Home from "containers/home";
 
 const Login = (props) => {
   const [user, setUser] = useState({});
+  const userFromState = useSelector((state) => state.users.user);
 
   useEffect(() => {
     setUser(userFromState);
-  }, []);
+  }, [userFromState]);
 
-  const userFromState = useSelector((state) => state.users.user);
   console.log("state", user);
   console.log(userFromState.full_name);
   return !userFromState.full_name ? (
