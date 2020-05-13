@@ -55,7 +55,6 @@ export const addUsernameToState = (info) => (dispatch) => {
 // HERE
 export const handleReturningUserSignIn = async (response) => {
   const uniqueUserId = response.user.uid;
-
   const userQuery = await db.collection("users").doc(uniqueUserId).get();
 
   const user = userQuery.data();
@@ -67,5 +66,4 @@ export const handleReturningUserSignIn = async (response) => {
 // 3. Your calls resolves. An action is dispatched with the data you need for your store
 // 4. Your action hits your reducer
 // 5. Your reducer sets you state in the store
-
 // 6. You can access this state anywhere in the app
