@@ -15,6 +15,11 @@ const Home = (props) => {
     props.logoutThunk();
   };
 
+  const addPostToDB = () => {
+    addPost(document.getElementById("post").value);
+    document.getElementById("post").value = "";
+  };
+
   return (
     <div>
       <h1 className="flex justify-center">
@@ -38,9 +43,7 @@ const Home = (props) => {
       ></input>
       <button
         className="bg-blue w-full bg-purple-600 mt-2"
-        onClick={() => {
-          addPost(document.getElementById("post").value);
-        }}
+        onClick={addPostToDB}
       >
         POST IT
       </button>

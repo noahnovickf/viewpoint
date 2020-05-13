@@ -9,7 +9,8 @@ export const fetchPosts = () => {
         snapshot.forEach((post) => {
           console.log(post.data());
         });
-      });
+      })
+      .catch(console.error);
   } catch (error) {
     return new Promise((resolve, reject) => {
       reject("Error fetching user from Firestore");
