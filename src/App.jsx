@@ -17,20 +17,27 @@ function App() {
   const isUserLoggedIn = useSelector((state) => state.users.user.full_name);
 
   const firstTimeUser = useSelector((state) => state.users.user.username);
-
-  return !isUserLoggedIn ? (
-    <div className="flex justify-center items-center">
-      <Login />
-    </div>
-  ) : !firstTimeUser ? (
-    <div className="flex justify-center items-center">
-      <Profile />
-    </div>
-  ) : (
-    <div className="flex justify-center items-center">
-      <Home />
-    </div>
-  );
+  if (!isUserLoggedIn) {
+    return (
+      <div className="flex justify-center items-center">
+        <Login />
+      </div>
+    );
+  } else {
+    if (!firstTimeUser) {
+      return (
+        <div className="flex justify-center items-center">
+          <Profile />
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex justify-center items-center">
+          <Home />
+        </div>
+      );
+    }
+  }
 }
 
 export default App;
