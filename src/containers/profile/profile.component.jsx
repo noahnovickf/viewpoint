@@ -6,12 +6,12 @@ const Profile = (props) => {
   const userFromState = useSelector((state) => state.users.user);
 
   const updateUserInfo = () => {
-    const data = {
+    const userWithUsername = {
       id: auth.currentUser.uid,
       username: document.getElementById("username").value,
       user: userFromState,
     };
-    props.addUsernameToStateThunk(data);
+    props.addUsernameToStateThunk(userWithUsername);
   };
 
   return (
