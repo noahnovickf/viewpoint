@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { auth } from "database";
 
@@ -8,19 +8,7 @@ import { addPost } from "database/addPost";
 import { useSelector } from "react-redux";
 
 const Home = (props) => {
-  // const [user, setUser] = useState({});
   const userFromState = useSelector((state) => state.users.user);
-
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(async (nextUser) => {
-  //     console.log("User changed to: ", nextUser);
-  //     if (auth.currentUser) {
-  //       setUser(auth.currentUser);
-  //     } else {
-  //       setUser({});
-  //     }
-  //   });
-  // }, []);
 
   const signOut = () => {
     auth.signOut();
