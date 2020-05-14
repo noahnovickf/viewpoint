@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { auth } from "database";
 
 import { fetchPosts } from "database/posts";
 
 import { useSelector } from "react-redux";
+import { POINT_CONVERSION_COMPRESSED } from "constants";
 
 const Home = (props) => {
+  const [posts, setPosts] = useState([]);
   const userFromState = useSelector((state) => state.users.user);
 
   const signOut = () => {
     auth.signOut();
     props.logoutThunk();
   };
+  const postsFromState = useSelector((state) => state.posts);
 
-  const postArrayFromState = useSelector((state) => state.posts);
-  console.log(postArrayFromState);
+  useEffect(() => {
+    props.getAllPostsToRenderThunk();
+    setPosts(postsFromState);
+  }, [posts]);
+
+  let displayPost;
+
+  if (postsFromState.posts.length > 0) {
+    displayPost = postsFromState.posts.map((post) => {
+      return <h1>{post.body}</h1>;
+    });
+  }
   return (
     <div>
       <h1 className="flex justify-center">
@@ -25,12 +38,7 @@ const Home = (props) => {
       <button className="bg-blue w-full bg-red-600" onClick={signOut}>
         Sign out
       </button>
-      <button
-        className="bg-blue w-full bg-orange-600 mt-2"
-        onClick={props.getAllPostsToRenderThunk}
-      >
-        get posts
-      </button>
+      <div>{displayPost}</div>
     </div>
   );
 };
