@@ -14,6 +14,8 @@ const Home = (props) => {
     props.logoutThunk();
   };
 
+  const postArrayFromState = useSelector((state) => state.posts);
+  console.log(postArrayFromState);
   return (
     <div>
       <h1 className="flex justify-center">
@@ -25,7 +27,7 @@ const Home = (props) => {
       </button>
       <button
         className="bg-blue w-full bg-orange-600 mt-2"
-        onClick={fetchPosts}
+        onClick={props.getAllPostsToRenderThunk}
       >
         get posts
       </button>
