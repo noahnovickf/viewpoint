@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-
 import { auth } from "database";
-
-import { fetchPosts } from "database/posts";
-
 import { useSelector } from "react-redux";
-import { POINT_CONVERSION_COMPRESSED } from "constants";
+import CreatePost from "containers/create-post/create-post.component";
+import Post from "containers/post/post.component";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -26,7 +23,15 @@ const Home = (props) => {
 
   if (postsFromState.posts.length > 0) {
     displayPost = postsFromState.posts.map((post) => {
-      return <h1>{post.body}</h1>;
+      return (
+        <Post
+          body={post.body}
+          up={post.up}
+          down={post.down}
+          created_at={post.created_at}
+          id={post.id}
+        />
+      );
     });
   }
   return (
@@ -38,7 +43,10 @@ const Home = (props) => {
       <button className="bg-blue w-full bg-red-600" onClick={signOut}>
         Sign out
       </button>
-      <div>{displayPost}</div>
+      <ul>{displayPost}</ul>
+      <div>
+        <CreatePost />
+      </div>
     </div>
   );
 };

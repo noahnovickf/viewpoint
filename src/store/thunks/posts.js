@@ -7,7 +7,9 @@ export const getAllPostsToRender = () => (dispatch) => {
     .then((snapshot) => {
       const postArray = [];
       snapshot.forEach((post) => {
-        postArray.push(post.data());
+        const obj = post.data();
+        obj.id = post.id;
+        postArray.push(obj);
       });
       dispatch(getAllPosts(postArray));
     })
