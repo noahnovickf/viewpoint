@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "database";
 import { useSelector } from "react-redux";
-import CreatePost from "containers/create-post/create-post.component";
-import Post from "containers/post/post.component";
+import CreatePost from "containers/create-post";
+import Post from "containers/post";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
