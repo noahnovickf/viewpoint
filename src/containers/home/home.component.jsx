@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-
 import { auth } from "database";
-
-import { fetchPosts } from "database/posts";
-
 import { useSelector } from "react-redux";
-import { POINT_CONVERSION_COMPRESSED } from "constants";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -18,11 +13,11 @@ const Home = (props) => {
   const postsFromState = useSelector((state) => state.posts);
 
   useEffect(() => {
-    props.getAllPostsToRenderThunk();
+    props.fetchPostsThunk();
     setPosts(postsFromState);
   }, [posts]);
 
-  let displayPost;
+  const displayPost;
 
   if (postsFromState.posts.length > 0) {
     displayPost = postsFromState.posts.map((post) => {
