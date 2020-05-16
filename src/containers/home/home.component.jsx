@@ -15,11 +15,11 @@ const Home = (props) => {
   const postsFromState = useSelector((state) => state.posts);
 
   useEffect(() => {
-    props.getAllPostsToRenderThunk();
+    props.fetchPostsThunk();
     setPosts(postsFromState);
   }, [posts]);
 
-  let displayPost;
+  const displayPost;
 
   if (postsFromState.posts.length > 0) {
     displayPost = postsFromState.posts.map((post) => {
