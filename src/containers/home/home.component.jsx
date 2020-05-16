@@ -26,12 +26,12 @@ const Home = (props) => {
       return (
         <Post
           body={post.body}
-          option_a={post.option_a}
-          option_b={post.option_b}
+          optionA={post.option_a}
+          optionB={post.option_b}
           created_at={post.created_at}
           id={post.id}
-          option_a_name={post.option_a_name}
-          option_b_name={post.option_b_name}
+          optionAName={post.option_a_name}
+          optionBName={post.option_b_name}
         />
       );
     });

@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { addPost } from "database/addPost";
 
 const CreatePost = () => {
-  const [body, setBody] = useState("");
-  const [opt1, setOpt1] = useState("");
-  const [opt2, setOpt2] = useState("");
+  const [postText, setPostText] = useState("");
+  const [option1, setOption1] = useState("");
+  const [option2, setOption2] = useState("");
 
   const addPostToDB = () => {
-    addPost(body, opt1, opt2);
-    document.getElementById("post").value = "";
-    document.getElementById("option-1").value = "";
-    document.getElementById("option-2").value = "";
+    addPost(postText, option1, option2);
+    setPostText("");
+    setOption1("");
+    setOption2("");
   };
 
   return (
@@ -19,7 +19,8 @@ const CreatePost = () => {
         <h3>Argument here</h3>
         <input
           id="post"
-          onChange={(e) => setBody(e.target.value)}
+          value={postText}
+          onChange={(e) => setPostText(e.target.value)}
           className="border flex justify-center"
           type="text"
           placeholder="Type some post"
@@ -29,7 +30,8 @@ const CreatePost = () => {
         <h3>Option 1</h3>
         <input
           id="option-1"
-          onChange={(e) => setOpt1(e.target.value)}
+          value={option1}
+          onChange={(e) => setOption1(e.target.value)}
           className="border flex justify-center"
           type="text"
           placeholder="Option 1"
@@ -39,7 +41,8 @@ const CreatePost = () => {
         <h3>Option 2</h3>
         <input
           id="option-2"
-          onChange={(e) => setOpt2(e.target.value)}
+          value={option2}
+          onChange={(e) => setOption2(e.target.value)}
           className="border flex justify-center"
           type="text"
           placeholder="Option2"
