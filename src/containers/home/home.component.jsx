@@ -17,9 +17,9 @@ const Home = (props) => {
   useEffect(() => {
     props.fetchPostsThunk();
     setPosts(postsFromState);
-  }, [posts]);
+  }, [posts, postsFromState, props]);
 
-  const displayPost;
+  let displayPost = [];
 
   if (postsFromState.posts.length > 0) {
     displayPost = postsFromState.posts.map((post) => {

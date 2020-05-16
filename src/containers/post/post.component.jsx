@@ -7,10 +7,18 @@ const Post = (props) => {
     <li className="rounded border-4 border-orange-600 mt-2">
       <h6>{props.body}</h6>
       {/* <p>{props.created_at}</p> */}
-      <button onClick={() => voteForOption(true, props)}>
+      <button
+        onClick={() =>
+          voteForOption({ optionName: "option_a", postId: props.id })
+        }
+      >
         {props.optionAName}
       </button>
-      <button onClick={() => voteForOption(false, props)}>
+      <button
+        onClick={() =>
+          voteForOption({ optionName: "option_b", postId: props.id })
+        }
+      >
         {props.optionBName}
       </button>
     </li>
