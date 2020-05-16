@@ -1,7 +1,6 @@
 import { userSignedIn, userLogout } from "../actions/users";
 
 import { googlePopupSignInMethod, db } from "database";
-import { useSelector } from "react-redux";
 
 //CREATE NEW USER
 export const signInWithGoogle = () => (dispatch) => {
