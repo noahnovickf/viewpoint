@@ -17,7 +17,7 @@ const Home = (props) => {
   useEffect(() => {
     props.fetchPostsThunk();
     setPosts(postsFromState);
-  }, [posts, postsFromState, props]);
+  }, [posts, props]);
 
   let displayPost = [];
 
@@ -46,9 +46,6 @@ const Home = (props) => {
         Sign out
       </button>
       <ul>{displayPost}</ul>
-      <div>
-        <CreatePost />
-      </div>
     </div>
   );
 };
