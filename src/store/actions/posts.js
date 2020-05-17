@@ -1,3 +1,3 @@
-export const getAllPosts = (payload) => {
-  return { type: "GET_ALL_POSTS", payload };
+export const postsFetched = (payload) => {
+  return { type: "POSTS_FETCHED", payload };
 };

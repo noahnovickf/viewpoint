@@ -4,7 +4,7 @@ const INITIAL_POST_STATE = {
 
 export default (state = INITIAL_POST_STATE, action) => {
   switch (action.type) {
-    case "GET_ALL_POSTS":
+    case "POSTS_FETCHED":
       return {
         ...state,
         posts: action.payload,

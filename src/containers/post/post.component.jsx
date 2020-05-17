@@ -10,13 +10,17 @@ const Post = (props) => {
       <div className="flex justify-center">
         <button
           className="bg-gray-300 hover:bg-gray-400 w-20 h-10 rounded-l-lg border-r-2 border-gray-600"
-          onClick={() => voteForOption(true, props)}
+          onClick={() =>
+            voteForOption({ optionName: "option_a", postId: props.id })
+          }
         >
           {props.optionAName}
         </button>
         <button
           className="bg-gray-300 hover:bg-gray-400 w-20 h-10 rounded-r-lg "
-          onClick={() => voteForOption(false, props)}
+          onClick={() =>
+            voteForOption({ optionName: "option_b", postId: props.id })
+          }
         >
           {props.optionBName}
         </button>

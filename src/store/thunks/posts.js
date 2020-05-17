@@ -1,7 +1,7 @@
-import { getAllPosts } from "store/actions/posts";
+import { postsFetched } from "store/actions/posts";
 import { db } from "database";
 
-export const getAllPostsToRender = () => (dispatch) => {
+export const fetchPosts = () => (dispatch) => {
   db.collection("posts")
     .get()
     .then((snapshot) => {
@@ -11,7 +11,7 @@ export const getAllPostsToRender = () => (dispatch) => {
         postObj.id = post.id;
         postArray.push(postObj);
       });
-      dispatch(getAllPosts(postArray));
+      dispatch(postsFetched(postArray));
     })
     .catch(console.error);
 };
