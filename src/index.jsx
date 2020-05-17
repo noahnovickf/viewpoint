@@ -8,6 +8,7 @@ import App from "./App";
 import Login from "containers/login";
 import * as serviceWorker from "./serviceWorker";
 import "./styles/tailwind.css";
+import CreatePost from "containers/create-post";
 
 require("dotenv").config();
 
@@ -21,11 +22,11 @@ ReactDOM.render(
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/login">Login</Link>
+              <Link to="/post">Create a Post</Link>
             </li>
           </ul>
           <Route exact path="/" component={App} />
-          <Route path="/login" component={Login} />
+          <Route path="/post" component={CreatePost} />
         </div>
       </Router>
     </Provider>

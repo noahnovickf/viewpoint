@@ -7,7 +7,9 @@ export const fetchPosts = () => (dispatch) => {
     .then((snapshot) => {
       const postArray = [];
       snapshot.forEach((post) => {
-        postArray.push(post.data());
+        const postObj = post.data();
+        postObj.id = post.id;
+        postArray.push(postObj);
       });
       dispatch(postsFetched(postArray));
     })

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "database";
 import { useSelector } from "react-redux";
+import CreatePost from "containers/create-post";
+import Post from "containers/post";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -15,13 +17,23 @@ const Home = (props) => {
   useEffect(() => {
     props.fetchPostsThunk();
     setPosts(postsFromState);
-  }, [posts]);
+  }, [posts, props]);
 
-  const displayPost;
+  let displayPost = [];
 
   if (postsFromState.posts.length > 0) {
     displayPost = postsFromState.posts.map((post) => {
-      return <h1>{post.body}</h1>;
+      return (
+        <Post
+          body={post.body}
+          optionA={post.option_a}
+          optionB={post.option_b}
+          created_at={post.created_at}
+          id={post.id}
+          optionAName={post.option_a_name}
+          optionBName={post.option_b_name}
+        />
+      );
     });
   }
   return (
@@ -33,7 +45,7 @@ const Home = (props) => {
       <button className="bg-blue w-full bg-red-600" onClick={signOut}>
         Sign out
       </button>
-      <div>{displayPost}</div>
+      <ul>{displayPost}</ul>
     </div>
   );
 };
