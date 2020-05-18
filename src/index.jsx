@@ -1,34 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 
+import { Provider } from "react-redux";
 import configureStore from "./store";
 import App from "./App";
-import Login from "containers/login";
 import * as serviceWorker from "./serviceWorker";
 import "./styles/tailwind.css";
-import CreatePost from "containers/create-post";
 
 require("dotenv").config();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={configureStore()}>
-      <Router>
-        <div>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/post">Create a Post</Link>
-            </li>
-          </ul>
-          <Route exact path="/" component={App} />
-          <Route path="/post" component={CreatePost} />
-        </div>
-      </Router>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
