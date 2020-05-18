@@ -1,6 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 const Login = (props) => {
+  const isUserLoggedIn = !!useSelector((state) => state.users.user.email);
+  if (isUserLoggedIn) props.history.push("/");
 
   return (
     <div className="flex flex-col justify-center w-full max-w-md">
@@ -14,4 +18,5 @@ const Login = (props) => {
     </div>
   );
 };
-export default Login;
+
+export default withRouter(Login);

@@ -1,44 +1,56 @@
-
 import React, { useEffect, useState } from "react";
-import Home from "./containers/home";
-import Login from "./containers/login";
-import { useSelector } from "react-redux";
-import { auth } from "database";
-import Profile from "containers/profile";
+import { connect } from "react-redux";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import firebase from "firebase";
 
-function App() {
-  const [user, setUser] = useState({});
+import CreatePost from "containers/create-post";
+import Home from "containers/home";
+import Login from "containers/login";
+import ProtectedRoute from "containers/protected-route";
+import { addUserToState } from "store/thunks/users";
+
+function App(props) {
+  const [isUserLoading, setIsUserLoading] = useState(false);
 
   useEffect(() => {
-    setUser(userFromState);
+    //on authstate changed
+    const firebaseListener = firebase
+      .auth()
+      .onAuthStateChanged(function (user) {
+        if (user) {
+          props.addUserToStateThunk(user);
+        }
+        setIsUserLoading(true);
+      });
+    return () => {
+      firebaseListener();
+    };
   }, []);
 
-  const userFromState = useSelector((state) => state.users.user);
+  if (!isUserLoading) return <div>LOADING...</div>;
 
-  const isUserLoggedIn = useSelector((state) => state.users.user.full_name);
-
-  const firstTimeUser = useSelector((state) => state.users.user.username);
-  if (!isUserLoggedIn) {
-    return (
-      <div className="flex justify-center items-center">
-        <Login />
+  return (
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/create-post">Create a Post</Link>
+          </li>
+        </ul>
+        {/* Protected Routes */}
+        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute path="/create-post" component={CreatePost} />
+        {/* Public Routes */}
+        <Route path="/login" component={Login} />
       </div>
-    );
-  } else {
-    if (!firstTimeUser) {
-      return (
-        <div className="flex justify-center items-center">
-          <Profile />
-        </div>
-      );
-    } else {
-      return (
-        <div className="flex justify-center items-center">
-          <Home />
-        </div>
-      );
-    }
-  }
+    </Router>
+  );
 }
+const mapDispatchToProps = (dispatch) => ({
+  addUserToStateThunk: (user) => dispatch(addUserToState(user)),
+});
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
