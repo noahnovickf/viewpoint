@@ -52,6 +52,14 @@ export const addUsernameToState = (info) => (dispatch) => {
     .catch(console.error);
 };
 
+export const addUserToState = (info) => (dispatch) => {
+  const userToStateObj = {
+    email: info.email,
+    full_name: info.displayName,
+  };
+  dispatch(userSignedIn(userToStateObj));
+};
+
 // HERE
 export const handleReturningUserSignIn = async (response) => {
   const uniqueUserId = response.user.uid;
@@ -60,10 +68,3 @@ export const handleReturningUserSignIn = async (response) => {
   const user = userQuery.data();
   return user;
 };
-// 5 steps in Redux
-// 1. Your component (button) will call a thunk
-// 2. Your thunk makes an API call, waits for it resolve
-// 3. Your calls resolves. An action is dispatched with the data you need for your store
-// 4. Your action hits your reducer
-// 5. Your reducer sets you state in the store
-// 6. You can access this state anywhere in the app
