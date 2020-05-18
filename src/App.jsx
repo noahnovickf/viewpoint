@@ -14,13 +14,17 @@ function App(props) {
 
   useEffect(() => {
     //on authstate changed
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        props.addUserToStateThunk(user);
-      }
-      setIsUserLoading(true);
-    });
-    return () => {};
+    const firebaseListener = firebase
+      .auth()
+      .onAuthStateChanged(function (user) {
+        if (user) {
+          props.addUserToStateThunk(user);
+        }
+        setIsUserLoading(true);
+      });
+    return () => {
+      firebaseListener();
+    };
   }, []);
 
   if (!isUserLoading) return <div>LOADING...</div>;
