@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from "database";
 import { useSelector } from "react-redux";
+import ReactDOM from "react-dom";
 
 const Profile = (props) => {
   const userFromState = useSelector((state) => state.users.user);
@@ -14,7 +15,7 @@ const Profile = (props) => {
     props.addUsernameToStateThunk(userWithUsername);
   };
 
-  return (
+  return ReactDOM.createPortal(
     <div>
       <h1>Submit a username</h1>
       <input
@@ -29,7 +30,8 @@ const Profile = (props) => {
       >
         Update
       </button>
-    </div>
+    </div>,
+    document.getElementById("modal-root")
   );
 };
 

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "database";
 import { useSelector } from "react-redux";
-import CreatePost from "containers/create-post";
 import Post from "containers/post";
+import Profile from "containers/profile";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
   const userFromState = useSelector((state) => state.users.user);
+  const doesUserHaveUsername = !!userFromState.username;
 
   const signOut = () => {
     auth.signOut();
@@ -36,18 +37,22 @@ const Home = (props) => {
       );
     });
   }
-  return (
-    <div>
-      <h1 className="flex justify-center">
-        {userFromState.full_name} is logged in with the username:
-        {userFromState.username}
-      </h1>
-      <button className="bg-blue w-full bg-red-600" onClick={signOut}>
-        Sign out
-      </button>
-      <ul>{displayPost}</ul>
-    </div>
-  );
+  if (!doesUserHaveUsername) {
+    return <Profile />;
+  } else {
+    return (
+      <div>
+        <h1 className="flex justify-center">
+          {userFromState.full_name} is logged in with the username:
+          {userFromState.username}
+        </h1>
+        <button className="bg-blue w-full bg-red-600" onClick={signOut}>
+          Sign out
+        </button>
+        <ul>{displayPost}</ul>
+      </div>
+    );
+  }
 };
 
 export default Home;
