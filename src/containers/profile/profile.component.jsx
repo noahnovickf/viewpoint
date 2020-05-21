@@ -16,7 +16,7 @@ const Profile = (props) => {
   };
 
   return ReactDOM.createPortal(
-    <div>
+    <div className="bg-opacity-50	">
       <h1>Submit a username</h1>
       <input
         type="test"
