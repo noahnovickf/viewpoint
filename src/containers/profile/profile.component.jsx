@@ -16,7 +16,7 @@ const Profile = (props) => {
   };
 
   return (
-    <div className="bg-opacity-50	">
+    <div>
       <h1>Submit a username</h1>
       <input
         type="test"
