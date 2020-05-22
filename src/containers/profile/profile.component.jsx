@@ -15,7 +15,7 @@ const Profile = (props) => {
     props.addUsernameToStateThunk(userWithUsername);
   };
 
-  return ReactDOM.createPortal(
+  return (
     <div className="bg-opacity-50	">
       <h1>Submit a username</h1>
       <input
@@ -30,8 +30,7 @@ const Profile = (props) => {
       >
         Update
       </button>
-    </div>,
-    document.getElementById("modal-root")
+    </div>
   );
 };
 

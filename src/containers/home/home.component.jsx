@@ -3,9 +3,11 @@ import { auth } from "database";
 import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
+import Modal from "components/modal";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
+
   const userFromState = useSelector((state) => state.users.user);
   const doesUserHaveUsername = !!userFromState.username;
 
@@ -38,7 +40,11 @@ const Home = (props) => {
     });
   }
   if (!doesUserHaveUsername) {
-    return <Profile />;
+    return (
+      <Modal show>
+        <Profile />
+      </Modal>
+    );
   } else {
     return (
       <div>
