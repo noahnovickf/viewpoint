@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from "database";
 import { useSelector } from "react-redux";
+import ReactDOM from "react-dom";
 
 const Profile = (props) => {
   const userFromState = useSelector((state) => state.users.user);
