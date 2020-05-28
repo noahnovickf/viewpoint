@@ -10,7 +10,6 @@ const Home = (props) => {
 
   const userFromState = useSelector((state) => state.users.user);
   const doesUserHaveUsername = !!userFromState.username;
-
   const signOut = () => {
     auth.signOut();
     props.logoutThunk();
