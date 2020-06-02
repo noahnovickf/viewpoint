@@ -53,11 +53,12 @@ export const addUsernameToState = (info) => (dispatch) => {
 };
 
 export const addUserToState = (info) => (dispatch) => {
-  const userToStateObj = {
-    email: info.email,
-    full_name: info.displayName,
-  };
-  dispatch(userSignedIn(userToStateObj));
+  db.collection("users")
+    .doc(info.uid)
+    .get()
+    .then((res) => {
+      dispatch(userSignedIn(res.data()));
+    });
 };
 
 // HERE
