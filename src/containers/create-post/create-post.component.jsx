@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { addPost } from "database/addPost";
+import { withRouter } from "react-router-dom";
 
-const CreatePost = () => {
+const CreatePost = (props) => {
   const [postText, setPostText] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
@@ -11,6 +12,7 @@ const CreatePost = () => {
     setPostText("");
     setOption1("");
     setOption2("");
+    props.history.push("/");
   };
 
   return (
@@ -59,4 +61,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default withRouter(CreatePost);
