@@ -15,6 +15,7 @@ export const signInWithGoogle = () => (dispatch) => {
           posts: [],
           full_name: res.user.displayName,
           avatar_link: "",
+          id: res.user.uid,
         })
         .then(() => {
           handleReturningUserSignIn(res).then((user) => {
@@ -46,6 +47,7 @@ export const addUsernameToState = (info) => (dispatch) => {
         .doc(info.id)
         .get()
         .then((res) => {
+          console.log("username", res.data());
           dispatch(userSignedIn(res.data()));
         });
     })
@@ -57,6 +59,7 @@ export const addUserToState = (info) => (dispatch) => {
     .doc(info.uid)
     .get()
     .then((res) => {
+      console.log("non", res.data());
       dispatch(userSignedIn(res.data()));
     });
 };

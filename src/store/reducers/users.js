@@ -5,6 +5,7 @@ const INTIAL_USER_STATE = {
     posts: [],
     full_name: "",
     avatar_link: "",
+    id: "",
   },
 };
 

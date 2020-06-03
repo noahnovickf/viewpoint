@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { voteForOption } from "database/votePost";
+import { useSelector } from "react-redux";
 
 const Post = (props) => {
   const [voteView, setVoteView] = useState(false);
+  const userFromState = useSelector((state) => state.users.user);
+  //console.log(userFromState);
   //console.log(props);
 
   const handleVote = (obj) => {
