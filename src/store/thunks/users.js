@@ -47,7 +47,6 @@ export const addUsernameToState = (info) => (dispatch) => {
         .doc(info.id)
         .get()
         .then((res) => {
-          console.log("username", res.data());
           dispatch(userSignedIn(res.data()));
         });
     })
@@ -59,7 +58,6 @@ export const addUserToState = (info) => (dispatch) => {
     .doc(info.uid)
     .get()
     .then((res) => {
-      console.log("non", res.data());
       dispatch(userSignedIn(res.data()));
     });
 };
