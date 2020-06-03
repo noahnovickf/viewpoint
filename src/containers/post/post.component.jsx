@@ -6,7 +6,7 @@ const Post = (props) => {
   const [voteView, setVoteView] = useState(false);
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
-  const userIDFromState = useSelector((state) => state.users.user.id);
+  const userIDFromState = useSelector((state) => state.users.user.userId);
 
   const handleVote = (obj) => {
     setVoteView(true);
@@ -20,7 +20,6 @@ const Post = (props) => {
 
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
-  console.log(voteBPercent);
   return (
     <li className="rounded border-4 border-orange-600 mt-2">
       <h6>{props.body}</h6>
