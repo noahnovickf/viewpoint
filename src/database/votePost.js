@@ -1,9 +1,11 @@
 import { db } from "database";
 import firebase from "firebase";
 
-export const voteForOption = ({ optionName, postId }) => {
-  const increment = firebase.firestore.FieldValue.increment(1);
+export const voteForOption = ({ optionName, postId, userId }) => {
+  console.log(userId);
   db.collection("posts")
     .doc(postId)
-    .update({ [optionName]: increment });
+    .update({
+      [optionName]: firebase.firestore.FieldValue.arrayUnion(userId),
+    });
 };

@@ -7,8 +7,8 @@ export const addPost = (body, opt1, opt2) => {
     created_at: firebase.database.ServerValue.TIMESTAMP,
     option_a_name: opt1,
     option_b_name: opt2,
-    option_a: 0,
-    option_b: 0,
+    option_a: [],
+    option_b: [],
     id: "",
   });
 };
