@@ -3,15 +3,15 @@ import { voteForOption } from "database/votePost";
 import { useSelector } from "react-redux";
 
 const Post = (props) => {
-  const [voteView, setVoteView] = useState(false);
+  const [canUserViewVote, setCanUserViewVote] = useState(false);
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
   const userIDFromState = useSelector((state) => state.users.user.userId);
 
-  const handleVote = (obj) => {
-    setVoteView(true);
-    voteForOption(obj, userIDFromState);
-    if (obj.optionName === "option_a") {
+  const handleVote = ({ optionName, postId, userId }) => {
+    setCanUserViewVote(true);
+    voteForOption({ optionName, postId, userId });
+    if (optionName === "option_a") {
       setVoteACount(voteACount + 1);
     } else {
       setVoteBCount(voteBCount + 1);
@@ -27,20 +27,28 @@ const Post = (props) => {
       <div className="flex justify-center">
         <button
           className={`${
-            voteView ? "hidden" : "show"
+            canUserViewVote ? "hidden" : "show"
           } bg-gray-300 hover:bg-gray-400 w-20 h-10 rounded-l-lg border-r-2 border-gray-600`}
           onClick={() =>
-            handleVote({ optionName: "option_a", postId: props.id })
+            handleVote({
+              optionName: "option_a",
+              postId: props.id,
+              userId: userIDFromState,
+            })
           }
         >
           {props.optionAName}
         </button>
         <button
           className={`${
-            voteView ? "hidden" : "show"
+            canUserViewVote ? "hidden" : "show"
           } bg-gray-300 hover:bg-gray-400 w-20 h-10 rounded-r-lg `}
           onClick={() =>
-            handleVote({ optionName: "option_b", postId: props.id })
+            handleVote({
+              optionName: "option_b",
+              postId: props.id,
+              userId: userIDFromState,
+            })
           }
         >
           {props.optionBName}
@@ -49,7 +57,7 @@ const Post = (props) => {
       <div className="flex justify-center w-100">
         <div
           className={`${
-            voteView ? "show" : "hidden"
+            canUserViewVote ? "show" : "hidden"
           } bg-gray-300 h-10 rounded-l-lg border-r-2 border-gray-600`}
           style={{ width: voteAPercent + "%" }}
         >
@@ -57,7 +65,7 @@ const Post = (props) => {
         </div>
         <div
           className={`${
-            voteView ? "show" : "hidden"
+            canUserViewVote ? "show" : "hidden"
           } bg-gray-300 h-10 rounded-r-lg`}
           style={{ width: voteBPercent + "%" }}
         >
