@@ -21,6 +21,14 @@ const Home = (props) => {
     setPosts(postsFromState);
   }, [posts, props]);
 
+  //Get user's profile picture
+  useEffect(() => {
+    const username = userFromState.username;
+    if (username) {
+      props.fetchUserAvatarThunk({ username });
+    }
+  }, []);
+
   let displayPost = [];
 
   if (postsFromState.posts.length > 0) {
@@ -51,6 +59,15 @@ const Home = (props) => {
           {userFromState.full_name} is logged in with the username:
           {userFromState.username}
         </h1>
+        <div className="flex items-center justify-center rounded-full">
+          {userFromState.avatar_link && (
+            <img
+              src={userFromState.avatar_link}
+              alt="Avatar"
+              className="rounded full h-16 w-16"
+            />
+          )}
+        </div>
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>

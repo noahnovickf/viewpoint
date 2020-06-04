@@ -1,6 +1,6 @@
-import { userSignedIn, userLogout } from "../actions/users";
+import { userSignedIn, userLogout, avatarFetched } from "../actions/users";
 
-import { googlePopupSignInMethod, db } from "database";
+import { googlePopupSignInMethod, db, storage } from "database";
 
 //CREATE NEW USER
 export const signInWithGoogle = () => (dispatch) => {
@@ -49,6 +49,20 @@ export const addUsernameToState = (info) => (dispatch) => {
         .then((res) => {
           dispatch(userSignedIn(res.data()));
         });
+    })
+    .catch(console.error);
+};
+
+export const uploadProfileAvatar = ({ image, username }) => (dispatch) => {
+  storage.ref(`/avatars/${username}`).put(image);
+};
+
+export const fetchUserAvatar = ({ username }) => (dispatch) => {
+  storage
+    .ref(`avatars/${username}`)
+    .getDownloadURL()
+    .then((avatarUrl) => {
+      dispatch(avatarFetched(avatarUrl));
     })
     .catch(console.error);
 };
