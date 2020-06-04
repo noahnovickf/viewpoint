@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { addPost } from "database/addPost";
 import { withRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CreatePost = (props) => {
   const [postText, setPostText] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
+  const userID = useSelector((state) => state.users.user.userId);
 
   const addPostToDB = () => {
-    addPost(postText, option1, option2);
+    addPost(postText, option1, option2, userID);
     setPostText("");
     setOption1("");
     setOption2("");
