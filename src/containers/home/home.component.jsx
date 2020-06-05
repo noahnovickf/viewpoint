@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
 import Modal from "components/modal";
+import "/Users/user/Desktop/judger/src/styles/posts.css";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -54,7 +55,7 @@ const Home = (props) => {
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
-        <ul>{displayPost}</ul>
+        <ul class="posts-background">{displayPost}</ul>
       </div>
     );
   }

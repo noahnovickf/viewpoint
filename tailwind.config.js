@@ -5,6 +5,14 @@ module.exports = {
   important: false,
   separator: ":",
   theme: {
+    extend: {
+      colors: {
+        orangy: "#f8b24f",
+        pinky: "#ea9a96",
+        bluey: "#303960",
+        grayy: "#e5e5e5",
+      },
+    },
     screens: {
       sm: "640px",
       md: "768px",
@@ -19,7 +27,7 @@ module.exports = {
       white: "#fff",
 
       gray: {
-        100: "#f7fafc",
+        100: "#E5E5E5",
         200: "#edf2f7",
         300: "#e2e8f0",
         400: "#cbd5e0",
@@ -41,7 +49,7 @@ module.exports = {
         900: "#742a2a",
       },
       orange: {
-        100: "#fffaf0",
+        100: "#f8b24f",
         200: "#feebc8",
         300: "#fbd38d",
         400: "#f6ad55",
@@ -85,7 +93,7 @@ module.exports = {
         900: "#234e52",
       },
       blue: {
-        100: "#ebf8ff",
+        100: "#303960",
         200: "#bee3f8",
         300: "#90cdf4",
         400: "#63b3ed",
@@ -118,7 +126,7 @@ module.exports = {
         900: "#44337a",
       },
       pink: {
-        100: "#fff5f7",
+        100: "ea9a96",
         200: "#fed7e2",
         300: "#fbb6ce",
         400: "#f687b3",
