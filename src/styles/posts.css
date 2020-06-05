@@ -1,8 +1,8 @@
-.posts-background {
-  background: rgb(234, 154, 150);
+.post-background {
+  background: rgb(48, 57, 96);
   background: linear-gradient(
-    90deg,
-    rgba(234, 154, 150, 1) 0%,
-    rgba(248, 178, 79, 1) 100%
+    180deg,
+    rgba(48, 57, 96, 1) 0%,
+    rgba(229, 229, 229, 1) 100%
   );
 }

@@ -21,14 +21,17 @@ const Post = (props) => {
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
   return (
-    <li className="rounded m-1 bg-bluey ">
-      <h6 className="text-grayy">{props.body}</h6>
+    <li className="rounded-lg pt-1 m-1 mt-3 bg-bluey ">
+      <h4 className="text-grayy ml-2">Username here</h4>
+      <h6 className="text-grayy p-2 mx-2 mb-2 rounded-lg border-2 border-grayy">
+        {props.body}
+      </h6>
       {/* <p>{props.created_at}</p> */}
-      <div className="flex justify-center text-bluey">
+      <div className="flex justify-center text-bluey ">
         <button
           className={`${
             canUserViewVote ? "hidden" : "show"
-          } bg-pinky w-20 h-10 rounded-l-lg border-r-2 border-gray-600`}
+          } bg-pinky w-20 h-10 rounded-l-lg border-r-2 border-gray-600 mb-2`}
           onClick={() =>
             handleVote({
               optionName: "option_a",
@@ -42,7 +45,7 @@ const Post = (props) => {
         <button
           className={`${
             canUserViewVote ? "hidden" : "show"
-          } bg-orangy w-20 h-10 rounded-r-lg `}
+          } bg-orangy w-20 h-10 rounded-r-lg mb-2`}
           onClick={() =>
             handleVote({
               optionName: "option_b",
@@ -54,11 +57,11 @@ const Post = (props) => {
           {props.optionBName}
         </button>
       </div>
-      <div className="flex justify-center w-100 py-px">
+      <div className="flex justify-center w-100 text-bluey">
         <div
           className={`${
             canUserViewVote ? "show" : "hidden"
-          } bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600`}
+          } bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600  ml-2 mb-2`}
           style={{ width: voteAPercent + "%" }}
         >
           {props.optionAName}: {voteACount}
@@ -66,7 +69,7 @@ const Post = (props) => {
         <div
           className={`${
             canUserViewVote ? "show" : "hidden"
-          } bg-orangy h-10 rounded-r-lg`}
+          } bg-orangy h-10 rounded-r-lg  mr-2 mb-2`}
           style={{ width: voteBPercent + "%" }}
         >
           {props.optionBName}: {voteBCount}

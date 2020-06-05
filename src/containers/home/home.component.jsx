@@ -47,15 +47,15 @@ const Home = (props) => {
     );
   } else {
     return (
-      <div>
-        <h1 className="flex justify-center">
+      <div className="bg-blueGray">
+        <h1 className="flex justify-center text-grayy">
           {userFromState.full_name} is logged in with the username:
           {userFromState.username}
         </h1>
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
-        <ul class="posts-background">{displayPost}</ul>
+        <ul>{displayPost}</ul>
       </div>
     );
   }

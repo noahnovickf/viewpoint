@@ -11,6 +11,7 @@ module.exports = {
         pinky: "#ea9a96",
         bluey: "#303960",
         grayy: "#e5e5e5",
+        blueGray: "#5b6280",
       },
     },
     screens: {
