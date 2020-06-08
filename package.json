@@ -49,8 +49,6 @@
     ]
   },
   "devDependencies": {
-    "@types/firebase": "^3.2.1",
-    "@types/react-redux": "^7.1.8",
     "redux-devtools-extension": "^2.13.8"
   }
 }
