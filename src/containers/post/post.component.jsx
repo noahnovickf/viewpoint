@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { voteForOption } from "database/votePost";
 import { useSelector } from "react-redux";
+import "/Users/user/Desktop/judger/src/styles/posts.css";
 
 const Post = (props) => {
   const [canUserViewVote, setCanUserViewVote] = useState(false);
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
   const userIDFromState = useSelector((state) => state.users.user.userId);
-
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
     voteForOption({ optionName, postId, userId });
@@ -58,18 +58,18 @@ const Post = (props) => {
         </button>
       </div>
       <div className="flex justify-center w-100 text-bluey">
-        <div
+        <span
           className={`${
             canUserViewVote ? "show" : "hidden"
-          } bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600  ml-2 mb-2`}
+          } text-center align-middle bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600  ml-2 mb-2`}
           style={{ width: voteAPercent + "%" }}
         >
           {props.optionAName}: {voteACount}
-        </div>
+        </span>
         <div
           className={`${
             canUserViewVote ? "show" : "hidden"
-          } bg-orangy h-10 rounded-r-lg  mr-2 mb-2`}
+          }  text-center  bg-orangy h-10 rounded-r-lg  mr-2 mb-2`}
           style={{ width: voteBPercent + "%" }}
         >
           {props.optionBName}: {voteBCount}
