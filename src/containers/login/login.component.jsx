@@ -1,20 +1,23 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
+import "/Users/user/Desktop/judger/src/styles/login.css";
 
 const Login = (props) => {
   const isUserLoggedIn = !!useSelector((state) => state.users.user.email);
   if (isUserLoggedIn) props.history.push("/");
 
   return (
-    <div className="flex flex-col justify-center w-full max-w-md">
-      <div className="flex justify-center">Please sign in with google</div>
-      <button
-        className="bg-blue w-full bg-blue-600 mb-2"
-        onClick={props.signInWithGoogleThunk}
-      >
-        Sign in With Google
-      </button>
+    <div className="bg-bluey">
+      <h1 className="text-center text-grayy text-xl">Welcome to D-Side</h1>
+      <div className="flex justify-center">
+        <button onClick={props.signInWithGoogleThunk}>
+          <img
+            src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png"
+            alt="Google"
+          ></img>
+        </button>
+      </div>
     </div>
   );
 };

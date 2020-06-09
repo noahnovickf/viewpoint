@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { voteForOption } from "database/votePost";
 import { useSelector } from "react-redux";
-import "/Users/user/Desktop/judger/src/styles/posts.css";
 
 const Post = (props) => {
   const [canUserViewVote, setCanUserViewVote] = useState(false);
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
   const userIDFromState = useSelector((state) => state.users.user.userId);
+
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
     voteForOption({ optionName, postId, userId });

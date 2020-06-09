@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
 import Modal from "components/modal";
-import "/Users/user/Desktop/judger/src/styles/posts.css";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -52,9 +51,11 @@ const Home = (props) => {
           {userFromState.full_name} is logged in with the username:
           {userFromState.username}
         </h1>
-        <button className="bg-blue w-full bg-red-600" onClick={signOut}>
-          Sign out
-        </button>
+        <div className="flex justify-center ">
+          <button className="flex justify-center bg-red-600" onClick={signOut}>
+            Sign out
+          </button>
+        </div>
         <ul>{displayPost}</ul>
       </div>
     );
