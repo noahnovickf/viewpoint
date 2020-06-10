@@ -49,7 +49,7 @@ const Home = (props) => {
     return (
       <div className="bg-blueGray">
         <div>
-          <Navbar navigation="/create-post" />
+          <Navbar navigation="/create-post" postAdd="post_add" />
         </div>
         <h1 className="flex justify-center text-grayy">
           {userFromState.full_name} is logged in with the username:
