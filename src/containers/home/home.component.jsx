@@ -10,6 +10,7 @@ const Home = (props) => {
 
   const userFromState = useSelector((state) => state.users.user);
   const doesUserHaveUsername = !!userFromState.username;
+  const userVoteHistory = userFromState.vote_history;
   const signOut = () => {
     auth.signOut();
     props.logoutThunk();
@@ -33,6 +34,11 @@ const Home = (props) => {
 
   if (postsFromState.posts.length > 0) {
     displayPost = postsFromState.posts.map((post) => {
+      let voteHistory = false;
+      if (userVoteHistory.includes(post.id)) {
+        voteHistory = true;
+      }
+
       return (
         <Post
           body={post.body}
@@ -42,6 +48,7 @@ const Home = (props) => {
           id={post.id}
           optionAName={post.option_a_name}
           optionBName={post.option_b_name}
+          voteHistory={voteHistory}
         />
       );
     });

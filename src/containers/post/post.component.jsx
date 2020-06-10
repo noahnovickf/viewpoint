@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { voteForOption } from "database/votePost";
 import { useSelector } from "react-redux";
 
@@ -17,6 +17,10 @@ const Post = (props) => {
       setVoteBCount(voteBCount + 1);
     }
   };
+
+  useEffect(() => {
+    setCanUserViewVote(props.voteHistory);
+  }, []);
 
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
