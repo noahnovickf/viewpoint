@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { addPost } from "database/addPost";
 import { withRouter } from "react-router-dom";
+import Navbar from "containers/navbar";
+import "/Users/user/Desktop/judger/src/styles/createPost.css";
 
 const CreatePost = (props) => {
   const [postText, setPostText] = useState("");
@@ -16,47 +18,46 @@ const CreatePost = (props) => {
   };
 
   return (
-    <div className="border flex justify-center">
+    <div className="flex flex-col bg-blueGray h-screen text-grayy font-mono">
       <div>
-        <h3>Argument here</h3>
-        <input
-          id="post"
-          value={postText}
-          onChange={(e) => setPostText(e.target.value)}
-          className="border flex justify-center"
-          type="text"
-          placeholder="Type some post"
-        ></input>
+        <Navbar navigation="/" postAdd="home" />
       </div>
-      <div>
-        <h3>Option 1</h3>
-        <input
-          id="option-1"
-          value={option1}
-          onChange={(e) => setOption1(e.target.value)}
-          className="border flex justify-center"
-          type="text"
-          placeholder="Option 1"
-        ></input>
+      <div className=" p-4">
+        <div>
+          <textarea
+            id="post"
+            value={postText}
+            onChange={(e) => setPostText(e.target.value)}
+            className="border flex justify-center w-full h-32 text-bluey"
+            type="text"
+            placeholder="Post body"
+          ></textarea>
+        </div>
+        <div className="flex w-full pt-2 w-auto">
+          <input
+            id="option-1"
+            value={option1}
+            onChange={(e) => setOption1(e.target.value)}
+            className="bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600 placeholder-bluey placeholder-opacity-75 text-bluey w-1/2"
+            type="text"
+            placeholder="Option 1"
+          ></input>
+          <input
+            id="option-2"
+            value={option2}
+            onChange={(e) => setOption2(e.target.value)}
+            className="bg-orangy h-10 rounded-r-lg text-bluey placeholder-bluey placeholder-opacity-75 w-1/2"
+            type="text"
+            placeholder="Option 2"
+          ></input>
+        </div>
+        <button
+          className="bg-bluey w-full mt-4 rounded-lg"
+          onClick={addPostToDB}
+        >
+          Define it
+        </button>
       </div>
-      <div>
-        <h3>Option 2</h3>
-        <input
-          id="option-2"
-          value={option2}
-          onChange={(e) => setOption2(e.target.value)}
-          className="border flex justify-center"
-          type="text"
-          placeholder="Option2"
-        ></input>
-      </div>
-
-      <button
-        className="bg-blue w-full bg-purple-600 mt-2"
-        onClick={addPostToDB}
-      >
-        POST IT
-      </button>
     </div>
   );
 };

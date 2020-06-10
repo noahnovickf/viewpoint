@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import "/Users/user/Desktop/judger/src/styles/navbar.css";
 
 const Navbar = (props) => {
-  const usernameFromState = useSelector((state) => state.users.user.username);
+  //const usernameFromState = useSelector((state) => state.users.user.username);
+  console.log(props.navigation);
   return (
-    <div className="border-grayy border-b-2 flex justify-between py-1">
+    <div className="border-grayy border-b-2 flex justify-between py-2 text-l bg-bluey">
       <div>
         <i className="pl-2 align-middle material-icons color-grayy">menu</i>
       </div>
