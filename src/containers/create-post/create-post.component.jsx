@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { addPost } from "database/addPost";
 import { withRouter } from "react-router-dom";
 import Navbar from "containers/navbar";
-import "/Users/user/Desktop/judger/src/styles/createPost.css";
 
 const CreatePost = (props) => {
   const [postText, setPostText] = useState("");
@@ -28,19 +27,20 @@ const CreatePost = (props) => {
             id="post"
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
-            className="border flex justify-center w-full h-32 text-bluey"
+            className="border rounded-lg flex justify-center w-full h-32 text-bluey"
             type="text"
-            placeholder="Post body"
+            placeholder=" Post body"
           ></textarea>
         </div>
-        <div className="flex w-full pt-2 w-auto">
+        <div className="flex w-full pt-4 w-auto">
           <input
             id="option-1"
             value={option1}
             onChange={(e) => setOption1(e.target.value)}
             className="bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600 placeholder-bluey placeholder-opacity-75 text-bluey w-1/2"
             type="text"
-            placeholder="Option 1"
+            placeholder=" Option 1"
+            maxlength="13"
           ></input>
           <input
             id="option-2"
@@ -48,7 +48,8 @@ const CreatePost = (props) => {
             onChange={(e) => setOption2(e.target.value)}
             className="bg-orangy h-10 rounded-r-lg text-bluey placeholder-bluey placeholder-opacity-75 w-1/2"
             type="text"
-            placeholder="Option 2"
+            placeholder=" Option 2"
+            maxlength="13"
           ></input>
         </div>
         <button

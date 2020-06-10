@@ -31,7 +31,7 @@ const Post = (props) => {
         <button
           className={`${
             canUserViewVote ? "hidden" : "show"
-          } bg-pinky w-20 h-10 rounded-l-lg border-r-2 border-gray-600 mb-2`}
+          } bg-pinky w-20 h-10 rounded-l-lg border-r-2 border-gray-600 mb-2 w-1/3`}
           onClick={() =>
             handleVote({
               optionName: "option_a",
@@ -45,7 +45,7 @@ const Post = (props) => {
         <button
           className={`${
             canUserViewVote ? "hidden" : "show"
-          } bg-orangy w-20 h-10 rounded-r-lg mb-2`}
+          } bg-orangy w-20 h-10 rounded-r-lg mb-2 w-1/3`}
           onClick={() =>
             handleVote({
               optionName: "option_b",

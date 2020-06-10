@@ -13,8 +13,7 @@ const ProtectedRoute = (props) => {
       {...parentProps}
       render={(props) =>
         isUserLoggedIn ? (
-          // <Component {...parentProps} />
-          <CreatePost />
+          <Component {...parentProps} />
         ) : (
           <Redirect to={{ pathname: "/login" }} />
         )
