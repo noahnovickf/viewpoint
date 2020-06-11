@@ -7,6 +7,8 @@ const Post = (props) => {
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
   const userIDFromState = useSelector((state) => state.users.user.userId);
+  console.log(props);
+  console.log(voteBCount);
 
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
@@ -20,7 +22,7 @@ const Post = (props) => {
 
   useEffect(() => {
     setCanUserViewVote(props.voteHistory);
-  }, []);
+  }, [props]);
 
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;

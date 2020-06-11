@@ -16,6 +16,7 @@ export const signInWithGoogle = () => (dispatch) => {
           full_name: res.user.displayName,
           avatar_link: "",
           userId: res.user.uid,
+          vote_history: [],
         })
         .then(() => {
           handleReturningUserSignIn(res).then((user) => {
