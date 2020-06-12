@@ -34,9 +34,9 @@ const Home = (props) => {
 
   if (postsFromState.posts.length > 0) {
     displayPost = postsFromState.posts.map((post) => {
-      let voteHistory = false;
+      let hasUserVoted = false;
       if (userVoteHistory.includes(post.id)) {
-        voteHistory = true;
+        hasUserVoted = true;
       }
 
       return (
@@ -48,7 +48,7 @@ const Home = (props) => {
           id={post.id}
           optionAName={post.option_a_name}
           optionBName={post.option_b_name}
-          voteHistory={voteHistory}
+          hasUserVoted={hasUserVoted}
         />
       );
     });

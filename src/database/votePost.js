@@ -2,6 +2,7 @@ import { db } from "database";
 import firebase from "firebase";
 
 export const voteForOption = ({ optionName, postId, userId }) => {
+  console.log("hit", optionName, postId);
   db.collection("posts")
     .doc(postId)
     .update({
