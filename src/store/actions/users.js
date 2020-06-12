@@ -5,3 +5,7 @@ export const userSignedIn = (payload) => {
 export const userLogout = () => {
   return { type: "USER_LOGOUT" };
 };
+
+export const avatarFetched = (payload) => {
+  return { type: "USER_AVATAR_FETCHED", payload };
+};

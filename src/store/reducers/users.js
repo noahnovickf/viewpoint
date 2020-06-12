@@ -16,6 +16,14 @@ export default (state = INTIAL_USER_STATE, action) => {
         ...state,
         user: action.payload,
       };
+    case "USER_AVATAR_FETCHED":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          avatar_link: action.payload,
+        },
+      };
     case "USER_LOGOUT":
       return {
         ...state,
