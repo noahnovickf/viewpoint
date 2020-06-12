@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
-import "/Users/user/Desktop/judger/src/styles/login.css";
 
 const Login = (props) => {
   const isUserLoggedIn = !!useSelector((state) => state.users.user.email);

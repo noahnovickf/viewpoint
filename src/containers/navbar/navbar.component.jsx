@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import { useSelector } from "react-redux";
-import "/Users/user/Desktop/judger/src/styles/navbar.css";
 
 const Navbar = (props) => {
   console.log(props.navigation);
