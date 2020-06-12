@@ -7,8 +7,8 @@ const Post = (props) => {
   const [voteACount, setVoteACount] = useState(0);
   const [voteBCount, setVoteBCount] = useState(0);
   const userIDFromState = useSelector((state) => state.users.user.userId);
-  console.log(voteACount, voteBCount);
-  console.log(props);
+  // console.log(voteACount, voteBCount);
+  // console.log(props);
 
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);

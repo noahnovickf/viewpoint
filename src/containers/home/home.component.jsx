@@ -7,8 +7,10 @@ import Modal from "components/modal";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
+  const [displayPosts, setDisplayPosts] = useState([]);
 
   const userFromState = useSelector((state) => state.users.user);
+
   const doesUserHaveUsername = !!userFromState.username;
   const userVoteHistory = userFromState.vote_history;
   const signOut = () => {
@@ -20,7 +22,7 @@ const Home = (props) => {
   useEffect(() => {
     props.fetchPostsThunk();
     setPosts(postsFromState);
-  }, [posts, props]);
+  }, [postsFromState, props]);
 
   //Get user's profile picture
   useEffect(() => {
@@ -30,29 +32,32 @@ const Home = (props) => {
     }
   }, []);
 
-  let displayPost = [];
+  //let displayPost = [];
+  useEffect(() => {
+    if (postsFromState.posts.length > 0) {
+      const displayPost = postsFromState.posts.map((post) => {
+        let hasUserVoted = false;
+        if (userVoteHistory.includes(post.id)) {
+          hasUserVoted = true;
+        }
 
-  if (postsFromState.posts.length > 0) {
-    displayPost = postsFromState.posts.map((post) => {
-      let hasUserVoted = false;
-      if (userVoteHistory.includes(post.id)) {
-        hasUserVoted = true;
-      }
+        return (
+          <Post
+            body={post.body}
+            optionA={post.option_a}
+            optionB={post.option_b}
+            created_at={post.created_at}
+            id={post.id}
+            optionAName={post.option_a_name}
+            optionBName={post.option_b_name}
+            hasUserVoted={hasUserVoted}
+          />
+        );
+      });
+      setDisplayPosts(displayPost);
+    }
+  }, [postsFromState.posts.length]);
 
-      return (
-        <Post
-          body={post.body}
-          optionA={post.option_a}
-          optionB={post.option_b}
-          created_at={post.created_at}
-          id={post.id}
-          optionAName={post.option_a_name}
-          optionBName={post.option_b_name}
-          hasUserVoted={hasUserVoted}
-        />
-      );
-    });
-  }
   if (!doesUserHaveUsername) {
     return (
       <Modal show>
@@ -78,7 +83,7 @@ const Home = (props) => {
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
-        <ul>{displayPost}</ul>
+        <ul>{displayPosts}</ul>
       </div>
     );
   }
