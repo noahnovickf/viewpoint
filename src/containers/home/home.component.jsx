@@ -32,7 +32,6 @@ const Home = (props) => {
     }
   }, []);
 
-  //let displayPost = [];
   useEffect(() => {
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
@@ -56,7 +55,7 @@ const Home = (props) => {
       });
       setDisplayPosts(displayPost);
     }
-  }, [postsFromState.posts.length]);
+  }, []);
 
   if (!doesUserHaveUsername) {
     return (

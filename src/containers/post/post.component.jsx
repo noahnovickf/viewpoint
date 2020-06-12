@@ -21,6 +21,7 @@ const Post = (props) => {
   };
 
   useEffect(() => {
+    console.log(props.hasUserVoted);
     setCanUserViewVote(props.hasUserVoted);
     setVoteACount(props.optionA.length);
     setVoteBCount(props.optionB.length);
