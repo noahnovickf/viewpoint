@@ -32,14 +32,6 @@ function App(props) {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/create-post">Create a Post</Link>
-          </li>
-        </ul>
         {/* Protected Routes */}
         <ProtectedRoute exact path="/" component={Home} />
         <ProtectedRoute path="/create-post" component={CreatePost} />

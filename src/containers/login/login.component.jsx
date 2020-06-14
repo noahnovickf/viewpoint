@@ -7,14 +7,20 @@ const Login = (props) => {
   if (isUserLoggedIn) props.history.push("/");
 
   return (
-    <div className="flex flex-col justify-center w-full max-w-md">
-      <div className="flex justify-center">Please sign in with google</div>
-      <button
-        className="bg-blue w-full bg-blue-600 mb-2"
-        onClick={props.signInWithGoogleThunk}
-      >
-        Sign in With Google
-      </button>
+    <div class="bg-blueGray flex flex-col items-center justify-center text-center h-screen  ">
+      <div className="">
+        <h1 className=" typewriter text-grayy text-center text-xl font-mono">
+          Welcome to Undefined.
+        </h1>
+        <div className="object-center pt-8">
+          <button onClick={props.signInWithGoogleThunk}>
+            <img
+              src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png"
+              alt="Google"
+            ></img>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { db } from "database";
 
 export const fetchPosts = () => (dispatch) => {
   db.collection("posts")
+    .orderBy("created_at", "desc")
     .get()
     .then((snapshot) => {
       const postArray = [];

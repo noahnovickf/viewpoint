@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
 import Modal from "components/modal";
+import Navbar from "containers/navbar";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -54,8 +55,11 @@ const Home = (props) => {
     );
   } else {
     return (
-      <div>
-        <h1 className="flex justify-center">
+      <div className="bg-blueGray">
+        <div>
+          <Navbar navigation="/create-post" postAdd="post_add" />
+        </div>
+        <h1 className="flex justify-center text-grayy">
           {userFromState.full_name} is logged in with the username:
           {userFromState.username}
         </h1>
