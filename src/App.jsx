@@ -7,11 +7,10 @@ import CreatePost from "containers/create-post";
 import Home from "containers/home";
 import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
-import { addUserToState, handleNewUser } from "store/thunks/users";
+import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 
 function App(props) {
   const [isUserLoading, setIsUserLoading] = useState(false);
-  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
 
   useEffect(() => {
     //on authstate changed
@@ -25,7 +24,7 @@ function App(props) {
             setIsUserLoading(true);
             if (res.user) {
               if (res.additionalUserInfo.isNewUser) {
-                props.handleNewUserThunk(res);
+                props.handleNewUserSignupThunk(res);
               } else {
                 props.addUserToStateThunk(user);
               }
@@ -54,7 +53,8 @@ function App(props) {
 }
 const mapDispatchToProps = (dispatch) => ({
   addUserToStateThunk: (user) => dispatch(addUserToState(user)),
-  handleNewUserThunk: (userObject) => dispatch(handleNewUser(userObject)),
+  handleNewUserSignupThunk: (userObject) =>
+    dispatch(handleNewUserSignup(userObject)),
 });
 
 export default connect(null, mapDispatchToProps)(App);

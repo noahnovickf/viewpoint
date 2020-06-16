@@ -3,7 +3,7 @@ import { userSignedIn, userLogout, avatarFetched } from "../actions/users";
 import { db, storage } from "database";
 
 //CREATE NEW USER
-export const handleNewUser = (res) => (dispatch) => {
+export const handleNewUserSignup = (res) => (dispatch) => {
   const uniqueId = res.user.uid;
   const userObject = {
     email: res.user.email,
