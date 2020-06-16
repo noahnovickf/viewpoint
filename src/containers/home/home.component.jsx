@@ -33,7 +33,6 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(postsFromState.posts.length);
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
         let hasUserVoted = false;

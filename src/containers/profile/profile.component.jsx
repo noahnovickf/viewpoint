@@ -30,21 +30,24 @@ const Profile = (props) => {
   };
 
   return (
-    <div>
-      <h1>Submit a username</h1>
-      <input
-        type="text"
-        placeholder="username"
-        id="username"
-        className="border flex justify-center"
-        onChange={(e) => setUsername(e.target.value)}
-      ></input>
-
-      <h1>Submit an avatar</h1>
-      <input type="file" onChange={handleImageChange} />
+    <div className="flex flex-col text-grayy font-mono">
+      <div className="py-4">
+        <h1>Submit a username</h1>
+        <input
+          type="text"
+          placeholder="username"
+          id="username"
+          className="border flex justify-center"
+          onChange={(e) => setUsername(e.target.value)}
+        ></input>
+      </div>
+      <div className="py-4">
+        <h1>Submit an avatar</h1>
+        <input type="file" onChange={handleImageChange} />
+      </div>
 
       <button
-        className="bg-blue w-full bg-purple-600 mt-2"
+        className="text-bluey rounded-lg bg-orangy h-10 w-full mt-2"
         onClick={updateUserInfo}
       >
         Update

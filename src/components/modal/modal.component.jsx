@@ -26,13 +26,13 @@ const Modal = ({ children, primaryText, show = false, onClose, onSubmit }) => {
             display: "grid",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "rgba(0,0,0,0.3)",
+            backgroundColor: "#5b6280",
           }}
         >
           <div
             style={{
               padding: 20,
-              background: "#fff",
+              background: "#303960",
               borderRadius: "2px",
               display: "inline-block",
               minHeight: "300px",
@@ -45,7 +45,6 @@ const Modal = ({ children, primaryText, show = false, onClose, onSubmit }) => {
             }}
           >
             {children}
-            <button onClick={onSubmit}>Submit</button>
           </div>
         </div>,
         mountingElement
