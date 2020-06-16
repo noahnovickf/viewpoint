@@ -21,4 +21,4 @@ export const dbFunctions = firebase.functions();
 export const dbAnalytics = firebase.analytics();
 
 const provider = new firebase.auth.GoogleAuthProvider();
-export const googlePopupSignInMethod = () => auth.signInWithPopup(provider);
+export const googleSignInMethod = () => auth.signInWithRedirect(provider);

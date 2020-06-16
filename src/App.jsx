@@ -7,7 +7,7 @@ import CreatePost from "containers/create-post";
 import Home from "containers/home";
 import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
-import { addUserToState } from "store/thunks/users";
+import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 
 function App(props) {
   const [isUserLoading, setIsUserLoading] = useState(false);
@@ -17,9 +17,19 @@ function App(props) {
     const firebaseListener = firebase
       .auth()
       .onAuthStateChanged(function (user) {
-        if (user) {
-          props.addUserToStateThunk(user);
-        }
+        firebase
+          .auth()
+          .getRedirectResult()
+          .then((res) => {
+            setIsUserLoading(true);
+            if (res.user) {
+              if (res.additionalUserInfo.isNewUser) {
+                props.handleNewUserSignupThunk(res);
+              } else {
+                props.addUserToStateThunk(user);
+              }
+            }
+          });
         setIsUserLoading(true);
       });
     return () => {
@@ -43,6 +53,8 @@ function App(props) {
 }
 const mapDispatchToProps = (dispatch) => ({
   addUserToStateThunk: (user) => dispatch(addUserToState(user)),
+  handleNewUserSignupThunk: (userObject) =>
+    dispatch(handleNewUserSignup(userObject)),
 });
 
 export default connect(null, mapDispatchToProps)(App);
