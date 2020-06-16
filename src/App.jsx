@@ -37,7 +37,12 @@ function App(props) {
     };
   }, []);
 
-  if (!isUserLoading) return <div>LOADING...</div>;
+  if (!isUserLoading)
+    return (
+      <div className="h-screen w-screen bg-blueGray text-grayy flex justify-center items-center text-xl">
+        LOADING...
+      </div>
+    );
 
   return (
     <Router>

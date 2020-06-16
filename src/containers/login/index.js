@@ -1,3 +1,3 @@
-import Login from "./login.connector";
+import Login from "./login.component";
 
 export default Login;

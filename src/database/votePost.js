@@ -7,4 +7,9 @@ export const voteForOption = ({ optionName, postId, userId }) => {
     .update({
       [optionName]: firebase.firestore.FieldValue.arrayUnion(userId),
     });
+  db.collection("users")
+    .doc(userId)
+    .update({
+      vote_history: firebase.firestore.FieldValue.arrayUnion(postId),
+    });
 };

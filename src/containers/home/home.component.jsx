@@ -8,14 +8,16 @@ import Navbar from "containers/navbar";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
-
+  const [displayPosts, setDisplayPosts] = useState([]);
   const userFromState = useSelector((state) => state.users.user);
+  const userVoteHistory = userFromState.vote_history;
   const doesUserHaveUsername = !!userFromState.username;
+  const postsFromState = useSelector((state) => state.posts);
+
   const signOut = () => {
     auth.signOut();
     props.logoutThunk();
   };
-  const postsFromState = useSelector((state) => state.posts);
 
   useEffect(() => {
     props.fetchPostsThunk();
@@ -30,23 +32,31 @@ const Home = (props) => {
     }
   }, []);
 
-  let displayPost = [];
+  useEffect(() => {
+    console.log(postsFromState.posts.length);
+    if (postsFromState.posts.length > 0) {
+      const displayPost = postsFromState.posts.map((post) => {
+        let hasUserVoted = false;
+        if (userVoteHistory.includes(post.id)) {
+          hasUserVoted = true;
+        }
+        return (
+          <Post
+            body={post.body}
+            optionA={post.option_a}
+            optionB={post.option_b}
+            created_at={post.created_at}
+            id={post.id}
+            optionAName={post.option_a_name}
+            optionBName={post.option_b_name}
+            hasUserVoted={hasUserVoted}
+          />
+        );
+      });
+      setDisplayPosts(displayPost);
+    }
+  }, [postsFromState.posts.length]);
 
-  if (postsFromState.posts.length > 0) {
-    displayPost = postsFromState.posts.map((post) => {
-      return (
-        <Post
-          body={post.body}
-          optionA={post.option_a}
-          optionB={post.option_b}
-          created_at={post.created_at}
-          id={post.id}
-          optionAName={post.option_a_name}
-          optionBName={post.option_b_name}
-        />
-      );
-    });
-  }
   if (!doesUserHaveUsername) {
     return (
       <Modal show>
@@ -75,7 +85,7 @@ const Home = (props) => {
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
-        <ul>{displayPost}</ul>
+        <ul>{displayPosts}</ul>
       </div>
     );
   }
