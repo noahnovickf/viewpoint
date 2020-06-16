@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { googleSignInMethod } from "database";
 
 const Login = (props) => {
   const isUserLoggedIn = !!useSelector((state) => state.users.user.email);
@@ -13,7 +14,7 @@ const Login = (props) => {
           Welcome to Undefined.
         </h1>
         <div className="object-center pt-8">
-          <button onClick={props.signInWithGoogleThunk}>
+          <button onClick={googleSignInMethod}>
             <img
               src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png"
               alt="Google"

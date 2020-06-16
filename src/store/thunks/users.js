@@ -1,38 +1,23 @@
 import { userSignedIn, userLogout, avatarFetched } from "../actions/users";
 
-import { googlePopupSignInMethod, db, storage } from "database";
+import { db, storage } from "database";
 
 //CREATE NEW USER
-export const signInWithGoogle = () => (dispatch) => {
-  googlePopupSignInMethod().then((res) => {
-    if (res.additionalUserInfo.isNewUser) {
-      const uniqueId = res.user.uid;
-      db.collection("users")
-        .doc(uniqueId)
-        .set({
-          email: res.user.email,
-          username: "",
-          posts: [],
-          full_name: res.user.displayName,
-          avatar_link: "",
-          userId: res.user.uid,
-        })
-        .then(() => {
-          handleReturningUserSignIn(res).then((user) => {
-            dispatch(userSignedIn(user));
-          });
-        })
-        .catch(console.error);
-    } else {
-      // Call a thunk here with payload of whatever the user in state needs to have
-      handleReturningUserSignIn(res)
-        .then((user) => {
-          dispatch(userSignedIn(user));
-        })
-        .catch(console.error);
-    }
-  });
+export const handleNewUser = (res) => (dispatch) => {
+  const uniqueId = res.user.uid;
+  const userObject = {
+    email: res.user.email,
+    username: "",
+    posts: [],
+    full_name: res.user.displayName,
+    avatar_link: "",
+    userId: uniqueId,
+    vote_history: [],
+  };
+  db.collection("users").doc(uniqueId).set(userObject);
+  dispatch(userSignedIn(userObject));
 };
+
 //LOGOUT
 export const logout = () => (dispatch) => {
   dispatch(userLogout());
@@ -41,7 +26,7 @@ export const logout = () => (dispatch) => {
 export const addUsernameToState = (info) => (dispatch) => {
   db.collection("users")
     .doc(info.id)
-    .set({ username: info.username }, { merge: true })
+    .update({ username: info.username })
     .then(() => {
       db.collection("users")
         .doc(info.id)
@@ -76,7 +61,7 @@ export const addUserToState = (info) => (dispatch) => {
     });
 };
 
-// HERE
+// HELPER FUNCTION
 export const handleReturningUserSignIn = async (response) => {
   const uniqueUserId = response.user.uid;
   const userQuery = await db.collection("users").doc(uniqueUserId).get();

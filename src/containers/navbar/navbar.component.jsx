@@ -3,7 +3,6 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Navbar = (props) => {
-  console.log(props.navigation);
   return (
     <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey">
       <div>
