@@ -17,10 +17,11 @@ const Post = (props) => {
     }
   };
   useEffect(() => {
+    console.log(props.hasUserVoted, props.id);
     setCanUserViewVote(props.hasUserVoted);
     setVoteACount(props.optionA.length);
     setVoteBCount(props.optionB.length);
-  }, []);
+  }, [props.hasUserVoted]);
 
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;

@@ -9,6 +9,9 @@ import Navbar from "containers/navbar";
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
   const [displayPosts, setDisplayPosts] = useState([]);
+  const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
+    "Newest"
+  );
   const userFromState = useSelector((state) => state.users.user);
   const userVoteHistory = userFromState.vote_history;
   const doesUserHaveUsername = !!userFromState.username;
@@ -19,10 +22,19 @@ const Home = (props) => {
     props.logoutThunk();
   };
 
+  const handleDisplayPostChange = () => {
+    const viewOption = document.getElementById("select-view-option").value;
+    setSelectDisplayPostOption(viewOption);
+  };
+
   useEffect(() => {
-    props.fetchPostsThunk();
+    if (selectDisplayPostOption === "Newest") {
+      props.fetchPostsThunk("created_at", "desc");
+    } else {
+      props.fetchPostsThunk("total_votes", "desc");
+    }
     setPosts(postsFromState);
-  }, [posts, props]);
+  }, [posts, props, selectDisplayPostOption]);
 
   //Get user's profile picture
   useEffect(() => {
@@ -33,6 +45,7 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log(userVoteHistory);
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
         let hasUserVoted = false;
@@ -49,12 +62,13 @@ const Home = (props) => {
             optionAName={post.option_a_name}
             optionBName={post.option_b_name}
             hasUserVoted={hasUserVoted}
+            totalVotes={post.total_votes}
           />
         );
       });
       setDisplayPosts(displayPost);
     }
-  }, [postsFromState.posts.length]);
+  }, [postsFromState.posts.length, selectDisplayPostOption]);
 
   if (!doesUserHaveUsername) {
     return (
@@ -84,6 +98,17 @@ const Home = (props) => {
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
+        <form>
+          <select
+            id="select-view-option"
+            value={selectDisplayPostOption}
+            onChange={handleDisplayPostChange}
+          >
+            <option value="Newest">Newest</option>
+            <option value="Most Popular">Most Popular</option>
+            <option value="Most One-sided">Most One-sided</option>
+          </select>
+        </form>
         <ul>{displayPosts}</ul>
       </div>
     );

@@ -9,5 +9,6 @@ export const addPost = (body, opt1, opt2, userId) => {
     option_a: [],
     option_b: [],
     owner_id: userId,
+    total_votes: 0,
   });
 };

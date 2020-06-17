@@ -1,9 +1,9 @@
 import { postsFetched } from "store/actions/posts";
 import { db } from "database";
 
-export const fetchPosts = () => (dispatch) => {
+export const fetchPosts = (para1, para2) => (dispatch) => {
   db.collection("posts")
-    .orderBy("created_at", "desc")
+    .orderBy(para1, para2)
     .get()
     .then((snapshot) => {
       const postArray = [];
