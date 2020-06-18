@@ -34,6 +34,9 @@ export const fetchPosts = (sortBy, timeframe) => (dispatch) => {
           const postObj = post.data();
           postObj.id = post.id;
           popularPostArray.push(postObj);
+          popularPostArray.sort(function (a, b) {
+            return b.total_votes - a.total_votes;
+          });
         });
         console.log(popularPostArray);
         dispatch(postsFetched(popularPostArray));
