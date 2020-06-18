@@ -40,11 +40,13 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    console.log(selectDisplayPostOption);
     if (selectDisplayPostOption === "Newest") {
-      props.fetchPostsThunk("newest");
+      props.fetchPostsThunk({ sortBy: "newest", time: Date.now() });
     } else {
-      props.fetchPostsThunk("popular", viewByTimeframeTime);
+      props.fetchPostsThunk({
+        sortBy: "popular",
+        time: viewByTimeframeTime,
+      });
     }
     setPosts(postsFromState);
   }, [posts, props, selectDisplayPostOption, viewByTimeframeTime]);
@@ -58,13 +60,9 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("hitting again");
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
-        let hasUserVoted = false;
-        if (userVoteHistory.includes(post.id)) {
-          hasUserVoted = true;
-        }
+        const hasUserVoted = userVoteHistory.includes(post.id);
         return (
           <Post
             body={post.body}

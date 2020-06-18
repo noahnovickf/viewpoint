@@ -10,7 +10,7 @@ import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 
 function App(props) {
-  const [isUserLoading, setIsUserLoading] = useState(false);
+  const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
     //on authstate changed
@@ -21,7 +21,7 @@ function App(props) {
           .auth()
           .getRedirectResult()
           .then((res) => {
-            setIsUserLoading(true);
+            setIsUserLoading(false);
             if (res.user) {
               if (res.additionalUserInfo.isNewUser) {
                 props.handleNewUserSignupThunk(res);
@@ -30,14 +30,14 @@ function App(props) {
               }
             }
           });
-        setIsUserLoading(true);
+        setIsUserLoading(false);
       });
     return () => {
       firebaseListener();
     };
   }, []);
 
-  if (!isUserLoading)
+  if (isUserLoading)
     return (
       <div className="h-screen w-screen bg-blueGray text-grayy flex justify-center items-center text-xl">
         LOADING...

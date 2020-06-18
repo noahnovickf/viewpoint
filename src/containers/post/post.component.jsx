@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { voteForOption } from "database/votePost";
+import { voteForOption, addVoteToUser } from "database/votePost";
 import { useSelector } from "react-redux";
 
 const Post = (props) => {
@@ -10,6 +10,7 @@ const Post = (props) => {
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
     voteForOption({ optionName, postId, userId });
+    addVoteToUser({ postId, userId });
     if (optionName === "option_a") {
       setVoteACount(voteACount + 1);
     } else {

@@ -2,14 +2,17 @@ import { db } from "database";
 import firebase from "firebase";
 
 export const voteForOption = ({ optionName, postId, userId }) => {
-  const increment = firebase.firestore.FieldValue.increment(1);
+  const increment = () => firebase.firestore.FieldValue.increment(1);
 
   db.collection("posts")
     .doc(postId)
     .update({
       [optionName]: firebase.firestore.FieldValue.arrayUnion(userId),
-      total_votes: increment,
+      total_votes: increment(),
     });
+};
+
+export const addVoteToUser = ({ postId, userId }) => {
   db.collection("users")
     .doc(userId)
     .update({
