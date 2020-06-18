@@ -29,7 +29,6 @@ const Home = (props) => {
     setSelectDisplayPostOption(viewOption);
     const timeframe = document.getElementById("select-view-option-timeline")
       .value;
-    console.log(timeframe);
     setViewByTimeframe(timeframe);
     if (timeframe === "All-time") {
       setViewByTimeframeTime(Date.now());
@@ -41,6 +40,7 @@ const Home = (props) => {
   };
 
   useEffect(() => {
+    console.log(selectDisplayPostOption);
     if (selectDisplayPostOption === "Newest") {
       props.fetchPostsThunk("newest");
     } else {
@@ -58,6 +58,7 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
+    console.log("hitting again");
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
         let hasUserVoted = false;
@@ -80,7 +81,7 @@ const Home = (props) => {
       });
       setDisplayPosts(displayPost);
     }
-  }, [postsFromState.posts.length, selectDisplayPostOption, viewByTimeframe]);
+  }, [postsFromState, selectDisplayPostOption, viewByTimeframeTime]);
 
   if (!doesUserHaveUsername) {
     return (
@@ -110,9 +111,11 @@ const Home = (props) => {
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
-        <div className="flex justify-content">
+        <div className="flex justify-center items-center">
+          <div className="text-grayy p-2">View By</div>
           <form>
             <select
+              className="bg-transparent text-grayy p-2"
               id="select-view-option"
               value={selectDisplayPostOption}
               onChange={handleDisplayPostChange}
@@ -124,9 +127,10 @@ const Home = (props) => {
           <form
             className={`${
               selectDisplayPostOption === "Most Popular" ? "show" : "hidden"
-            }`}
+            } p-2`}
           >
             <select
+              className="bg-transparent text-grayy"
               id="select-view-option-timeline"
               value={viewByTimeframe}
               onChange={handleDisplayPostChange}

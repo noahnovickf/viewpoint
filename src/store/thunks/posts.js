@@ -2,9 +2,7 @@ import { postsFetched } from "store/actions/posts";
 import { db } from "database";
 
 export const fetchPosts = (sortBy, timeframe) => (dispatch) => {
-  console.log(sortBy);
   if (sortBy === "newest") {
-    console.log("hit newest");
     db.collection("posts")
       .orderBy("created_at", "desc")
       .get()
@@ -15,20 +13,17 @@ export const fetchPosts = (sortBy, timeframe) => (dispatch) => {
           postObj.id = post.id;
           postArray.push(postObj);
         });
+        console.log(postArray);
         dispatch(postsFetched(postArray));
       })
       .catch(console.error);
   } else {
-    console.log("hit newest");
     const time = Date.now() - timeframe;
-    console.log(time);
     db.collection("posts")
       .where("created_at", ">", time)
       .orderBy("created_at")
-      // .orderBy("total_votes", "desc")
       .get()
       .then((snapshot) => {
-        console.log("hit this new pop shit");
         const popularPostArray = [];
         snapshot.forEach((post) => {
           const postObj = post.data();
@@ -44,7 +39,3 @@ export const fetchPosts = (sortBy, timeframe) => (dispatch) => {
       .catch(console.error);
   }
 };
-
-// export const fetchPopularPosts = (timeframe) => (dispatch) =>{
-//   db.
-// }
