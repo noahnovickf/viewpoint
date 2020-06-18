@@ -12,6 +12,8 @@ const Home = (props) => {
   const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
     "Newest"
   );
+  const [viewByTimeframeTime, setViewByTimeframeTime] = useState(Date.now());
+  const [viewByTimeframe, setViewByTimeframe] = useState("All-time");
   const userFromState = useSelector((state) => state.users.user);
   const userVoteHistory = userFromState.vote_history;
   const doesUserHaveUsername = !!userFromState.username;
@@ -25,16 +27,27 @@ const Home = (props) => {
   const handleDisplayPostChange = () => {
     const viewOption = document.getElementById("select-view-option").value;
     setSelectDisplayPostOption(viewOption);
+    const timeframe = document.getElementById("select-view-option-timeline")
+      .value;
+    console.log(timeframe);
+    setViewByTimeframe(timeframe);
+    if (timeframe === "All-time") {
+      setViewByTimeframeTime(Date.now());
+    } else if (timeframe === "Today") {
+      setViewByTimeframeTime(86400000);
+    } else if (timeframe === "This week") {
+      setViewByTimeframeTime(604800000);
+    }
   };
 
   useEffect(() => {
     if (selectDisplayPostOption === "Newest") {
-      props.fetchPostsThunk("created_at", "desc");
+      props.fetchPostsThunk("newest");
     } else {
-      props.fetchPostsThunk("total_votes", "desc");
+      props.fetchPostsThunk("popular", viewByTimeframeTime);
     }
     setPosts(postsFromState);
-  }, [posts, props, selectDisplayPostOption]);
+  }, [posts, props, selectDisplayPostOption, viewByTimeframeTime]);
 
   //Get user's profile picture
   useEffect(() => {
@@ -45,7 +58,6 @@ const Home = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log(userVoteHistory);
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
         let hasUserVoted = false;
@@ -68,7 +80,7 @@ const Home = (props) => {
       });
       setDisplayPosts(displayPost);
     }
-  }, [postsFromState.posts.length, selectDisplayPostOption]);
+  }, [postsFromState.posts.length, selectDisplayPostOption, viewByTimeframe]);
 
   if (!doesUserHaveUsername) {
     return (
@@ -98,17 +110,33 @@ const Home = (props) => {
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
-        <form>
-          <select
-            id="select-view-option"
-            value={selectDisplayPostOption}
-            onChange={handleDisplayPostChange}
+        <div className="flex justify-content">
+          <form>
+            <select
+              id="select-view-option"
+              value={selectDisplayPostOption}
+              onChange={handleDisplayPostChange}
+            >
+              <option value="Newest">Newest</option>
+              <option value="Most Popular">Most Popular</option>
+            </select>
+          </form>
+          <form
+            className={`${
+              selectDisplayPostOption === "Most Popular" ? "show" : "hidden"
+            }`}
           >
-            <option value="Newest">Newest</option>
-            <option value="Most Popular">Most Popular</option>
-            <option value="Most One-sided">Most One-sided</option>
-          </select>
-        </form>
+            <select
+              id="select-view-option-timeline"
+              value={viewByTimeframe}
+              onChange={handleDisplayPostChange}
+            >
+              <option value="All-time">All-time</option>
+              <option value="Today">Today</option>
+              <option value="This week">This week</option>
+            </select>
+          </form>
+        </div>
         <ul>{displayPosts}</ul>
       </div>
     );
