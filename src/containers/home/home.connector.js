@@ -6,7 +6,7 @@ import { fetchUserAvatar } from "store/thunks/users";
 
 const mapDispatchToProps = (dispatch) => ({
   logoutThunk: () => dispatch(logout()),
-  fetchPostsThunk: () => dispatch(fetchPosts()),
+  fetchPostsThunk: ({ sortBy, time }) => dispatch(fetchPosts({ sortBy, time })),
   fetchUserAvatarThunk: ({ username }) =>
     dispatch(fetchUserAvatar({ username })),
 });

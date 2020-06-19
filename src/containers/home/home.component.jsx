@@ -8,19 +8,48 @@ import Navbar from "containers/navbar";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
-
+  const [displayPosts, setDisplayPosts] = useState([]);
+  const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
+    "Newest"
+  );
+  const [viewByTimeframeTime, setViewByTimeframeTime] = useState(Date.now());
+  const [viewByTimeframe, setViewByTimeframe] = useState("All-time");
   const userFromState = useSelector((state) => state.users.user);
+  const userVoteHistory = userFromState.vote_history;
   const doesUserHaveUsername = !!userFromState.username;
+  const postsFromState = useSelector((state) => state.posts);
+
   const signOut = () => {
     auth.signOut();
     props.logoutThunk();
   };
-  const postsFromState = useSelector((state) => state.posts);
+
+  const handleDisplayPostChange = () => {
+    const viewOption = document.getElementById("select-view-option").value;
+    setSelectDisplayPostOption(viewOption);
+    const timeframe = document.getElementById("select-view-option-timeline")
+      .value;
+    setViewByTimeframe(timeframe);
+    if (timeframe === "All-time") {
+      setViewByTimeframeTime(Date.now());
+    } else if (timeframe === "Today") {
+      setViewByTimeframeTime(86400000);
+    } else if (timeframe === "This week") {
+      setViewByTimeframeTime(604800000);
+    }
+  };
 
   useEffect(() => {
-    props.fetchPostsThunk();
+    if (selectDisplayPostOption === "Newest") {
+      props.fetchPostsThunk({ sortBy: "newest", time: Date.now() });
+    } else {
+      props.fetchPostsThunk({
+        sortBy: "popular",
+        time: viewByTimeframeTime,
+      });
+    }
     setPosts(postsFromState);
-  }, [posts, props]);
+  }, [posts, props, selectDisplayPostOption, viewByTimeframeTime]);
 
   //Get user's profile picture
   useEffect(() => {
@@ -30,23 +59,28 @@ const Home = (props) => {
     }
   }, []);
 
-  let displayPost = [];
+  useEffect(() => {
+    if (postsFromState.posts.length > 0) {
+      const displayPost = postsFromState.posts.map((post) => {
+        const hasUserVoted = userVoteHistory.includes(post.id);
+        return (
+          <Post
+            body={post.body}
+            optionA={post.option_a}
+            optionB={post.option_b}
+            created_at={post.created_at}
+            id={post.id}
+            optionAName={post.option_a_name}
+            optionBName={post.option_b_name}
+            hasUserVoted={hasUserVoted}
+            totalVotes={post.total_votes}
+          />
+        );
+      });
+      setDisplayPosts(displayPost);
+    }
+  }, [postsFromState, selectDisplayPostOption, viewByTimeframeTime]);
 
-  if (postsFromState.posts.length > 0) {
-    displayPost = postsFromState.posts.map((post) => {
-      return (
-        <Post
-          body={post.body}
-          optionA={post.option_a}
-          optionB={post.option_b}
-          created_at={post.created_at}
-          id={post.id}
-          optionAName={post.option_a_name}
-          optionBName={post.option_b_name}
-        />
-      );
-    });
-  }
   if (!doesUserHaveUsername) {
     return (
       <Modal show>
@@ -75,7 +109,37 @@ const Home = (props) => {
         <button className="bg-blue w-full bg-red-600" onClick={signOut}>
           Sign out
         </button>
-        <ul>{displayPost}</ul>
+        <div className="flex justify-center items-center">
+          <div className="text-grayy p-2">View By</div>
+          <form>
+            <select
+              className="bg-transparent text-grayy p-2"
+              id="select-view-option"
+              value={selectDisplayPostOption}
+              onChange={handleDisplayPostChange}
+            >
+              <option value="Newest">Newest</option>
+              <option value="Most Popular">Most Popular</option>
+            </select>
+          </form>
+          <form
+            className={`${
+              selectDisplayPostOption === "Most Popular" ? "show" : "hidden"
+            } p-2`}
+          >
+            <select
+              className="bg-transparent text-grayy"
+              id="select-view-option-timeline"
+              value={viewByTimeframe}
+              onChange={handleDisplayPostChange}
+            >
+              <option value="All-time">All-time</option>
+              <option value="Today">Today</option>
+              <option value="This week">This week</option>
+            </select>
+          </form>
+        </div>
+        <ul>{displayPosts}</ul>
       </div>
     );
   }
