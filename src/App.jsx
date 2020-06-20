@@ -8,6 +8,7 @@ import Home from "containers/home";
 import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
+import Sidebar from "containers/sidebar";
 
 function App(props) {
   const [isUserLoading, setIsUserLoading] = useState(true);
@@ -48,8 +49,14 @@ function App(props) {
     <Router>
       <div>
         {/* Protected Routes */}
-        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute exact path="/" component={Home} view={"home"} />
         <ProtectedRoute path="/create-post" component={CreatePost} />
+        <ProtectedRoute path="/side-bar" component={Sidebar} />
+        <ProtectedRoute
+          path="/:username-posts"
+          component={Home}
+          view={"userPosts"}
+        />
         {/* Public Routes */}
         <Route path="/login" component={Login} />
       </div>

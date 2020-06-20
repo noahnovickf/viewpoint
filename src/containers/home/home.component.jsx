@@ -40,16 +40,34 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    if (selectDisplayPostOption === "Newest") {
-      props.fetchPostsThunk({ sortBy: "newest", time: Date.now() });
-    } else {
+    console.log(props.view);
+    if (props.view === "userPosts") {
+      console.log("hitting userPosts");
       props.fetchPostsThunk({
-        sortBy: "popular",
-        time: viewByTimeframeTime,
+        sortBy: "newest",
+        whereCondition1: "owner_id",
+        whereAssertion: "==",
+        whereCondition2: userFromState.userId,
       });
+    } else {
+      if (selectDisplayPostOption === "Newest") {
+        props.fetchPostsThunk({
+          sortBy: "newest",
+          whereCondition1: "created_at",
+          whereAssertion: ">",
+          whereCondition2: 0,
+        });
+      } else {
+        props.fetchPostsThunk({
+          sortBy: "popular",
+          whereCondition1: "created_at",
+          whereAssertion: ">",
+          whereCondition2: Date.now() - viewByTimeframeTime,
+        });
+      }
     }
     setPosts(postsFromState);
-  }, [posts, props, selectDisplayPostOption, viewByTimeframeTime]);
+  }, [posts, props, selectDisplayPostOption, viewByTimeframeTime, props.view]);
 
   //Get user's profile picture
   useEffect(() => {
@@ -92,6 +110,9 @@ const Home = (props) => {
       <div className="bg-blueGray">
         <div>
           <Navbar navigation="/create-post" postAdd="post_add" />
+        </div>
+        <div className={`${props.view === "home" ? " hidden " : " show "}  `}>
+          {userFromState.username} posts
         </div>
         <h1 className="flex justify-center text-grayy">
           {userFromState.full_name} is logged in with the username:
