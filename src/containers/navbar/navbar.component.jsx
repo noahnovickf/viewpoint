@@ -8,7 +8,9 @@ const Navbar = (props) => {
       <div>
         <i className="pl-2  material-icons color-grayy">menu</i>
       </div>
-      <div className="font-mono text-grayy  text-center">Undefined</div>
+      <div className="font-noto tracking-wide text-grayy  text-center">
+        Undefined
+      </div>
       <Link to={props.navigation}>
         <i className="pr-2  material-icons color-grayy">{props.postAdd}</i>
       </Link>
