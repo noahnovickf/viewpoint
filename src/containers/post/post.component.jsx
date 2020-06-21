@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { voteForOption, addVoteToUser } from "database/votePost";
-import { fetchPostUser } from "database/postUser";
+import { fetchPostUser, fetchPostUserAvatar } from "database/postUser";
 import { useSelector } from "react-redux";
 
 const Post = (props) => {
@@ -24,8 +24,11 @@ const Post = (props) => {
   useEffect(() => {
     fetchPostUser(props.ownerID).then((result) => {
       setPostUserUsername(result.username);
+      fetchPostUserAvatar(result.username).then((res) => {
+        setPostUserAvatar(res);
+      });
     });
-  });
+  }, []);
 
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
@@ -43,7 +46,7 @@ const Post = (props) => {
       <div className="flex justify-between">
         <div className="flex mb-1">
           <img
-            src={props.postOwnerAvatar}
+            src={postUserAvatar}
             className="rounded-full h-6 w-6 align-center ml-2"
           />
           <h4 className="text-grayy ml-2">{postUserUsername}</h4>
