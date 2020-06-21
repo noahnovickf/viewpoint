@@ -19,6 +19,9 @@ const Post = (props) => {
     setCanUserViewVote(props.hasUserVoted);
     setVoteACount(props.optionA.length);
     setVoteBCount(props.optionB.length);
+    fetchPostUser(props.ownerID).then((result) => {
+      console.log("RESULT: ", result);
+    });
   }, [props.hasUserVoted]);
 
   // setPostUserUsername(fetchPostUser(props.ownerID));
