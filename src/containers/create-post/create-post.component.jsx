@@ -14,7 +14,7 @@ const CreatePost = (props) => {
   const avatarLink = user.avatar_link;
 
   const addPostToDB = () => {
-    addPost(postText, option1, option2, userID, username, avatarLink);
+    addPost({ postText, option1, option2, userID, username, avatarLink });
     setPostText("");
     setOption1("");
     setOption2("");
