@@ -40,9 +40,7 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.view);
     if (props.view === "userPosts") {
-      console.log("hitting userPosts");
       props.fetchPostsThunk({
         sortBy: "newest",
         whereCondition1: "owner_id",
@@ -67,7 +65,7 @@ const Home = (props) => {
       }
     }
     setPosts(postsFromState);
-  }, [posts, props, selectDisplayPostOption, viewByTimeframeTime, props.view]);
+  }, [posts, props, selectDisplayPostOption, viewByTimeframeTime]);
 
   //Get user's profile picture
   useEffect(() => {
