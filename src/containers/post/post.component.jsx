@@ -19,12 +19,13 @@ const Post = (props) => {
     setCanUserViewVote(props.hasUserVoted);
     setVoteACount(props.optionA.length);
     setVoteBCount(props.optionB.length);
-    fetchPostUser(props.ownerID).then((result) => {
-      console.log("RESULT: ", result);
-    });
   }, [props.hasUserVoted]);
 
-  // setPostUserUsername(fetchPostUser(props.ownerID));
+  useEffect(() => {
+    fetchPostUser(props.ownerID).then((result) => {
+      setPostUserUsername(result.username);
+    });
+  });
 
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
@@ -45,7 +46,7 @@ const Post = (props) => {
             src={props.postOwnerAvatar}
             className="rounded-full h-6 w-6 align-center ml-2"
           />
-          <h4 className="text-grayy ml-2">{props.postOwnerUsername}</h4>
+          <h4 className="text-grayy ml-2">{postUserUsername}</h4>
         </div>
         <button onClick={() => setViewTotalVotes(!viewTotalVotes)}>
           <i
