@@ -57,6 +57,11 @@ function App(props) {
           component={Home}
           view={"userPosts"}
         />
+        <ProtectedRoute
+          path="/:username-vote-history"
+          component={Home}
+          view={"voteHistory"}
+        />
         {/* Public Routes */}
         <Route path="/login" component={Login} />
       </div>

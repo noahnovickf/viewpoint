@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth } from "database";
+
 import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
@@ -18,11 +18,6 @@ const Home = (props) => {
   const userVoteHistory = userFromState.vote_history;
   const doesUserHaveUsername = !!userFromState.username;
   const postsFromState = useSelector((state) => state.posts);
-
-  const signOut = () => {
-    auth.signOut();
-    props.logoutThunk();
-  };
 
   const handleDisplayPostChange = () => {
     const viewOption = document.getElementById("select-view-option").value;
@@ -47,6 +42,8 @@ const Home = (props) => {
         whereAssertion: "==",
         whereCondition2: userFromState.userId,
       });
+    } else if (props.view === "voteHistory") {
+      //props.fetchPostsThunk({})
     } else {
       if (selectDisplayPostOption === "Newest") {
         props.fetchPostsThunk({
@@ -112,22 +109,6 @@ const Home = (props) => {
         <div className={`${props.view === "home" ? " hidden " : " show "}  `}>
           {userFromState.username} posts
         </div>
-        <h1 className="flex justify-center text-grayy">
-          {userFromState.full_name} is logged in with the username:
-          {userFromState.username}
-        </h1>
-        <div className="flex items-center justify-center rounded-full">
-          {userFromState.avatar_link && (
-            <img
-              src={userFromState.avatar_link}
-              alt="Avatar"
-              className="rounded full h-16 w-16"
-            />
-          )}
-        </div>
-        <button className="bg-blue w-full bg-red-600" onClick={signOut}>
-          Sign out
-        </button>
         <div className="flex justify-center items-center">
           <div className="text-grayy p-2">View By</div>
           <form>
