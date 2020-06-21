@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { voteForOption, addVoteToUser } from "database/votePost";
+import { fetchPostUser } from "database/postUser";
 import { useSelector } from "react-redux";
 
 const Post = (props) => {
@@ -7,7 +8,21 @@ const Post = (props) => {
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
   const [viewTotalVotes, setViewTotalVotes] = useState(false);
+  const [postUserUsername, setPostUserUsername] = useState("");
+  const [postUserAvatar, setPostUserAvatar] = useState("");
+
   const userIDFromState = useSelector((state) => state.users.user.userId);
+  const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
+  const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
+
+  useEffect(() => {
+    setCanUserViewVote(props.hasUserVoted);
+    setVoteACount(props.optionA.length);
+    setVoteBCount(props.optionB.length);
+  }, [props.hasUserVoted]);
+
+  setPostUserUsername(fetchPostUser(props.ownerID));
+
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
     voteForOption({ optionName, postId, userId });
@@ -18,14 +33,7 @@ const Post = (props) => {
       setVoteBCount(voteBCount + 1);
     }
   };
-  useEffect(() => {
-    setCanUserViewVote(props.hasUserVoted);
-    setVoteACount(props.optionA.length);
-    setVoteBCount(props.optionB.length);
-  }, [props.hasUserVoted]);
 
-  const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
-  const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
   return (
     <li className="rounded-lg pt-1 m-1 mt-3 bg-bluey font-noto tracking-wide">
       <div className="flex justify-between">
@@ -39,7 +47,7 @@ const Post = (props) => {
         <button onClick={() => setViewTotalVotes(!viewTotalVotes)}>
           <i
             className={`${
-              canUserViewVote ? " show " : " hidden "
+              canUserViewVote ? "show" : "hidden"
             } material-icons color-grayy mr-2`}
           >
             more_horiz
