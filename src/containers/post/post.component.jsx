@@ -21,7 +21,7 @@ const Post = (props) => {
     setVoteBCount(props.optionB.length);
   }, [props.hasUserVoted]);
 
-  setPostUserUsername(fetchPostUser(props.ownerID));
+  // setPostUserUsername(fetchPostUser(props.ownerID));
 
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
