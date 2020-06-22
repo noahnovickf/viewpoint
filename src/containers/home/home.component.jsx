@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
@@ -15,7 +14,6 @@ const Home = (props) => {
   const [viewByTimeframeTime, setViewByTimeframeTime] = useState(Date.now());
   const [viewByTimeframe, setViewByTimeframe] = useState("All-time");
   const userFromState = useSelector((state) => state.users.user);
-  const userVoteHistory = userFromState.vote_history;
   const doesUserHaveUsername = !!userFromState.username;
   const postsFromState = useSelector((state) => state.posts);
 
@@ -42,8 +40,6 @@ const Home = (props) => {
         whereAssertion: "==",
         whereCondition2: userFromState.userId,
       });
-    } else if (props.view === "voteHistory") {
-      //props.fetchPostsThunk({})
     } else {
       if (selectDisplayPostOption === "Newest") {
         props.fetchPostsThunk({
@@ -75,7 +71,9 @@ const Home = (props) => {
   useEffect(() => {
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
-        const hasUserVoted = userVoteHistory.includes(post.id);
+        const hasUserVotedForA = post.option_a.includes(userFromState.userId);
+        const hasUserVotedForB = post.option_b.includes(userFromState.userId);
+
         return (
           <Post
             body={post.body}
@@ -85,7 +83,8 @@ const Home = (props) => {
             id={post.id}
             optionAName={post.option_a_name}
             optionBName={post.option_b_name}
-            hasUserVoted={hasUserVoted}
+            hasUserVotedForA={hasUserVotedForA}
+            hasUserVotedForB={hasUserVotedForB}
             totalVotes={post.total_votes}
           />
         );

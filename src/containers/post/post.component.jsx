@@ -6,7 +6,9 @@ const Post = (props) => {
   const [canUserViewVote, setCanUserViewVote] = useState(false);
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
+
   const userIDFromState = useSelector((state) => state.users.user.userId);
+
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
     voteForOption({ optionName, postId, userId });
@@ -18,10 +20,12 @@ const Post = (props) => {
     }
   };
   useEffect(() => {
-    setCanUserViewVote(props.hasUserVoted);
+    if (props.hasUserVotedForA || props.hasUserVotedForB) {
+      setCanUserViewVote(true);
+    }
     setVoteACount(props.optionA.length);
     setVoteBCount(props.optionB.length);
-  }, [props.hasUserVoted]);
+  }, [props]);
 
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
@@ -31,7 +35,6 @@ const Post = (props) => {
       <h6 className="text-grayy p-2 mx-2 mb-2 rounded-lg border-2 border-grayy">
         {props.body}
       </h6>
-      {/* <p>{props.created_at}</p> */}
       <div className="flex justify-center text-bluey ">
         <button
           className={`${
