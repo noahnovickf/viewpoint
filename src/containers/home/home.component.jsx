@@ -18,7 +18,6 @@ const Home = (props) => {
   const userVoteHistory = userFromState.vote_history;
   const doesUserHaveUsername = !!userFromState.username;
   const postsFromState = useSelector((state) => state.posts);
-
   const signOut = () => {
     auth.signOut();
     props.logoutThunk();
@@ -92,6 +91,9 @@ const Home = (props) => {
             optionBName={post.option_b_name}
             hasUserVoted={hasUserVoted}
             totalVotes={post.total_votes}
+            postOwnerUsername={post.owner_username}
+            postOwnerAvatar={post.owner_img}
+            ownerID={post.owner_id}
           />
         );
       });

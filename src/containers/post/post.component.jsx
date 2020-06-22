@@ -1,12 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { voteForOption, addVoteToUser } from "database/votePost";
+import { fetchPostUser, fetchPostUserAvatar } from "database/postUser";
 import { useSelector } from "react-redux";
 
 const Post = (props) => {
   const [canUserViewVote, setCanUserViewVote] = useState(false);
   const [voteACount, setVoteACount] = useState(props.optionA.length);
   const [voteBCount, setVoteBCount] = useState(props.optionB.length);
+  const [viewTotalVotes, setViewTotalVotes] = useState(false);
+  const [postUserUsername, setPostUserUsername] = useState("");
+  const [postUserAvatar, setPostUserAvatar] = useState("");
+
   const userIDFromState = useSelector((state) => state.users.user.userId);
+  const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
+  const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
+
+  useEffect(() => {
+    setCanUserViewVote(props.hasUserVoted);
+    setVoteACount(props.optionA.length);
+    setVoteBCount(props.optionB.length);
+  }, [props.hasUserVoted]);
+
+  useEffect(() => {
+    fetchPostUser(props.ownerID).then((result) => {
+      setPostUserUsername(result.username);
+      fetchPostUserAvatar(result.username).then((res) => {
+        setPostUserAvatar(res);
+      });
+    });
+  }, []);
+
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
     voteForOption({ optionName, postId, userId });
@@ -17,18 +40,28 @@ const Post = (props) => {
       setVoteBCount(voteBCount + 1);
     }
   };
-  useEffect(() => {
-    setCanUserViewVote(props.hasUserVoted);
-    setVoteACount(props.optionA.length);
-    setVoteBCount(props.optionB.length);
-  }, [props.hasUserVoted]);
 
-  const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
-  const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
   return (
-    <li className="rounded-lg pt-1 m-1 mt-3 bg-bluey ">
-      <h4 className="text-grayy ml-2">Username here</h4>
-      <h6 className="text-grayy p-2 mx-2 mb-2 rounded-lg border-2 border-grayy">
+    <li className="rounded-lg pt-1 m-1 mt-3 bg-bluey font-noto tracking-wide">
+      <div className="flex justify-between">
+        <div className="flex mb-1">
+          <img
+            src={postUserAvatar}
+            className="rounded-full h-6 w-6 align-center ml-2"
+          />
+          <h4 className="text-grayy ml-2">{postUserUsername}</h4>
+        </div>
+        <button onClick={() => setViewTotalVotes(!viewTotalVotes)}>
+          <i
+            className={`${
+              canUserViewVote ? "show" : "hidden"
+            } material-icons color-grayy mr-2`}
+          >
+            more_horiz
+          </i>
+        </button>
+      </div>
+      <h6 className="text-grayy p-2 mx-2 mb-2 rounded-lg border border-grayy font-thin">
         {props.body}
       </h6>
       {/* <p>{props.created_at}</p> */}
@@ -62,23 +95,42 @@ const Post = (props) => {
           {props.optionBName}
         </button>
       </div>
+
       <div className="flex justify-center w-100 text-bluey">
         <span
           className={`${
-            canUserViewVote ? "show" : "hidden"
-          } text-center align-middle bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600  ml-2 mb-2`}
+            canUserViewVote && voteBPercent !== 100 ? "show" : "hidden"
+          } ${
+            voteAPercent === 100
+              ? " rounded-lg mr-2 "
+              : " rounded-l-lg border-r-2 border-gray-600 "
+          } flex items-center text-center justify-center align-middle bg-pinky h-10 ml-2 mb-2`}
           style={{ width: voteAPercent + "%" }}
         >
-          {props.optionAName}: {voteACount}
+          {" "}
+          <div>
+            {props.optionAName}: {voteAPercent}%
+          </div>
         </span>
         <div
           className={`${
-            canUserViewVote ? "show" : "hidden"
-          }  text-center  bg-orangy h-10 rounded-r-lg  mr-2 mb-2`}
+            canUserViewVote && voteAPercent !== 100 ? "show" : "hidden"
+          } ${
+            voteBPercent === 100 ? " rounded-lg ml-2 " : " rounded-r-lg "
+          } flex items-center justify-center text-center  bg-orangy h-10 mr-2 mb-2`}
           style={{ width: voteBPercent + "%" }}
         >
-          {props.optionBName}: {voteBCount}
+          <div>
+            {props.optionBName}: {voteBPercent}%
+          </div>
         </div>
+      </div>
+      <div
+        className={`${
+          viewTotalVotes ? " show " : " hidden "
+        }" text-grayy text-center "`}
+      >
+        Total votes: {voteBCount + voteACount}
       </div>
     </li>
   );
