@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { auth } from "database";
 import { useSelector } from "react-redux";
 
@@ -37,7 +36,7 @@ const Profile = (props) => {
           type="text"
           placeholder="username"
           id="username"
-          className="border flex justify-center"
+          className="border flex justify-center text-bluey"
           onChange={(e) => setUsername(e.target.value)}
         ></input>
       </div>
