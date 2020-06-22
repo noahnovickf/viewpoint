@@ -89,7 +89,14 @@ const Home = (props) => {
           />
         );
       });
-      setDisplayPosts(displayPost);
+      if (props.view === "voteHistory") {
+        const userVoteHistory = displayPost.filter((post) => {
+          return post.props.hasUserVotedForA || post.props.hasUserVotedForB;
+        });
+        setDisplayPosts(userVoteHistory);
+      } else {
+        setDisplayPosts(displayPost);
+      }
     }
   }, [postsFromState, selectDisplayPostOption, viewByTimeframeTime]);
 
@@ -105,10 +112,25 @@ const Home = (props) => {
         <div>
           <Navbar navigation="/create-post" postAdd="post_add" />
         </div>
-        <div className={`${props.view === "home" ? " hidden " : " show "}  `}>
+        <div
+          className={`${
+            props.view === "userPosts" ? "show" : "hidden"
+          } pt-2 text-grayy text-xl text-center`}
+        >
           {userFromState.username} posts
         </div>
-        <div className="flex justify-center items-center">
+        <div
+          className={`${
+            props.view === "voteHistory" ? "show" : "hidden"
+          } pt-2 text-grayy text-xl text-center`}
+        >
+          {userFromState.username} votes
+        </div>
+        <div
+          className={`${
+            props.view === "home" ? "show" : "hidden"
+          } flex justify-center items-center`}
+        >
           <div className="text-grayy p-2">View By</div>
           <form>
             <select

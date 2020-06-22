@@ -9,6 +9,7 @@ import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 import Sidebar from "containers/sidebar";
+import { logout } from "store/thunks/users";
 
 function App(props) {
   const [isUserLoading, setIsUserLoading] = useState(true);
@@ -51,7 +52,11 @@ function App(props) {
         {/* Protected Routes */}
         <ProtectedRoute exact path="/" component={Home} view={"home"} />
         <ProtectedRoute path="/create-post" component={CreatePost} />
-        <ProtectedRoute path="/side-bar" component={Sidebar} />
+        <ProtectedRoute
+          path="/side-bar"
+          component={Sidebar}
+          logout={props.logoutThunk}
+        />
         <ProtectedRoute
           path="/:username-posts"
           component={Home}
@@ -72,6 +77,7 @@ const mapDispatchToProps = (dispatch) => ({
   addUserToStateThunk: (user) => dispatch(addUserToState(user)),
   handleNewUserSignupThunk: (userObject) =>
     dispatch(handleNewUserSignup(userObject)),
+  logoutThunk: () => dispatch(logout()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

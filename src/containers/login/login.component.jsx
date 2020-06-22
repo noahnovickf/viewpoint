@@ -11,7 +11,7 @@ const Login = (props) => {
     <div class="bg-blueGray flex flex-col items-center justify-center text-center h-screen  ">
       <div className="">
         <h1 className=" typewriter text-grayy text-center text-xl font-mono">
-          Welcome to Undefined.
+          Welcome to ViewPoint.
         </h1>
         <div className="object-center pt-8">
           <button onClick={googleSignInMethod}>
