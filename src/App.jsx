@@ -9,7 +9,7 @@ import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 import Sidebar from "containers/sidebar";
-
+import { checkUserExistance } from "database/checkUserExistance";
 function App(props) {
   const [isUserLoading, setIsUserLoading] = useState(true);
 
@@ -18,6 +18,9 @@ function App(props) {
     const firebaseListener = firebase
       .auth()
       .onAuthStateChanged(function (user) {
+        if (checkUserExistance({ email: user.email })) {
+          props.addUserToStateThunk(user);
+        }
         firebase
           .auth()
           .getRedirectResult()
@@ -27,6 +30,7 @@ function App(props) {
               if (res.additionalUserInfo.isNewUser) {
                 props.handleNewUserSignupThunk(res);
               } else {
+                console.log(user);
                 props.addUserToStateThunk(user);
               }
             }

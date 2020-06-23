@@ -39,9 +39,7 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    console.log(props.view);
     if (props.view === "userPosts") {
-      console.log("hitting userPosts");
       props.fetchPostsThunk({
         sortBy: "newest",
         whereCondition1: "owner_id",
