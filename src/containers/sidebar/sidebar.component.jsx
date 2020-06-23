@@ -16,7 +16,7 @@ const Sidebar = (props) => {
         <div className="flex items-center justify-center border-b-2 border-grayy">
           <img
             src={currentUser.avatar_link}
-            alt=""
+            alt="User avatar"
             className="rounded-full h-12 w-12 p-2"
           />
           <div>{currentUser.username}</div>
