@@ -10,20 +10,17 @@ import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 import Sidebar from "containers/sidebar";
 
-import { checkUserExistance } from "database/checkUserExistance";
-
 import { logout } from "store/thunks/users";
 
 function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
-
   const [isUserLoading, setIsUserLoading] = useState(true);
   useEffect(() => {
     //on authstate changed
     const firebaseListener = firebase
       .auth()
       .onAuthStateChanged(function (user) {
-        if (checkUserExistance({ email: user.email })) {
-          addUserToStateThunk(user);
+        if (user) {
+          props.addUserToStateThunk(user);
         }
         firebase
           .auth()
