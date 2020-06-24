@@ -5,9 +5,7 @@ import Profile from "containers/profile";
 import Modal from "components/modal";
 import Navbar from "containers/navbar";
 
-const Home = (props) => {
-  const { fetchPostsThunk, fetchUserAvatarThunk, view } = props;
-  // const [posts, setPosts] = useState([]);
+const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
   const [displayPosts, setDisplayPosts] = useState([]);
   const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
     "Newest"
@@ -49,8 +47,7 @@ const Home = (props) => {
         whereCondition2: Date.now() - viewByTimeframeTime,
       });
     }
-    // setPosts(postsFromState);
-  }, [props, selectDisplayPostOption, viewByTimeframeTime]);
+  }, [view, selectDisplayPostOption, viewByTimeframeTime]);
 
   //Get user's profile picture
   useEffect(() => {

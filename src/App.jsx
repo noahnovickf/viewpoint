@@ -11,9 +11,8 @@ import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 import Sidebar from "containers/sidebar";
 import { logout } from "store/thunks/users";
 
-function App(props) {
+function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
   const [isUserLoading, setIsUserLoading] = useState(true);
-  const { addUserToStateThunk, handleNewUserSignupThunk, logoutThunk } = props;
   useEffect(() => {
     //on authstate changed
     const firebaseListener = firebase

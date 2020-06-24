@@ -27,10 +27,10 @@ const Post = (props) => {
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
 
   useEffect(() => {
-    fetchPostUser(ownerID).then((result) => {
-      setPostUserUsername(result.username);
-      fetchPostUserAvatar(result.username).then((res) => {
-        setPostUserAvatar(res);
+    fetchPostUser(ownerID).then((userObject) => {
+      setPostUserUsername(userObject.username);
+      fetchPostUserAvatar(userObject.username).then((userAvatar) => {
+        setPostUserAvatar(userAvatar);
       });
     });
   }, []);
