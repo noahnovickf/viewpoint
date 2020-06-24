@@ -9,17 +9,21 @@ import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 import Sidebar from "containers/sidebar";
-import { checkUserExistance } from "database/checkUserExistance";
-function App(props) {
-  const [isUserLoading, setIsUserLoading] = useState(true);
 
+import { checkUserExistance } from "database/checkUserExistance";
+
+import { logout } from "store/thunks/users";
+
+function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
+
+  const [isUserLoading, setIsUserLoading] = useState(true);
   useEffect(() => {
     //on authstate changed
     const firebaseListener = firebase
       .auth()
       .onAuthStateChanged(function (user) {
         if (checkUserExistance({ email: user.email })) {
-          props.addUserToStateThunk(user);
+          addUserToStateThunk(user);
         }
         firebase
           .auth()
@@ -28,10 +32,9 @@ function App(props) {
             setIsUserLoading(false);
             if (res.user) {
               if (res.additionalUserInfo.isNewUser) {
-                props.handleNewUserSignupThunk(res);
+                handleNewUserSignupThunk(res);
               } else {
-                console.log(user);
-                props.addUserToStateThunk(user);
+                addUserToStateThunk(user);
               }
             }
           });
@@ -55,11 +58,20 @@ function App(props) {
         {/* Protected Routes */}
         <ProtectedRoute exact path="/" component={Home} view={"home"} />
         <ProtectedRoute path="/create-post" component={CreatePost} />
-        <ProtectedRoute path="/side-bar" component={Sidebar} />
         <ProtectedRoute
-          path="/:username-posts"
+          path="/side-bar"
+          component={Sidebar}
+          logout={logoutThunk}
+        />
+        <ProtectedRoute
+          path="/user/:username/posts"
           component={Home}
           view={"userPosts"}
+        />
+        <ProtectedRoute
+          path="/user/:username/vote-history"
+          component={Home}
+          view={"voteHistory"}
         />
         {/* Public Routes */}
         <Route path="/login" component={Login} />
@@ -71,6 +83,7 @@ const mapDispatchToProps = (dispatch) => ({
   addUserToStateThunk: (user) => dispatch(addUserToState(user)),
   handleNewUserSignupThunk: (userObject) =>
     dispatch(handleNewUserSignup(userObject)),
+  logoutThunk: () => dispatch(logout()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

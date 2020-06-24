@@ -21,6 +21,7 @@ export const fetchPosts = ({
             return b.created_at - a.created_at;
           });
         });
+
         dispatch(postsFetched(postArray));
       } else {
         const popularPostArray = [];
@@ -32,6 +33,7 @@ export const fetchPosts = ({
             return b.total_votes - a.total_votes;
           });
         });
+
         dispatch(postsFetched(popularPostArray));
       }
     })
