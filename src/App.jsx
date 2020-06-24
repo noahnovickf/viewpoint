@@ -20,7 +20,7 @@ function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
       .auth()
       .onAuthStateChanged(function (user) {
         if (user) {
-          props.addUserToStateThunk(user);
+          addUserToStateThunk(user);
         }
         firebase
           .auth()
