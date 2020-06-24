@@ -121,7 +121,7 @@ const Post = (props) => {
         >
           {" "}
           <div>
-            {optionAName}: {voteAPercent}%
+            {optionAName}: {Math.round(voteAPercent * 100) / 100}%
           </div>
         </span>
         <div
@@ -133,7 +133,7 @@ const Post = (props) => {
           style={{ width: voteBPercent + "%" }}
         >
           <div>
-            {optionBName}: {voteBPercent}%
+            {optionBName}: {Math.round(voteBPercent * 100) / 100}%
           </div>
         </div>
       </div>

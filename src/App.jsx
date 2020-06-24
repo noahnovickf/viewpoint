@@ -18,6 +18,9 @@ function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
     const firebaseListener = firebase
       .auth()
       .onAuthStateChanged(function (user) {
+        if (user) {
+          addUserToStateThunk(user);
+        }
         firebase
           .auth()
           .getRedirectResult()
