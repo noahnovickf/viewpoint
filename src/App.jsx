@@ -8,10 +8,11 @@ import Home from "containers/home";
 import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
+import Sidebar from "containers/sidebar";
+import { logout } from "store/thunks/users";
 
-function App(props) {
+function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
   const [isUserLoading, setIsUserLoading] = useState(true);
-
   useEffect(() => {
     //on authstate changed
     const firebaseListener = firebase
@@ -24,9 +25,9 @@ function App(props) {
             setIsUserLoading(false);
             if (res.user) {
               if (res.additionalUserInfo.isNewUser) {
-                props.handleNewUserSignupThunk(res);
+                handleNewUserSignupThunk(res);
               } else {
-                props.addUserToStateThunk(user);
+                addUserToStateThunk(user);
               }
             }
           });
@@ -48,8 +49,23 @@ function App(props) {
     <Router>
       <div>
         {/* Protected Routes */}
-        <ProtectedRoute exact path="/" component={Home} />
+        <ProtectedRoute exact path="/" component={Home} view={"home"} />
         <ProtectedRoute path="/create-post" component={CreatePost} />
+        <ProtectedRoute
+          path="/side-bar"
+          component={Sidebar}
+          logout={logoutThunk}
+        />
+        <ProtectedRoute
+          path="/user/:username/posts"
+          component={Home}
+          view={"userPosts"}
+        />
+        <ProtectedRoute
+          path="/user/:username/vote-history"
+          component={Home}
+          view={"voteHistory"}
+        />
         {/* Public Routes */}
         <Route path="/login" component={Login} />
       </div>
@@ -60,6 +76,7 @@ const mapDispatchToProps = (dispatch) => ({
   addUserToStateThunk: (user) => dispatch(addUserToState(user)),
   handleNewUserSignupThunk: (userObject) =>
     dispatch(handleNewUserSignup(userObject)),
+  logoutThunk: () => dispatch(logout()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

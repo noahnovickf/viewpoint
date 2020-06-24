@@ -1,11 +1,14 @@
 import { postsFetched } from "store/actions/posts";
 import { db } from "database";
 
-export const fetchPosts = ({ sortBy, time }) => (dispatch) => {
-  const timestamp = Date.now() - time;
+export const fetchPosts = ({
+  sortBy,
+  whereCondition1,
+  whereAssertion,
+  whereCondition2,
+}) => (dispatch) => {
   db.collection("posts")
-    .where("created_at", ">", timestamp)
-    .orderBy("created_at", "desc")
+    .where(whereCondition1, whereAssertion, whereCondition2)
     .get()
     .then((snapshot) => {
       if (sortBy === "newest") {
@@ -14,7 +17,11 @@ export const fetchPosts = ({ sortBy, time }) => (dispatch) => {
           const postObj = post.data();
           postObj.id = post.id;
           postArray.push(postObj);
+          postArray.sort(function (a, b) {
+            return b.created_at - a.created_at;
+          });
         });
+
         dispatch(postsFetched(postArray));
       } else {
         const popularPostArray = [];
@@ -26,6 +33,7 @@ export const fetchPosts = ({ sortBy, time }) => (dispatch) => {
             return b.total_votes - a.total_votes;
           });
         });
+
         dispatch(postsFetched(popularPostArray));
       }
     })

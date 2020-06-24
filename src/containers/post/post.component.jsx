@@ -4,9 +4,20 @@ import { fetchPostUser, fetchPostUserAvatar } from "database/postUser";
 import { useSelector } from "react-redux";
 
 const Post = (props) => {
+  const {
+    optionA,
+    optionB,
+    body,
+    ownerID,
+    hasUserVotedForA,
+    hasUserVotedForB,
+    id,
+    optionAName,
+    optionBName,
+  } = props;
   const [canUserViewVote, setCanUserViewVote] = useState(false);
-  const [voteACount, setVoteACount] = useState(props.optionA.length);
-  const [voteBCount, setVoteBCount] = useState(props.optionB.length);
+  const [voteACount, setVoteACount] = useState(optionA.length);
+  const [voteBCount, setVoteBCount] = useState(optionB.length);
   const [viewTotalVotes, setViewTotalVotes] = useState(false);
   const [postUserUsername, setPostUserUsername] = useState("");
   const [postUserAvatar, setPostUserAvatar] = useState("");
@@ -16,16 +27,10 @@ const Post = (props) => {
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
 
   useEffect(() => {
-    setCanUserViewVote(props.hasUserVoted);
-    setVoteACount(props.optionA.length);
-    setVoteBCount(props.optionB.length);
-  }, [props.hasUserVoted]);
-
-  useEffect(() => {
-    fetchPostUser(props.ownerID).then((result) => {
-      setPostUserUsername(result.username);
-      fetchPostUserAvatar(result.username).then((res) => {
-        setPostUserAvatar(res);
+    fetchPostUser(ownerID).then((userObject) => {
+      setPostUserUsername(userObject.username);
+      fetchPostUserAvatar(userObject.username).then((userAvatar) => {
+        setPostUserAvatar(userAvatar);
       });
     });
   }, []);
@@ -40,6 +45,14 @@ const Post = (props) => {
       setVoteBCount(voteBCount + 1);
     }
   };
+
+  useEffect(() => {
+    if (hasUserVotedForA || hasUserVotedForB) {
+      setCanUserViewVote(true);
+    }
+    setVoteACount(optionA.length);
+    setVoteBCount(optionB.length);
+  }, [hasUserVotedForA, hasUserVotedForB]);
 
   return (
     <li className="rounded-lg pt-1 m-1 mt-3 bg-bluey font-noto tracking-wide">
@@ -62,9 +75,8 @@ const Post = (props) => {
         </button>
       </div>
       <h6 className="text-grayy p-2 mx-2 mb-2 rounded-lg border border-grayy font-thin">
-        {props.body}
+        {body}
       </h6>
-      {/* <p>{props.created_at}</p> */}
       <div className="flex justify-center text-bluey ">
         <button
           className={`${
@@ -73,12 +85,12 @@ const Post = (props) => {
           onClick={() =>
             handleVote({
               optionName: "option_a",
-              postId: props.id,
+              postId: id,
               userId: userIDFromState,
             })
           }
         >
-          {props.optionAName}
+          {optionAName}
         </button>
         <button
           className={`${
@@ -87,12 +99,12 @@ const Post = (props) => {
           onClick={() =>
             handleVote({
               optionName: "option_b",
-              postId: props.id,
+              postId: id,
               userId: userIDFromState,
             })
           }
         >
-          {props.optionBName}
+          {optionBName}
         </button>
       </div>
 
@@ -109,7 +121,7 @@ const Post = (props) => {
         >
           {" "}
           <div>
-            {props.optionAName}: {voteAPercent}%
+            {optionAName}: {voteAPercent}%
           </div>
         </span>
         <div
@@ -121,7 +133,7 @@ const Post = (props) => {
           style={{ width: voteBPercent + "%" }}
         >
           <div>
-            {props.optionBName}: {voteBPercent}%
+            {optionBName}: {voteBPercent}%
           </div>
         </div>
       </div>
