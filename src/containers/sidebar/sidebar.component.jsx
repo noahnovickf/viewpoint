@@ -11,7 +11,7 @@ const Sidebar = (props) => {
   };
   return (
     <div>
-      <Navbar navigation="/" postAdd="home" />
+      <Navbar navigation="/" topRightIcon="home" />
       <div className="flex flex-col font-noto text-grayy bg-blueGray h-screen w-screen text-center text-xl tracking-wide">
         <div className="flex items-center justify-center border-b-2 border-grayy">
           <img
@@ -22,10 +22,10 @@ const Sidebar = (props) => {
           <div>{currentUser.username}</div>
         </div>
         <div className="py-2 border-b-2 border-grayy">
-          <Link to={`/${currentUser.username}-posts`}>Posts</Link>
+          <Link to={`/posts/${currentUser.username}`}>Posts</Link>
         </div>
         <div className="py-2 border-b-2 border-grayy ">
-          <Link to={`/${currentUser.username}-vote-history`}>Votes</Link>
+          <Link to={`/vote-history/${currentUser.username}`}>Votes</Link>
         </div>
         <button
           className=" py-2 bg-bluey rounded-md mx-12 mt-4"

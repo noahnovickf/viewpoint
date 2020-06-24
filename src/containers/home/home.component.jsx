@@ -6,7 +6,6 @@ import Modal from "components/modal";
 import Navbar from "containers/navbar";
 
 const Home = (props) => {
-  const [posts, setPosts] = useState([]);
   const [displayPosts, setDisplayPosts] = useState([]);
   const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
     "Newest"
@@ -57,8 +56,7 @@ const Home = (props) => {
         });
       }
     }
-    setPosts(postsFromState);
-  }, [posts, props, selectDisplayPostOption, viewByTimeframeTime]);
+  }, [props, selectDisplayPostOption, viewByTimeframeTime]);
 
   //Get user's profile picture
   useEffect(() => {
@@ -110,7 +108,7 @@ const Home = (props) => {
     return (
       <div className="bg-blueGray">
         <div>
-          <Navbar navigation="/create-post" postAdd="post_add" />
+          <Navbar navigation="/create-post" topRightIcon="post_add" />
         </div>
         <div
           className={`${

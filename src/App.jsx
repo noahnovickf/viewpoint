@@ -58,12 +58,12 @@ function App(props) {
           logout={props.logoutThunk}
         />
         <ProtectedRoute
-          path="/:username-posts"
+          path="/posts/:username"
           component={Home}
           view={"userPosts"}
         />
         <ProtectedRoute
-          path="/:username-vote-history"
+          path="/vote-history/:username"
           component={Home}
           view={"voteHistory"}
         />

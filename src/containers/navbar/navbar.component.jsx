@@ -3,15 +3,15 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
-    <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey">
+    <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey font-noto">
       <Link to="/side-bar">
-        <i className="pl-2  material-icons color-grayy">menu</i>
+        <i className="pl-2  material-icons text-grayy">menu</i>
       </Link>
-      <Link to="/" className="font-mono text-grayy  text-center">
+      <Link to="/" className=" text-grayy  text-center">
         ViewPoint
       </Link>
       <Link to={props.navigation}>
-        <i className="pr-2  material-icons color-grayy">{props.postAdd}</i>
+        <i className="pr-2  material-icons text-grayy">{props.topRightIcon}</i>
       </Link>
     </div>
   );

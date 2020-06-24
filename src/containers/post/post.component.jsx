@@ -25,7 +25,7 @@ const Post = (props) => {
     }
     setVoteACount(props.optionA.length);
     setVoteBCount(props.optionB.length);
-  }, [props]);
+  }, [props.hasUserVotedForA, props.hasUserVotedForB]);
 
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
