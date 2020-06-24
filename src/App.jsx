@@ -13,7 +13,7 @@ import { logout } from "store/thunks/users";
 
 function App(props) {
   const [isUserLoading, setIsUserLoading] = useState(true);
-
+  const { addUserToStateThunk, handleNewUserSignupThunk, logoutThunk } = props;
   useEffect(() => {
     //on authstate changed
     const firebaseListener = firebase
@@ -26,9 +26,9 @@ function App(props) {
             setIsUserLoading(false);
             if (res.user) {
               if (res.additionalUserInfo.isNewUser) {
-                props.handleNewUserSignupThunk(res);
+                handleNewUserSignupThunk(res);
               } else {
-                props.addUserToStateThunk(user);
+                addUserToStateThunk(user);
               }
             }
           });
@@ -55,15 +55,15 @@ function App(props) {
         <ProtectedRoute
           path="/side-bar"
           component={Sidebar}
-          logout={props.logoutThunk}
+          logout={logoutThunk}
         />
         <ProtectedRoute
-          path="/posts/:username"
+          path="/user/:username/posts"
           component={Home}
           view={"userPosts"}
         />
         <ProtectedRoute
-          path="/vote-history/:username"
+          path="/user/:username/vote-history"
           component={Home}
           view={"voteHistory"}
         />

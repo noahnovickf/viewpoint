@@ -6,6 +6,8 @@ import Modal from "components/modal";
 import Navbar from "containers/navbar";
 
 const Home = (props) => {
+  const { fetchPostsThunk, fetchUserAvatarThunk, view } = props;
+  // const [posts, setPosts] = useState([]);
   const [displayPosts, setDisplayPosts] = useState([]);
   const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
     "Newest"
@@ -15,7 +17,6 @@ const Home = (props) => {
   const userFromState = useSelector((state) => state.users.user);
   const doesUserHaveUsername = !!userFromState.username;
   const postsFromState = useSelector((state) => state.posts);
-
 
   const handleDisplayPostChange = () => {
     const viewOption = document.getElementById("select-view-option").value;
@@ -33,37 +34,29 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    if (props.view === "userPosts") {
-      props.fetchPostsThunk({
+    if (selectDisplayPostOption === "Newest") {
+      fetchPostsThunk({
         sortBy: "newest",
-        whereCondition1: "owner_id",
-        whereAssertion: "==",
-        whereCondition2: userFromState.userId,
+        whereCondition1: "created_at",
+        whereAssertion: ">",
+        whereCondition2: 0,
       });
     } else {
-      if (selectDisplayPostOption === "Newest") {
-        props.fetchPostsThunk({
-          sortBy: "newest",
-          whereCondition1: "created_at",
-          whereAssertion: ">",
-          whereCondition2: 0,
-        });
-      } else {
-        props.fetchPostsThunk({
-          sortBy: "popular",
-          whereCondition1: "created_at",
-          whereAssertion: ">",
-          whereCondition2: Date.now() - viewByTimeframeTime,
-        });
-      }
+      fetchPostsThunk({
+        sortBy: "popular",
+        whereCondition1: "created_at",
+        whereAssertion: ">",
+        whereCondition2: Date.now() - viewByTimeframeTime,
+      });
     }
+    // setPosts(postsFromState);
   }, [props, selectDisplayPostOption, viewByTimeframeTime]);
 
   //Get user's profile picture
   useEffect(() => {
     const username = userFromState.username;
     if (username) {
-      props.fetchUserAvatarThunk({ username });
+      fetchUserAvatarThunk({ username });
     }
   }, []);
 
@@ -91,11 +84,16 @@ const Home = (props) => {
           />
         );
       });
-      if (props.view === "voteHistory") {
+      if (view === "voteHistory") {
         const userVoteHistory = displayPost.filter((post) => {
           return post.props.hasUserVotedForA || post.props.hasUserVotedForB;
         });
         setDisplayPosts(userVoteHistory);
+      } else if (view === "userPosts") {
+        const userPosts = displayPost.filter((post) => {
+          return post.props.ownerID === userFromState.userId;
+        });
+        setDisplayPosts(userPosts);
       } else {
         setDisplayPosts(displayPost);
       }
@@ -116,21 +114,21 @@ const Home = (props) => {
         </div>
         <div
           className={`${
-            props.view === "userPosts" ? "show" : "hidden"
+            view === "userPosts" ? "show" : "hidden"
           } pt-2 text-grayy text-xl text-center`}
         >
           {userFromState.username} posts
         </div>
         <div
           className={`${
-            props.view === "voteHistory" ? "show" : "hidden"
+            view === "voteHistory" ? "show" : "hidden"
           } pt-2 text-grayy text-xl text-center`}
         >
           {userFromState.username} votes
         </div>
         <div
           className={`${
-            props.view === "home" ? "show" : "hidden"
+            view === "home" ? "show" : "hidden"
           } flex justify-center items-center`}
         >
           <div className="text-grayy p-2">View By</div>
