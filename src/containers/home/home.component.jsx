@@ -4,17 +4,26 @@ import Post from "containers/post";
 import Profile from "containers/profile";
 import Modal from "components/modal";
 import Navbar from "containers/navbar";
+import Sidebar from "containers/sidebar";
 
-const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
+const Home = ({
+  fetchPostsThunk,
+  fetchUserAvatarThunk,
+  view,
+  sidebarViewThunk,
+  logoutThunk,
+}) => {
   const [displayPosts, setDisplayPosts] = useState([]);
   const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
     "Newest"
   );
   const [viewByTimeframeTime, setViewByTimeframeTime] = useState(Date.now());
   const [viewByTimeframe, setViewByTimeframe] = useState("All-time");
+  // const [showSidebar, setShowSidebar] = useState(false);
   const userFromState = useSelector((state) => state.users.user);
   const doesUserHaveUsername = !!userFromState.username;
   const postsFromState = useSelector((state) => state.posts);
+  const showSidebar = useSelector((state) => state.sidebarView.sidebarView);
 
   const handleDisplayPostChange = () => {
     const viewOption = document.getElementById("select-view-option").value;
@@ -30,7 +39,7 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
       setViewByTimeframeTime(604800000);
     }
   };
-
+  //Fetch posts
   useEffect(() => {
     if (selectDisplayPostOption === "Newest") {
       fetchPostsThunk({
@@ -56,7 +65,7 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
       fetchUserAvatarThunk({ username });
     }
   }, []);
-
+  // Load posts from Redux State
   useEffect(() => {
     if (postsFromState.posts.length > 0) {
       const displayPost = postsFromState.posts.map((post) => {
@@ -105,59 +114,80 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
     );
   } else {
     return (
-      <div className="bg-blueGray">
+      <div>
         <div>
-          <Navbar navigation="/create-post" topRightIcon="post_add" />
+          <Navbar
+            navigation="/create-post"
+            topRightIcon="post_add"
+            sidebarView={sidebarViewThunk}
+          />
         </div>
-        <div
-          className={`${
-            view === "userPosts" ? "show" : "hidden"
-          } pt-2 text-grayy text-xl text-center`}
-        >
-          {userFromState.username} posts
-        </div>
-        <div
-          className={`${
-            view === "voteHistory" ? "show" : "hidden"
-          } pt-2 text-grayy text-xl text-center`}
-        >
-          {userFromState.username} votes
-        </div>
-        <div
-          className={`${
-            view === "home" ? "show" : "hidden"
-          } flex justify-center items-center`}
-        >
-          <div className="text-grayy p-2">View By</div>
-          <form>
-            <select
-              className="bg-transparent text-grayy p-2"
-              id="select-view-option"
-              value={selectDisplayPostOption}
-              onChange={handleDisplayPostChange}
-            >
-              <option value="Newest">Newest</option>
-              <option value="Most Popular">Most Popular</option>
-            </select>
-          </form>
-          <form
+        <div className="flex flex-no-wrap">
+          <div
             className={`${
-              selectDisplayPostOption === "Most Popular" ? "show" : "hidden"
-            } p-2`}
+              showSidebar
+                ? "transition-all duration-500 w-2/3 z-10"
+                : " transition-all duration-500 w-0"
+            }`}
           >
-            <select
-              className="bg-transparent text-grayy"
-              id="select-view-option-timeline"
-              value={viewByTimeframe}
-              onChange={handleDisplayPostChange}
+            <Sidebar logout={logoutThunk} />
+          </div>
+          <div
+            className={`flex-col flex-wrap flex bg-blueGray ${
+              showSidebar ? "w-1/3" : "w-screen"
+            } `}
+          >
+            <div
+              className={`${
+                view === "userPosts" ? "show" : "hidden"
+              } pt-2 text-grayy text-xl text-center`}
             >
-              <option value="All-time">All-time</option>
-              <option value="Today">Today</option>
-              <option value="This week">This week</option>
-            </select>
-          </form>
+              {userFromState.username} posts
+            </div>
+            <div
+              className={`${
+                view === "voteHistory" ? "show" : "hidden"
+              } pt-2 text-grayy text-xl text-center`}
+            >
+              {userFromState.username} votes
+            </div>
+            <div
+              className={`${
+                view === "home" ? "show" : "hidden"
+              } flex justify-center items-center`}
+            >
+              <div className="text-grayy p-2">View By</div>
+              <form>
+                <select
+                  className="bg-transparent text-grayy p-2"
+                  id="select-view-option"
+                  value={selectDisplayPostOption}
+                  onChange={handleDisplayPostChange}
+                >
+                  <option value="Newest">Newest</option>
+                  <option value="Most Popular">Most Popular</option>
+                </select>
+              </form>
+              <form
+                className={`${
+                  selectDisplayPostOption === "Most Popular" ? "show" : "hidden"
+                } p-2`}
+              >
+                <select
+                  className="bg-transparent text-grayy"
+                  id="select-view-option-timeline"
+                  value={viewByTimeframe}
+                  onChange={handleDisplayPostChange}
+                >
+                  <option value="All-time">All-time</option>
+                  <option value="Today">Today</option>
+                  <option value="This week">This week</option>
+                </select>
+              </form>
+            </div>
+            <ul>{displayPosts}</ul>
+          </div>
         </div>
-        <ul>{displayPosts}</ul>
       </div>
     );
   }
