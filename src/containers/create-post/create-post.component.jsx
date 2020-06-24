@@ -24,7 +24,7 @@ const CreatePost = (props) => {
   return (
     <div className="flex flex-col bg-blueGray h-screen text-grayy font-noto tracking-wide">
       <div>
-        <Navbar navigation="/" postAdd="home" />
+        <Navbar navigation="/" topRightIcon="home" />
       </div>
       <div className=" p-4">
         <div>

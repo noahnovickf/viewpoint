@@ -3,6 +3,7 @@ import { auth } from "database";
 import { useSelector } from "react-redux";
 
 const Profile = (props) => {
+  const { addUsernameToStateThunk, uploadProfileAvatarThunk } = props;
   const [username, setUsername] = useState("");
   const [imageAsFile, setImageAsFile] = useState("");
   const userFromState = useSelector((state) => state.users.user);
@@ -16,8 +17,8 @@ const Profile = (props) => {
         username: username,
         user: userFromState,
       };
-      props.addUsernameToStateThunk(userWithUsername);
-      props.uploadProfileAvatarThunk({ image: imageAsFile, username });
+      addUsernameToStateThunk(userWithUsername);
+      uploadProfileAvatarThunk({ image: imageAsFile, username });
 
       //TODO: Need to show user that this is successfull or has failed
     }

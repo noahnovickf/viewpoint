@@ -2,14 +2,17 @@ import React from "react";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 
 const Navbar = (props) => {
+  const { navigation, topRightIcon } = props;
   return (
-    <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey">
+    <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey font-noto">
       <Link to="/side-bar">
-        <i className="pl-2  material-icons color-grayy">menu</i>
+        <i className="pl-2  material-icons text-grayy">menu</i>
       </Link>
-      <div className="font-mono text-grayy  text-center">Undefined</div>
-      <Link to={props.navigation}>
-        <i className="pr-2  material-icons color-grayy">{props.postAdd}</i>
+      <Link to="/" className=" text-grayy  text-center">
+        ViewPoint
+      </Link>
+      <Link to={navigation}>
+        <i className="pr-2  material-icons text-grayy">{topRightIcon}</i>
       </Link>
     </div>
   );

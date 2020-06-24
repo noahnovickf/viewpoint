@@ -7,15 +7,11 @@ export const fetchPosts = ({
   whereAssertion,
   whereCondition2,
 }) => (dispatch) => {
-  console.log(sortBy, whereCondition1, whereAssertion, whereCondition2);
   db.collection("posts")
     .where(whereCondition1, whereAssertion, whereCondition2)
     .get()
     .then((snapshot) => {
-      console.log("hit");
       if (sortBy === "newest") {
-        console.log("hit again");
-
         const postArray = [];
         snapshot.forEach((post) => {
           const postObj = post.data();
@@ -25,7 +21,7 @@ export const fetchPosts = ({
             return b.created_at - a.created_at;
           });
         });
-        console.log(postArray);
+
         dispatch(postsFetched(postArray));
       } else {
         const popularPostArray = [];
@@ -37,6 +33,7 @@ export const fetchPosts = ({
             return b.total_votes - a.total_votes;
           });
         });
+
         dispatch(postsFetched(popularPostArray));
       }
     })
