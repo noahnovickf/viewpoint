@@ -8,10 +8,13 @@ const CreatePost = (props) => {
   const [postText, setPostText] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
-  const userID = useSelector((state) => state.users.user.userId);
+  const user = useSelector((state) => state.users.user);
+  const userID = user.userId;
+  const username = user.username;
+  const avatarLink = user.avatar_link;
 
   const addPostToDB = () => {
-    addPost(postText, option1, option2, userID);
+    addPost({ postText, option1, option2, userID, username, avatarLink });
     setPostText("");
     setOption1("");
     setOption2("");
@@ -19,7 +22,7 @@ const CreatePost = (props) => {
   };
 
   return (
-    <div className="flex flex-col bg-blueGray h-screen text-grayy font-mono">
+    <div className="flex flex-col bg-blueGray h-screen text-grayy font-noto tracking-wide">
       <div>
         <Navbar navigation="/" topRightIcon="home" />
       </div>
@@ -39,7 +42,7 @@ const CreatePost = (props) => {
             id="option-1"
             value={option1}
             onChange={(e) => setOption1(e.target.value)}
-            className="bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600 placeholder-bluey placeholder-opacity-75 text-bluey w-1/2"
+            className="bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600 placeholder-bluey placeholder-opacity-75 text-bluey w-1/2 focus:placeholder-opacity-25 focus:outline-none"
             type="text"
             placeholder=" Option 1"
             maxlength="13"
@@ -48,7 +51,7 @@ const CreatePost = (props) => {
             id="option-2"
             value={option2}
             onChange={(e) => setOption2(e.target.value)}
-            className="bg-orangy h-10 rounded-r-lg text-bluey placeholder-bluey placeholder-opacity-75 w-1/2"
+            className="bg-orangy h-10 rounded-r-lg text-bluey placeholder-bluey placeholder-opacity-75 w-1/2 focus:placeholder-opacity-25 focus:outline-none"
             type="text"
             placeholder=" Option 2"
             maxlength="13"

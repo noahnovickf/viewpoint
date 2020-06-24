@@ -13,6 +13,9 @@ module.exports = {
         grayy: "#e5e5e5",
         blueGray: "#5b6280",
       },
+      fontFamily: {
+        noto: ['"noto sans"'],
+      },
     },
     screens: {
       sm: "640px",

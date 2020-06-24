@@ -16,6 +16,7 @@ const Home = (props) => {
   const doesUserHaveUsername = !!userFromState.username;
   const postsFromState = useSelector((state) => state.posts);
 
+
   const handleDisplayPostChange = () => {
     const viewOption = document.getElementById("select-view-option").value;
     setSelectDisplayPostOption(viewOption);
@@ -84,6 +85,9 @@ const Home = (props) => {
             hasUserVotedForA={hasUserVotedForA}
             hasUserVotedForB={hasUserVotedForB}
             totalVotes={post.total_votes}
+            postOwnerUsername={post.owner_username}
+            postOwnerAvatar={post.owner_img}
+            ownerID={post.owner_id}
           />
         );
       });
