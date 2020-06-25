@@ -9,6 +9,7 @@ import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 import Sidebar from "containers/sidebar";
+
 import { logout } from "store/thunks/users";
 
 function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
@@ -18,6 +19,9 @@ function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
     const firebaseListener = firebase
       .auth()
       .onAuthStateChanged(function (user) {
+        if (user) {
+          addUserToStateThunk(user);
+        }
         firebase
           .auth()
           .getRedirectResult()

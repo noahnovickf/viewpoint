@@ -4,6 +4,7 @@ import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 const Navbar = (props) => {
   const { navigation, topRightIcon } = props;
   return (
+
     <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey font-noto">
       <Link to="/side-bar">
         <i className="pl-2  material-icons text-grayy">menu</i>
