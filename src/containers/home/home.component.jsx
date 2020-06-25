@@ -133,6 +133,7 @@ const Home = ({
             <Sidebar logout={logoutThunk} sidebarView={sidebarViewThunk} />
           </div>
           <div
+            onClick={() => sidebarViewThunk({ toggleView: false })}
             className={`block ${
               showSidebar
                 ? "transition-width duration-500  z-0 opacity-50"

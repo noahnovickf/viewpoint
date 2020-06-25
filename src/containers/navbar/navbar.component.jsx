@@ -7,10 +7,16 @@ const Navbar = ({ navigation, topRightIcon, sidebarView }) => {
   return (
     <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey font-noto">
       <button onClick={() => sidebarView({ toggleView: !showSidebar })}>
-        <i className="pl-2  material-icons text-grayy">menu</i>
+        <i className="pl-2  material-icons text-grayy outline-none focus:text-blueGray">
+          menu
+        </i>
       </button>
 
-      <Link to="/" className=" text-grayy  text-center">
+      <Link
+        to="/"
+        className=" text-grayy  text-center"
+        onClick={() => sidebarView({ toggleView: false })}
+      >
         ViewPoint
       </Link>
       <Link to={navigation}>

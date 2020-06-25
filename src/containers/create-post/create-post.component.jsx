@@ -43,6 +43,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
           <Sidebar logout={logout} />
         </div>
         <div
+          onClick={() => sidebarToggle({ toggleView: false })}
           className={`block h-screen text-grayy font-noto tracking-wide ${
             showSidebar
               ? "opacity-50 z-0"
@@ -52,7 +53,6 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
           <div className=" p-4">
             <div>
               <textarea
-                onClick={() => sidebarToggle({ toggleView: false })}
                 id="post"
                 value={postText}
                 onChange={(e) => setPostText(e.target.value)}
