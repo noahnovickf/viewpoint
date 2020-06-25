@@ -5,7 +5,7 @@ import Navbar from "containers/navbar";
 import { useSelector } from "react-redux";
 import Sidebar from "containers/sidebar";
 
-const CreatePost = (props) => {
+const CreatePost = ({ history, sidebarToggle, logout }) => {
   const [postText, setPostText] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
@@ -20,7 +20,7 @@ const CreatePost = (props) => {
     setPostText("");
     setOption1("");
     setOption2("");
-    props.history.push("/");
+    history.push("/");
   };
 
   return (
@@ -29,7 +29,7 @@ const CreatePost = (props) => {
         <Navbar
           navigation="/"
           topRightIcon="home"
-          sidebarView={props.sidebarToggle}
+          sidebarView={sidebarToggle}
         />
       </div>
       <div className="flex flex-no-wrap">
@@ -40,7 +40,7 @@ const CreatePost = (props) => {
               : " transition-all duration-500 w-0"
           }`}
         >
-          <Sidebar logout={props.logout} />
+          <Sidebar logout={logout} />
         </div>
         <div
           className={`block h-screen text-grayy font-noto tracking-wide ${
@@ -52,10 +52,11 @@ const CreatePost = (props) => {
           <div className=" p-4">
             <div>
               <textarea
+                onClick={() => sidebarToggle({ toggleView: false })}
                 id="post"
                 value={postText}
                 onChange={(e) => setPostText(e.target.value)}
-                className="border rounded-lg flex justify-center w-full h-32 text-bluey"
+                className="border rounded-lg flex justify-center w-full h-32 text-bluey outline-none focus:bg-gray-200"
                 type="text"
                 placeholder=" Post body"
               ></textarea>
@@ -81,7 +82,7 @@ const CreatePost = (props) => {
               ></input>
             </div>
             <button
-              className="bg-bluey w-full mt-4 rounded-lg"
+              className="bg-bluey w-full mt-4 rounded-lg "
               onClick={addPostToDB}
             >
               Define it

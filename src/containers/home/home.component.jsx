@@ -130,7 +130,7 @@ const Home = ({
                 : " transition-width duration-500 w-0"
             }`}
           >
-            <Sidebar logout={logoutThunk} />
+            <Sidebar logout={logoutThunk} sidebarView={sidebarViewThunk} />
           </div>
           <div
             className={`block ${
