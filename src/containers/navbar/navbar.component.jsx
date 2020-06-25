@@ -5,6 +5,7 @@ const Navbar = ({ navigation, topRightIcon, sidebarView }) => {
   const showSidebar = useSelector((state) => state.sidebarView.sidebarView);
 
   return (
+
     <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey font-noto">
       <button onClick={() => sidebarView({ toggleView: !showSidebar })}>
         <i className="pl-2  material-icons text-grayy outline-none focus:text-blueGray">
