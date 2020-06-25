@@ -11,7 +11,7 @@ const Sidebar = ({ logout }) => {
   };
   return (
     <div>
-      <div className="flex flex-col font-noto text-grayy bg-blueGray h-screen w-full text-center text-xl tracking-wide">
+      <div className="flex flex-col font-noto text-grayy bg-blueGray h-screen w-full text-center text-xl tracking-wide border-r-2 border-grayy">
         <div className="flex items-center justify-center border-b-2 border-grayy">
           <img
             src={currentUser.avatar_link}

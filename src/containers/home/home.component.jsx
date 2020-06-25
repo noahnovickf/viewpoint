@@ -114,7 +114,7 @@ const Home = ({
     );
   } else {
     return (
-      <div>
+      <div className=" bg-blueGray">
         <div>
           <Navbar
             navigation="/create-post"
@@ -122,19 +122,21 @@ const Home = ({
             sidebarView={sidebarViewThunk}
           />
         </div>
-        <div className="flex flex-no-wrap">
+        <div className="flex ">
           <div
             className={`${
               showSidebar
-                ? "transition-all duration-500 w-2/3 z-10"
-                : " transition-all duration-500 w-0"
+                ? "transition-width duration-500 w-2/3 -mr-56 z-10"
+                : " transition-width duration-500 w-0"
             }`}
           >
             <Sidebar logout={logoutThunk} />
           </div>
           <div
-            className={`flex-col flex-wrap flex bg-blueGray ${
-              showSidebar ? "w-1/3" : "w-screen"
+            className={`block ${
+              showSidebar
+                ? "transition-width duration-500  z-0 opacity-50"
+                : "transition-width duration-500 w-screen z-10 bg-blueGray"
             } `}
           >
             <div

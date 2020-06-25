@@ -24,7 +24,7 @@ const CreatePost = (props) => {
   };
 
   return (
-    <div>
+    <div className="bg-blueGray h-screen">
       <div>
         <Navbar
           navigation="/"
@@ -36,13 +36,19 @@ const CreatePost = (props) => {
         <div
           className={`${
             showSidebar
-              ? " transition-all duration-500 w-2/3"
-              : " transition-all duration-500 w-0 "
+              ? " transition-all duration-500 w-2/3 -mr-56 z-10"
+              : " transition-all duration-500 w-0"
           }`}
         >
           <Sidebar logout={props.logout} />
         </div>
-        <div className="flex flex-col bg-blueGray h-screen text-grayy font-noto tracking-wide">
+        <div
+          className={`block h-screen text-grayy font-noto tracking-wide ${
+            showSidebar
+              ? "opacity-50 z-0"
+              : " transition-width duration-500 w-screen z-10 bg-blueGray"
+          } `}
+        >
           <div className=" p-4">
             <div>
               <textarea
