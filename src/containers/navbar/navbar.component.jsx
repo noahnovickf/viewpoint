@@ -19,7 +19,7 @@ const Navbar = ({ navigation, topRightIcon, sidebarView }) => {
       >
         ViewPoint
       </Link>
-      <Link to={navigation}>
+      <Link to={navigation} onClick={() => sidebarView({ toggleView: false })}>
         <i className="pr-2  material-icons text-grayy">{topRightIcon}</i>
       </Link>
     </div>
