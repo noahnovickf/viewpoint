@@ -18,22 +18,10 @@ const Post = (props) => {
   const [canUserViewVote, setCanUserViewVote] = useState(false);
   const [voteACount, setVoteACount] = useState(optionA.length);
   const [voteBCount, setVoteBCount] = useState(optionB.length);
-  const [viewTotalVotes, setViewTotalVotes] = useState(false);
-  const [postUserUsername, setPostUserUsername] = useState("");
-  const [postUserAvatar, setPostUserAvatar] = useState("");
 
   const userIDFromState = useSelector((state) => state.users.user.userId);
   const voteAPercent = (voteACount / (voteACount + voteBCount)) * 100;
   const voteBPercent = (voteBCount / (voteACount + voteBCount)) * 100;
-
-  useEffect(() => {
-    fetchPostUser(ownerID).then((userObject) => {
-      setPostUserUsername(userObject.username);
-      fetchPostUserAvatar(userObject.username).then((userAvatar) => {
-        setPostUserAvatar(userAvatar);
-      });
-    });
-  }, []);
 
   const handleVote = ({ optionName, postId, userId }) => {
     setCanUserViewVote(true);
@@ -56,25 +44,6 @@ const Post = (props) => {
 
   return (
     <li className="rounded-lg pt-1 m-1 mt-3 bg-bluey font-noto tracking-wide">
-      <div className="flex justify-between">
-        <div className="flex mb-1">
-          <img
-            src={postUserAvatar}
-            alt="User avatar"
-            className="rounded-full h-6 w-6 align-center ml-2"
-          />
-          <h4 className="text-grayy ml-2">{postUserUsername}</h4>
-        </div>
-        <button onClick={() => setViewTotalVotes(!viewTotalVotes)}>
-          <i
-            className={`${
-              canUserViewVote ? "show" : "hidden"
-            } material-icons color-grayy mr-2`}
-          >
-            more_horiz
-          </i>
-        </button>
-      </div>
       <h6 className="text-grayy p-2 mx-2 mb-2 rounded-lg border border-grayy font-thin">
         {body}
       </h6>
@@ -139,13 +108,6 @@ const Post = (props) => {
             {optionBName}: {voteBPercent}%
           </div>
         </div>
-      </div>
-      <div
-        className={`${
-          viewTotalVotes ? " show " : " hidden "
-        }" text-grayy text-center "`}
-      >
-        Total votes: {voteBCount + voteACount}
       </div>
     </li>
   );
