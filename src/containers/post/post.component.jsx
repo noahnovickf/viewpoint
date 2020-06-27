@@ -60,6 +60,7 @@ const Post = (props) => {
         <div className="flex mb-1">
           <img
             src={postUserAvatar}
+            alt="User avatar"
             className="rounded-full h-6 w-6 align-center ml-2"
           />
           <h4 className="text-grayy ml-2">{postUserUsername}</h4>
