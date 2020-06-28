@@ -8,7 +8,7 @@ import PostHeader from "components/post-header";
 import PostFooter from "components/post-footer";
 import PostBody from "components/post-body";
 
-const Post = ({ post, user }) => {
+const Post = ({ post, user, fetchLatestPosts }) => {
   const { userId } = user;
   const {
     body,
@@ -29,6 +29,7 @@ const Post = ({ post, user }) => {
     try {
       await voteForOption({ optionName, postId, userId });
       await addVoteToUser({ postId, userId });
+      fetchLatestPosts();
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +59,7 @@ const Post = ({ post, user }) => {
         showVoteResults={hasUserVoted}
       />
       <PostBody
-        userData={userId}
+        userData={{ userId }}
         postData={{ body, postId, optionAName, optionBName }}
         showVoteResults={hasUserVoted}
         handleVote={handleVote}

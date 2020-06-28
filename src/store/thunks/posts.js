@@ -1,14 +1,8 @@
 import { postsFetched } from "store/actions/posts";
 import { db } from "database";
 
-export const fetchPosts = ({
-  sortBy,
-  whereCondition1,
-  whereAssertion,
-  whereCondition2,
-}) => (dispatch) => {
+export const fetchPosts = ({ sortBy }) => (dispatch) => {
   db.collection("posts")
-    .where(whereCondition1, whereAssertion, whereCondition2)
     .get()
     .then((snapshot) => {
       if (sortBy === "newest") {
@@ -24,11 +18,13 @@ export const fetchPosts = ({
 
         dispatch(postsFetched(postArray));
       } else {
+        //TODO: Cleanup logic for sort by popularity
         const popularPostArray = [];
         snapshot.forEach((post) => {
           const postObj = post.data();
           postObj.id = post.id;
           popularPostArray.push(postObj);
+          //TODO: Why are we sorting inside a forEach? Can we sort at the end?
           popularPostArray.sort(function (a, b) {
             return b.total_votes - a.total_votes;
           });

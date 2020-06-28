@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
@@ -14,17 +14,17 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
   // Information about the posts
   const postsFromState = useSelector((state) => state.posts.posts); //Fix this posts.posts shit
 
-  // Fetch latest posts on default on component mount
-  // TODO: Make this a listener real time
-  useEffect(() => {
+  const fetchLatestPosts = () =>
     fetchPostsThunk({
       sortBy: "newest",
-      whereCondition1: "created_at",
-      whereAssertion: ">",
-      whereCondition2: 0,
     });
+
+  // Fetch latest posts on default on component mount
+  useEffect(() => {
+    fetchLatestPosts();
   }, []);
 
+  // Ask user for avatar and username when one doesn't exist
   if (!doesUserHaveUsername) {
     return (
       <Modal show>
@@ -32,6 +32,7 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
       </Modal>
     );
   }
+
   return (
     <div className="bg-blueGray">
       {/* Navbar */}
@@ -41,7 +42,14 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
       {/* Posts */}
       <div>
         {postsFromState.map((post, index) => {
-          return <Post post={post} key={index} user={userFromState} />;
+          return (
+            <Post
+              post={post}
+              key={index}
+              user={userFromState}
+              fetchLatestPosts={fetchLatestPosts}
+            />
+          );
         })}
       </div>
     </div>

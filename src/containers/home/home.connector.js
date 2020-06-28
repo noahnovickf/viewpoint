@@ -5,15 +5,7 @@ import { fetchPosts } from "store/thunks/posts";
 import { fetchUserAvatar } from "store/thunks/users";
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPostsThunk: ({
-    sortBy,
-    whereCondition1,
-    whereAssertion,
-    whereCondition2,
-  }) =>
-    dispatch(
-      fetchPosts({ sortBy, whereCondition1, whereAssertion, whereCondition2 })
-    ),
+  fetchPostsThunk: ({ sortBy }) => dispatch(fetchPosts({ sortBy })),
   fetchUserAvatarThunk: ({ username }) =>
     dispatch(fetchUserAvatar({ username })),
 });
