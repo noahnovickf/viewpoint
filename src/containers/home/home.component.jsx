@@ -15,6 +15,7 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
   const postsFromState = useSelector((state) => state.posts.posts); //Fix this posts.posts shit
 
   // Fetch latest posts on default on component mount
+  // TODO: Make this a listener real time
   useEffect(() => {
     fetchPostsThunk({
       sortBy: "newest",

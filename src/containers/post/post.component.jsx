@@ -9,8 +9,6 @@ import PostFooter from "components/post-footer";
 import PostBody from "components/post-body";
 
 const Post = ({ post, user }) => {
-  console.log("post", post);
-  console.log("user", user);
   const { userId } = user;
   const {
     body,
