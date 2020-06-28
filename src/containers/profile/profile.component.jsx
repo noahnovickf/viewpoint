@@ -20,7 +20,7 @@ const Profile = (props) => {
       addUsernameToStateThunk(userWithUsername);
       uploadProfileAvatarThunk({ image: imageAsFile, username });
 
-      //TODO: Need to show user that this is successfull or has failed
+      //TODO: Need to show user that this is successful or has failed
     }
   };
 

@@ -8,9 +8,9 @@ const Login = (props) => {
   if (isUserLoggedIn) props.history.push("/");
 
   return (
-    <div class="bg-blueGray flex flex-col items-center justify-center text-center h-screen  ">
+    <div className="bg-blueGray flex flex-col items-center justify-center text-center h-screen  ">
       <div className="">
-        <h1 className=" typewriter text-grayy text-center text-xl font-mono">
+        <h1 className="typewriter text-grayy text-center text-xl font-mono">
           Welcome to ViewPoint.
         </h1>
         <div className="object-center pt-8">

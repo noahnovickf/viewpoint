@@ -2,7 +2,7 @@ import { userSignedIn, userLogout, avatarFetched } from "../actions/users";
 
 import { db, storage } from "database";
 
-//CREATE NEW USER
+// CREATE NEW USER
 export const handleNewUserSignup = (res) => (dispatch) => {
   const uniqueId = res.user.uid;
   const userObject = {
@@ -18,9 +18,14 @@ export const handleNewUserSignup = (res) => (dispatch) => {
   dispatch(userSignedIn(userObject));
 };
 
-//LOGOUT
-export const logout = () => (dispatch) => {
-  dispatch(userLogout());
+// HANDLE EXISTING USER
+export const addUserToState = (info) => (dispatch) => {
+  db.collection("users")
+    .doc(info.uid)
+    .get()
+    .then((res) => {
+      dispatch(userSignedIn(res.data()));
+    });
 };
 
 export const addUsernameToState = (info) => (dispatch) => {
@@ -52,13 +57,9 @@ export const fetchUserAvatar = ({ username }) => (dispatch) => {
     .catch(console.error);
 };
 
-export const addUserToState = (info) => (dispatch) => {
-  db.collection("users")
-    .doc(info.uid)
-    .get()
-    .then((res) => {
-      dispatch(userSignedIn(res.data()));
-    });
+//LOGOUT
+export const logout = () => (dispatch) => {
+  dispatch(userLogout());
 };
 
 // HELPER FUNCTION
