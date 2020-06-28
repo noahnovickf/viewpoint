@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { googleSignInMethod } from "database";
 
 const Login = (props) => {
   const isUserLoggedIn = !!useSelector((state) => state.users.user.email);
-  if (isUserLoggedIn) props.history.push("/");
+
+  useEffect(() => {
+    if (isUserLoggedIn) props.history.push("/");
+  });
 
   return (
     <div className="bg-blueGray flex flex-col items-center justify-center text-center h-screen  ">
