@@ -1,18 +1,22 @@
 import React from "react";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 
-const Navbar = (props) => {
-  const { navigation, topRightIcon } = props;
+import { useSelector } from "react-redux";
+const Navbar = ({ navigation, topRightIcon, sidebarView }) => {
+  const showSidebar = useSelector((state) => state.sidebarView.sidebarView);
   return (
-
     <div className="border-grayy align-middle border-b-2 flex justify-between pt-3 pb-1 text-l bg-bluey font-noto">
-      <Link to="/side-bar">
+      <button onClick={() => sidebarView({ toggleView: !showSidebar })}>
         <i className="pl-2  material-icons text-grayy">menu</i>
-      </Link>
-      <Link to="/" className=" text-grayy  text-center">
+      </button>
+      <Link
+        to="/"
+        className=" text-grayy  text-center"
+        onClick={() => sidebarView({ toggleView: false })}
+      >
         ViewPoint
       </Link>
-      <Link to={navigation}>
+      <Link to={navigation} onClick={() => sidebarView({ toggleView: false })}>
         <i className="pr-2  material-icons text-grayy">{topRightIcon}</i>
       </Link>
     </div>
