@@ -58,7 +58,7 @@ const Home = ({
           className={` ${
             showSidebar
               ? "transition-all duration-500 w-2/3 -mr-56 z-10 border-r-2 border-grayy"
-              : " transition-all duration-500 w-0 "
+              : "transition-all duration-500 w-0"
           }`}
         >
           <Sidebar logout={logoutThunk} sidebarView={sidebarViewThunk} />
@@ -67,7 +67,7 @@ const Home = ({
         <div
           className={` ${
             showSidebar ? "opacity-50" : ""
-          } w-full h-screen bg-blueGray`}
+          } bg-blueGray w-full h-full `}
           onClick={() => sidebarViewThunk({ toggleView: false })}
         >
           {postsFromState.map((post, index) => {

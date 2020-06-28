@@ -9,10 +9,15 @@ import Login from "containers/login";
 import ProtectedRoute from "containers/protected-route";
 import { addUserToState, handleNewUserSignup } from "store/thunks/users";
 import Sidebar from "containers/sidebar";
-
+import { sidebarView } from "store/thunks/sidebarView";
 import { logout } from "store/thunks/users";
 
-function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
+function App({
+  addUserToStateThunk,
+  handleNewUserSignupThunk,
+  logoutThunk,
+  sidebarViewThunk,
+}) {
   const [isUserLoading, setIsUserLoading] = useState(true);
   useEffect(() => {
     //on authstate changed
@@ -54,12 +59,13 @@ function App({ addUserToStateThunk, handleNewUserSignupThunk, logoutThunk }) {
       <div>
         {/* Protected Routes */}
         <ProtectedRoute exact path="/" component={Home} view={"home"} />
-        <ProtectedRoute path="/create-post" component={CreatePost} />
         <ProtectedRoute
-          path="/side-bar"
-          component={Sidebar}
+          path="/create-post"
+          component={CreatePost}
+          sidebarToggle={sidebarViewThunk}
           logout={logoutThunk}
         />
+
         <ProtectedRoute
           path="/user/:username/posts"
           component={Home}
@@ -81,6 +87,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleNewUserSignupThunk: (userObject) =>
     dispatch(handleNewUserSignup(userObject)),
   logoutThunk: () => dispatch(logout()),
+  sidebarViewThunk: ({ toggleView }) => dispatch(sidebarView({ toggleView })),
 });
 
 export default connect(null, mapDispatchToProps)(App);
