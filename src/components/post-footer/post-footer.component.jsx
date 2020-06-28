@@ -14,7 +14,11 @@ const PostFooter = ({ voteData, showVoteResults }) => {
   const voteAPercent = (numOfVotesForOptionA / totalVotes) * 100 || 0;
   const voteBPercent = (numOfVotesForOptionB / totalVotes) * 100 || 0;
 
-  // TODO: Cleanup the way the option percentage are handled. Remove showing and hiding DOM elements
+  /**
+   * TODO: Cleanup the way the option percentage are handled.
+   * Remove showing and hiding DOM elements and instead only mount elements to DOM when needed
+   */
+
   return (
     <div className="flex justify-center w-100 text-bluey">
       <span
