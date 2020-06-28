@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { voteForOption, addVoteToUser } from "database/votePost";
 import { fetchPostUser, fetchPostUserAvatar } from "database/postUser";
@@ -44,6 +45,7 @@ const Post = (props) => {
 
   return (
     <li className="rounded-lg pt-1 m-1 mt-3 bg-bluey font-noto tracking-wide">
+      {/* Post Body  */}
       <h6 className="text-grayy p-2 mx-2 mb-2 rounded-lg border border-grayy font-thin">
         {body}
       </h6>
@@ -77,7 +79,7 @@ const Post = (props) => {
           {optionBName}
         </button>
       </div>
-
+      {/* Post Footer  */}
       <div className="flex justify-center w-100 text-bluey">
         <span
           className={`${

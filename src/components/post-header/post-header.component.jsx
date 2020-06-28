@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-const PostHeader = ({ user, votes, showVoteResults }) => {
-  const { postOwnerAvatar, username } = user;
-  const { voteACount, voteBCount } = votes;
+const PostHeader = ({ userData, voteData, showVoteResults }) => {
+  const { postOwnerAvatar, username } = userData;
+  const { numOfVotesForOptionA, numOfVotesForOptionB } = voteData;
 
   const [viewTotalVotes, setViewTotalVotes] = useState(false);
 
@@ -23,7 +23,7 @@ const PostHeader = ({ user, votes, showVoteResults }) => {
           </button>
           {viewTotalVotes && (
             <div className={"text-grayy text-center"}>
-              Total votes: {voteBCount + voteACount}
+              Total votes: {numOfVotesForOptionB + numOfVotesForOptionA}
             </div>
           )}
         </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "containers/new-post";
@@ -10,14 +11,10 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
   const userFromState = useSelector((state) => state.users.user);
   const doesUserHaveUsername = !!userFromState.username;
 
-  const [displayPosts, setDisplayPosts] = useState([]);
-  const [selectDisplayPostOption, setSelectDisplayPostOption] = useState(
-    "Newest"
-  );
-
+  // Information about the posts
   const postsFromState = useSelector((state) => state.posts.posts); //Fix this
   const renderPost = (post, index) => {
-    return <Post post={post} key={index} />;
+    return <Post post={post} key={index} user={userFromState} />;
   };
 
   //Fetch newest posts on default on component mount
