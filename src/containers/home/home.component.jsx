@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Post from "containers/new-post";
+import Post from "containers/post";
 import Profile from "containers/profile";
 import Modal from "components/modal";
 import Navbar from "containers/navbar";
@@ -12,10 +12,7 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
   const doesUserHaveUsername = !!userFromState.username;
 
   // Information about the posts
-  const postsFromState = useSelector((state) => state.posts.posts); //Fix this
-  const renderPost = (post, index) => {
-    return <Post post={post} key={index} user={userFromState} />;
-  };
+  const postsFromState = useSelector((state) => state.posts.posts); //Fix this posts.posts shit
 
   //Fetch newest posts on default on component mount
   useEffect(() => {
@@ -40,7 +37,11 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
       <div>
         <Navbar navigation="/create-post" topRightIcon="post_add" />
       </div>
-      <div>{postsFromState.map(renderPost)}</div>
+      <div>
+        {postsFromState.map((post, index) => {
+          return <Post post={post} key={index} user={userFromState} />;
+        })}
+      </div>
     </div>
   );
 };

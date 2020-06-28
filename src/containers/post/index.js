@@ -1,3 +1,3 @@
-import Post from "./post.component";
+import Post from "./post.connector";
 
 export default Post;
