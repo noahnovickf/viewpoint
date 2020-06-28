@@ -1,12 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import { voteForOption, addVoteToUser } from "database/votePost";
 import { fetchPostUser, fetchPostUserAvatar } from "database/postUser";
-import { useSelector } from "react-redux";
+
 import PostHeader from "components/post-header";
+import PostFooter from "components/post-footer";
 
 const Post = ({ post, user }) => {
-  const { owner_username: ownerUsername } = post;
+  console.log("post", post);
+  const {
+    owner_username: ownerUsername,
+    total_votes: totalVotes,
+    option_a_name: optionAName,
+    option_b_name: optionBName,
+  } = post;
   const hasUserVotedForA = post.option_a.includes(user.userId);
   const hasUserVotedForB = post.option_b.includes(user.userId);
   const hasUserVoted = hasUserVotedForA || hasUserVotedForB;
@@ -37,6 +46,18 @@ const Post = ({ post, user }) => {
         showVoteResults={hasUserVoted}
       />
       <div>{JSON.stringify(post)}</div>
+      <PostFooter
+        voteData={{
+          hasUserVotedForA,
+          hasUserVotedForB,
+          numOfVotesForOptionA: post.option_a.length,
+          numOfVotesForOptionB: post.option_b.length,
+          totalVotes,
+          optionAName,
+          optionBName,
+        }}
+        showVoteResults={hasUserVoted}
+      />
     </div>
   );
 };
