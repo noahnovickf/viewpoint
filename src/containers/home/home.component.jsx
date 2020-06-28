@@ -50,10 +50,11 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
       {/* Posts */}
       <div>
         {postsFromState.map((post, index) => {
+          const { id, total_votes } = post;
           return (
             <Post
               post={post}
-              key={index}
+              key={`${id}${total_votes}`}
               user={userFromState}
               fetchLatestPosts={fetchLatestPosts}
             />
