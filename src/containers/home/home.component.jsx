@@ -14,7 +14,7 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
   // Information about the posts
   const postsFromState = useSelector((state) => state.posts.posts); //Fix this posts.posts shit
 
-  //Fetch newest posts on default on component mount
+  // Fetch latest posts on default on component mount
   useEffect(() => {
     fetchPostsThunk({
       sortBy: "newest",
@@ -37,6 +37,7 @@ const Home = ({ fetchPostsThunk, fetchUserAvatarThunk, view }) => {
       <div>
         <Navbar navigation="/create-post" topRightIcon="post_add" />
       </div>
+      {/* Posts */}
       <div>
         {postsFromState.map((post, index) => {
           return <Post post={post} key={index} user={userFromState} />;
