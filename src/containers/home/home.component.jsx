@@ -32,6 +32,7 @@ const Home = ({
   // Fetch latest posts on default on component mount
   useEffect(() => {
     fetchLatestPosts();
+    fetchUserAvatarThunk({ username: userFromState.username });
   }, []);
 
   // Ask user for avatar and username when one doesn't exist
@@ -57,8 +58,8 @@ const Home = ({
         <div
           className={` ${
             showSidebar
-              ? "transition-all duration-500 w-2/3 -mr-56 z-10 border-r-2 border-grayy"
-              : "transition-all duration-500 w-0"
+              ? "transition-width duration-500  w-2/3 -mr-56 z-10 border-r-2 border-grayy"
+              : "z-10 transition-width duration-500 w-0 overflow-hidden "
           }`}
         >
           <Sidebar logout={logoutThunk} sidebarView={sidebarViewThunk} />

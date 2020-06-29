@@ -37,7 +37,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
           className={` ${
             showSidebar
               ? "transition-all duration-500 w-2/3 -mr-56 z-10 border-r-2 border-grayy"
-              : "transition-all duration-500 w-0"
+              : "transition-all duration-500 w-0 z-10 overflow-hidden"
           }`}
         >
           <Sidebar logout={logout} sidebarView={sidebarToggle} />
