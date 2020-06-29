@@ -7,6 +7,7 @@ import { fetchPostUserAvatar } from "database/postUser";
 import PostHeader from "components/post-header";
 import PostFooter from "components/post-footer";
 import PostBody from "components/post-body";
+import { SORT_BY_NEWEST } from "database/utils";
 
 const Post = ({ post, user, fetchLatestPosts }) => {
   const { userId } = user;
@@ -29,7 +30,7 @@ const Post = ({ post, user, fetchLatestPosts }) => {
     try {
       await voteForOption({ optionName, postId, userId });
       await addVoteToUser({ postId, userId });
-      fetchLatestPosts();
+      fetchLatestPosts({ sortBy: SORT_BY_NEWEST });
     } catch (error) {
       console.error(error);
     }

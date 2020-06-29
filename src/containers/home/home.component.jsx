@@ -1,11 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Post from "containers/post";
 import Profile from "containers/profile";
 import Modal from "components/modal";
 import Navbar from "containers/navbar";
+
 import Sidebar from "containers/sidebar";
+
+import PostSort from "components/post-filter";
+import { SORT_BY_NEWEST } from "database/utils";
 
 const Home = ({
   fetchPostsThunk,
@@ -21,17 +25,21 @@ const Home = ({
   // Information about the posts
   const postsFromState = useSelector((state) => state.posts.posts); //Fix this posts.posts shit
 
-  // Sidebar view
   const showSidebar = useSelector((state) => state.sidebarView.sidebarView);
-
-  const fetchLatestPosts = () =>
+  const fetchLatestPosts = ({ sortBy = SORT_BY_NEWEST }) =>
     fetchPostsThunk({
-      sortBy: "newest",
+      sortBy,
     });
 
-  // Fetch latest posts on default on component mount
+  // Fetch latest posts when user sorts
+  const handleSort = (event) => {
+    const sortBy = event.target.value;
+    fetchLatestPosts({ sortBy });
+  };
+
+  // Fetch latest posts latest first by default on component mount
   useEffect(() => {
-    fetchLatestPosts();
+    fetchLatestPosts({ sortBy: SORT_BY_NEWEST });
     fetchUserAvatarThunk({ username: userFromState.username });
   }, []);
 
@@ -54,6 +62,7 @@ const Home = ({
           sidebarView={sidebarViewThunk}
         />
       </div>
+      <PostSort handleSort={handleSort} />
       <div className="flex">
         <div
           className={` ${
