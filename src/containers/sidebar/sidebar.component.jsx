@@ -2,9 +2,11 @@ import React from "react";
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { auth } from "database";
-const Sidebar = ({ logout, sidebarView }) => {
+
+const Sidebar = ({ logout, sidebarView, fetchLatestPosts }) => {
   const showSidebar = useSelector((state) => state.sidebarView.sidebarView);
   const currentUser = useSelector((state) => state.users.user);
+  const currentUserID = currentUser.id;
 
   const signOut = () => {
     sidebarView({ toggleView: !showSidebar });
@@ -27,7 +29,7 @@ const Sidebar = ({ logout, sidebarView }) => {
           onClick={() => sidebarView({ toggleView: !showSidebar })}
           className="py-2 border-b-2 border-grayy"
         >
-          <Link to={`user/${currentUser.username}/posts`}>Posts</Link>
+          <Link to={`/user/${currentUser.username}/posts`}>Posts</Link>
         </div>
         <div
           onClick={() => sidebarView({ toggleView: !showSidebar })}

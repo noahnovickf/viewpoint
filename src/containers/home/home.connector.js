@@ -7,7 +7,8 @@ import { sidebarView } from "store/thunks/sidebarView";
 import { logout } from "store/thunks/users";
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPostsThunk: ({ sortBy }) => dispatch(fetchPosts({ sortBy })),
+  fetchPostsThunk: ({ sortBy, currentUserID }) =>
+    dispatch(fetchPosts({ sortBy, currentUserID })),
   fetchUserAvatarThunk: ({ username }) =>
     dispatch(fetchUserAvatar({ username })),
   sidebarViewThunk: ({ toggleView }) => dispatch(sidebarView({ toggleView })),

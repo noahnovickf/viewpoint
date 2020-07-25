@@ -5,7 +5,7 @@ import Post from "containers/post";
 import Profile from "containers/profile";
 import Modal from "components/modal";
 import Navbar from "containers/navbar";
-
+import { SORT_BY_USER_POST, SORT_BY_USER_VOTE } from "database/utils";
 import Sidebar from "containers/sidebar";
 
 import PostSort from "components/post-filter";
@@ -20,16 +20,20 @@ const Home = ({
 }) => {
   // Check whether user has a username
   const userFromState = useSelector((state) => state.users.user);
+  const currentUserID = userFromState.userId;
   const doesUserHaveUsername = !!userFromState.username;
 
   // Information about the posts
   const postsFromState = useSelector((state) => state.posts.posts); //Fix this posts.posts shit
 
   const showSidebar = useSelector((state) => state.sidebarView.sidebarView);
-  const fetchLatestPosts = ({ sortBy = SORT_BY_NEWEST }) =>
+
+  const fetchLatestPosts = ({ sortBy = SORT_BY_NEWEST }) => {
     fetchPostsThunk({
       sortBy,
+      currentUserID,
     });
+  };
 
   // Fetch latest posts when user sorts
   const handleSort = (event) => {
@@ -37,9 +41,18 @@ const Home = ({
     fetchLatestPosts({ sortBy });
   };
 
+  useEffect(() => {
+    if (view === "userPosts") {
+      fetchLatestPosts({ sortBy: SORT_BY_USER_POST, currentUserID });
+    } else if (view === "voteHistory") {
+      fetchLatestPosts({ sortBy: SORT_BY_USER_VOTE, currentUserID });
+    } else {
+      fetchLatestPosts({ sortBy: SORT_BY_NEWEST });
+    }
+  }, [view]);
+
   // Fetch latest posts latest first by default on component mount
   useEffect(() => {
-    fetchLatestPosts({ sortBy: SORT_BY_NEWEST });
     fetchUserAvatarThunk({ username: userFromState.username });
   }, []);
 
@@ -62,7 +75,6 @@ const Home = ({
           sidebarView={sidebarViewThunk}
         />
       </div>
-      <PostSort handleSort={handleSort} />
       <div className="flex">
         <div
           className={` ${
@@ -71,7 +83,11 @@ const Home = ({
               : "z-10 transition-width duration-500 w-0 overflow-hidden "
           }`}
         >
-          <Sidebar logout={logoutThunk} sidebarView={sidebarViewThunk} />
+          <Sidebar
+            logout={logoutThunk}
+            sidebarView={sidebarViewThunk}
+            fetchLatestPosts={fetchLatestPosts}
+          />
         </div>
         {/* Posts */}
         <div
@@ -80,16 +96,25 @@ const Home = ({
           } bg-blueGray w-full h-full `}
           onClick={() => sidebarViewThunk({ toggleView: false })}
         >
-          {postsFromState.map((post, index) => {
-            return (
-              <Post
-                post={post}
-                key={index}
-                user={userFromState}
-                fetchLatestPosts={fetchLatestPosts}
-              />
-            );
-          })}
+          <div
+            className={` ${
+              view === "userPosts" || view === "voteHistory" ? "hidden" : ""
+            } `}
+          >
+            <PostSort handleSort={handleSort} />
+          </div>
+          <div>
+            {postsFromState.map((post, index) => {
+              return (
+                <Post
+                  post={post}
+                  key={post.id}
+                  user={userFromState}
+                  fetchLatestPosts={fetchLatestPosts}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
