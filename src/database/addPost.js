@@ -6,10 +6,13 @@ export const addPost = ({
   option2,
   userID,
   username,
-  avatarLink,
+  int,
+  imgPost,
 }) => {
-  db.collection("posts").add({
+  db.collection("posts").doc(int).set({
     body: postText,
+    // option_1_image: "",
+    // option_2_image: "",
     created_at: Date.now(),
     option_a_name: option1,
     option_b_name: option2,
@@ -18,6 +21,6 @@ export const addPost = ({
     owner_id: userID,
     total_votes: 0,
     owner_username: username,
-    owner_img: avatarLink,
+    img_post: imgPost,
   });
 };

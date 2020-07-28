@@ -4,19 +4,36 @@ import { withRouter } from "react-router-dom";
 import Navbar from "containers/navbar";
 import { useSelector } from "react-redux";
 import Sidebar from "containers/sidebar";
+import { storage } from "database";
 
 const CreatePost = ({ history, sidebarToggle, logout }) => {
   const [postText, setPostText] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
+  const [imageOption1, setImageOption1] = useState("");
+  const [imageOption2, setImageOption2] = useState("");
   const showSidebar = useSelector((state) => state.sidebarView.sidebarView);
   const user = useSelector((state) => state.users.user);
   const userID = user.userId;
   const username = user.username;
-  const avatarLink = user.avatar_link;
 
   const addPostToDB = () => {
-    addPost({ postText, option1, option2, userID, username, avatarLink });
+    let imgPost = false;
+    const int = parseInt(Math.random() * 1000000000000).toString();
+    if (imageOption1 && imageOption2) {
+      storage.ref(`/posts/${int}-01`).put(imageOption1);
+      storage.ref(`/posts/${int}-02`).put(imageOption2);
+      imgPost = true;
+    }
+    addPost({
+      postText,
+      option1,
+      option2,
+      userID,
+      username,
+      int,
+      imgPost,
+    });
     setPostText("");
     setOption1("");
     setOption2("");
@@ -51,14 +68,26 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
           } `}
         >
           <div>
-            <textarea
-              id="post"
-              value={postText}
-              onChange={(e) => setPostText(e.target.value)}
-              className="border rounded-lg flex justify-center w-full h-32 text-bluey"
-              type="text"
-              placeholder=" Post body"
-            ></textarea>
+            <div>
+              <textarea
+                id="post"
+                value={postText}
+                onChange={(e) => setPostText(e.target.value)}
+                className="border rounded-lg flex justify-center w-full h-32 text-bluey"
+                type="text"
+                placeholder=" Post body"
+              ></textarea>
+            </div>
+            <div>
+              <input
+                type="file"
+                onChange={(e) => setImageOption1(e.target.files[0])}
+              />
+              <input
+                type="file"
+                onChange={(e) => setImageOption2(e.target.files[0])}
+              />
+            </div>
           </div>
           <div className="flex w-full pt-4 w-auto">
             <input
@@ -68,7 +97,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
               className="bg-pinky h-10 rounded-l-lg border-r-2 border-gray-600 placeholder-bluey placeholder-opacity-75 text-bluey w-1/2 focus:placeholder-opacity-25 focus:outline-none"
               type="text"
               placeholder=" Option 1"
-              maxlength="13"
+              maxLength="13"
             ></input>
             <input
               id="option-2"

@@ -8,6 +8,7 @@ import PostHeader from "components/post-header";
 import PostFooter from "components/post-footer";
 import PostBody from "components/post-body";
 import { SORT_BY_NEWEST } from "database/utils";
+import { storage } from "database";
 
 const Post = ({ post, user, fetchLatestPosts }) => {
   const { userId } = user;
@@ -18,6 +19,7 @@ const Post = ({ post, user, fetchLatestPosts }) => {
     total_votes: totalVotes,
     option_a_name: optionAName,
     option_b_name: optionBName,
+    img_post,
   } = post;
 
   const hasUserVotedForA = post.option_a.includes(user.userId);
@@ -25,6 +27,8 @@ const Post = ({ post, user, fetchLatestPosts }) => {
   const hasUserVoted = hasUserVotedForA || hasUserVotedForB;
 
   const [postOwnerAvatar, setpostOwnerAvatar] = useState("");
+  const [img1, setImg1] = useState("");
+  const [img2, setImg2] = useState("");
 
   const handleVote = async ({ optionName, postId, userId }) => {
     try {
@@ -46,6 +50,23 @@ const Post = ({ post, user, fetchLatestPosts }) => {
     fetchAvatar();
   }, []);
 
+  useEffect(() => {
+    if (img_post) {
+      storage
+        .ref(`posts/${postId}-01`)
+        .getDownloadURL()
+        .then((img1Url) => {
+          setImg1(img1Url);
+        });
+      storage
+        .ref(`posts/${postId}-02`)
+        .getDownloadURL()
+        .then((img2Url) => {
+          setImg2(img2Url);
+        });
+    }
+  }, []);
+
   return (
     <div className="rounded-lg pt-1 m-1 mt-3 bg-bluey font-noto tracking-wide">
       <PostHeader
@@ -64,6 +85,8 @@ const Post = ({ post, user, fetchLatestPosts }) => {
         postData={{ body, postId, optionAName, optionBName }}
         showVoteResults={hasUserVoted}
         handleVote={handleVote}
+        img1={img1}
+        img2={img2}
       />
       <PostFooter
         voteData={{
