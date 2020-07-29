@@ -6,13 +6,12 @@ export const addPost = ({
   option2,
   userID,
   username,
-  int,
+  picID,
   imgPost,
 }) => {
-  db.collection("posts").doc(int).set({
+  db.collection("posts").add({
     body: postText,
-    // option_1_image: "",
-    // option_2_image: "",
+    picID: picID,
     created_at: Date.now(),
     option_a_name: option1,
     option_b_name: option2,

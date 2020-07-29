@@ -14,6 +14,7 @@ const Post = ({ post, user, fetchLatestPosts }) => {
   const { userId } = user;
   const {
     body,
+    picID: picID,
     id: postId,
     owner_username: ownerUsername,
     total_votes: totalVotes,
@@ -21,7 +22,6 @@ const Post = ({ post, user, fetchLatestPosts }) => {
     option_b_name: optionBName,
     img_post,
   } = post;
-
   const hasUserVotedForA = post.option_a.includes(user.userId);
   const hasUserVotedForB = post.option_b.includes(user.userId);
   const hasUserVoted = hasUserVotedForA || hasUserVotedForB;
@@ -53,13 +53,13 @@ const Post = ({ post, user, fetchLatestPosts }) => {
   useEffect(() => {
     if (img_post) {
       storage
-        .ref(`posts/${postId}-01`)
+        .ref(`posts/${picID}-01`)
         .getDownloadURL()
         .then((img1Url) => {
           setImg1(img1Url);
         });
       storage
-        .ref(`posts/${postId}-02`)
+        .ref(`posts/${picID}-02`)
         .getDownloadURL()
         .then((img2Url) => {
           setImg2(img2Url);
