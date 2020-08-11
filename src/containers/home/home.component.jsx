@@ -104,7 +104,7 @@ const Home = ({
             <PostSort handleSort={handleSort} />
           </div>
           <div>
-            {postsFromState.map((post, index) => {
+            {postsFromState.map((post) => {
               return (
                 <Post
                   post={post}
