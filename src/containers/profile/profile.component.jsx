@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { auth } from "database";
 import { useSelector } from "react-redux";
+import { db } from "database";
+import { usernameCheck } from "database/usernameCheck";
 
 const Profile = (props) => {
   const { addUsernameToStateThunk, uploadProfileAvatarThunk } = props;
@@ -9,19 +11,25 @@ const Profile = (props) => {
   const userFromState = useSelector((state) => state.users.user);
 
   const updateUserInfo = () => {
-    if (!username || !imageAsFile) {
-      alert("Please enter a username and upload an avatar");
-    } else {
-      const userWithUsername = {
-        id: auth.currentUser.uid,
-        username: username,
-        user: userFromState,
-      };
-      addUsernameToStateThunk(userWithUsername);
-      uploadProfileAvatarThunk({ image: imageAsFile, username });
+    usernameCheck(username).then((res) => {
+      if (res) {
+        if (!username || !imageAsFile) {
+          alert("Please enter a username and upload an avatar");
+        } else {
+          const userWithUsername = {
+            id: auth.currentUser.uid,
+            username: username,
+            user: userFromState,
+          };
+          addUsernameToStateThunk(userWithUsername);
+          uploadProfileAvatarThunk({ image: imageAsFile, username });
 
-      //TODO: Need to show user that this is successful or has failed
-    }
+          //TODO: Need to show user that this is successful or has failed
+        }
+      } else {
+        alert("Username already taken");
+      }
+    });
   };
 
   const handleImageChange = (e) => {
