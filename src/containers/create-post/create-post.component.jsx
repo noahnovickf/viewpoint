@@ -84,7 +84,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
             className="bg-bluey w-full mt-4 rounded-lg"
             onClick={addPostToDB}
           >
-            Define it
+            Post
           </button>
         </div>
       </div>
