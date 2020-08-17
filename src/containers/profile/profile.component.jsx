@@ -30,7 +30,7 @@ const Profile = (props) => {
   };
 
   return (
-    <div className="flex flex-col text-grayy font-mono">
+    <div className="flex flex-col text-grayy">
       <div className="py-4">
         <h1>Submit a username</h1>
         <input
