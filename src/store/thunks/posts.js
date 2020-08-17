@@ -19,7 +19,6 @@ import {
 export const fetchPosts = ({ sortBy = SORT_BY_NEWEST, currentUserID }) => (
   dispatch
 ) => {
-  console.log(sortBy, currentUserID);
   db.collection("posts")
     .get()
     .then((snapshot) => {
@@ -49,13 +48,11 @@ export const fetchPosts = ({ sortBy = SORT_BY_NEWEST, currentUserID }) => (
           break;
         case SORT_BY_LEAST_POPULAR:
           displayPostArray = postArray.sort((a, b) => {
-            console.log("hitt");
             return a.total_votes - b.total_votes;
           });
           break;
         case SORT_BY_USER_POST:
           displayPostArray = postArray.filter((post) => {
-            console.log(post.owner_id, currentUserID);
             return post.owner_id === currentUserID;
           });
           break;
