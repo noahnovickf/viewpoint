@@ -96,6 +96,7 @@ const Home = ({
           } bg-blueGray w-full h-full `}
           onClick={() => sidebarViewThunk({ toggleView: false })}
         >
+
           <div
             className={` ${
               view === "userPosts" || view === "voteHistory" ? "hidden" : ""

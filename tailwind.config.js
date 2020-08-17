@@ -16,6 +16,12 @@ module.exports = {
       fontFamily: {
         noto: ['"noto sans"'],
       },
+      height: {
+        picture: "21rem",
+      },
+      width: {
+        picture: "21rem",
+      },
     },
     screens: {
       sm: "640px",
