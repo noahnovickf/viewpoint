@@ -80,11 +80,11 @@ const Home = ({
           } bg-blueGray w-full h-full `}
           onClick={() => sidebarViewThunk({ toggleView: false })}
         >
-          {postsFromState.map((post, index) => {
+          {postsFromState.map((post) => {
             return (
               <Post
                 post={post}
-                key={index}
+                key={post.id}
                 user={userFromState}
                 fetchLatestPosts={fetchLatestPosts}
               />

@@ -30,9 +30,13 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
       const picID = parseInt(Math.random() * 1000000000000).toString();
 
       if (imageOption1 && imageOption2) {
-        storage.ref(`/posts/${picID}-01`).put(imageOption1);
-        storage.ref(`/posts/${picID}-02`).put(imageOption2);
         imgPost = true;
+        storage
+          .ref(`/posts/${picID}-01`)
+          .put(imageOption1)
+          .then(() => {
+            storage.ref(`/posts/${picID}-02`).put(imageOption2);
+          });
       }
       addPost({
         postText,
