@@ -11,6 +11,7 @@ const Profile = (props) => {
   const userFromState = useSelector((state) => state.users.user);
 
   const updateUserInfo = () => {
+    // Checks to see if username is already in use
     usernameCheck(username).then((res) => {
       if (res) {
         if (!username || !imageAsFile) {
