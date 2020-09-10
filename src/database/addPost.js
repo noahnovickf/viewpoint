@@ -9,7 +9,7 @@ export const addPost = ({
   picID,
   imgPost,
 }) => {
-  db.collection("posts").add({
+  return db.collection("posts").add({
     body: postText,
     picID: picID,
     created_at: Date.now(),
