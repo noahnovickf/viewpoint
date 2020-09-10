@@ -42,7 +42,7 @@ const PostFooter = ({ voteData, showVoteResults }) => {
           showVoteResults && voteAPercent !== 100 ? "show" : "hidden"
         } ${voteBPercent === 100 ? " rounded-lg ml-2 " : " rounded-r-lg "} ${
           hasUserVotedForA ? "opacity-50" : " "
-        } items-center justify-center text-center  bg-orangy h-10 mr-2 mb-2`}
+        } flex items-center justify-center text-center  bg-orangy h-10 mr-2 mb-2`}
         style={{ width: voteBPercent + "%" }}
       >
         <div>

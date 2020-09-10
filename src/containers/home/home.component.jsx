@@ -7,7 +7,6 @@ import Modal from "components/modal";
 import Navbar from "containers/navbar";
 import { SORT_BY_USER_POST, SORT_BY_USER_VOTE } from "database/utils";
 import Sidebar from "containers/sidebar";
-
 import PostSort from "components/post-filter";
 import { SORT_BY_NEWEST } from "database/utils";
 
