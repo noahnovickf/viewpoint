@@ -35,22 +35,30 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
           .ref(`/posts/${picID}-01`)
           .put(imageOption1)
           .then(() => {
-            storage.ref(`/posts/${picID}-02`).put(imageOption2);
+            console.log("post one");
+            storage
+              .ref(`/posts/${picID}-02`)
+              .put(imageOption2)
+              .then(() => {
+                console.log("post two");
+
+                addPost({
+                  postText,
+                  option1,
+                  option2,
+                  userID,
+                  username,
+                  picID,
+                  imgPost,
+                }).then(() => {
+                  setPostText("");
+                  setOption1("");
+                  setOption2("");
+                  history.push("/");
+                });
+              });
           });
       }
-      addPost({
-        postText,
-        option1,
-        option2,
-        userID,
-        username,
-        picID,
-        imgPost,
-      });
-      setPostText("");
-      setOption1("");
-      setOption2("");
-      history.push("/");
     }
   };
 

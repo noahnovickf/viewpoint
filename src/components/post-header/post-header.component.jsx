@@ -19,7 +19,7 @@ const PostHeader = ({ userData, voteData, showVoteResults }) => {
         </div>
         <div className="flex-col">
           {showVoteResults && (
-            <div className="flex flex-end">
+            <div className="flex flex-end color-grayy">
               <button onClick={() => setViewTotalVotes(!viewTotalVotes)}>
                 <i className={"material-icons color-grayy mr-2 "}>more_horiz</i>
               </button>
@@ -29,7 +29,7 @@ const PostHeader = ({ userData, voteData, showVoteResults }) => {
       </div>
       {viewTotalVotes && (
         <div className="text-grayy text-center pb-2 flex ml-2">
-          Total votes: {numOfVotesForOptionB + numOfVotesForOptionA}
+          Viewpoints: {numOfVotesForOptionB + numOfVotesForOptionA}
         </div>
       )}
     </div>
