@@ -18,7 +18,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
   const userID = user.userId;
   const username = user.username;
 
-  const addPostToDB = () => {
+  const addPostToDB = async () => {
     if (pictureUpload && (!imageOption1 || !imageOption2)) {
       alert("Please upload 2 images");
     } else if (!pictureUpload && !postText) {
@@ -26,38 +26,35 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
     } else if (!option1 || !option2) {
       alert("Please fill in options");
     } else {
-      let imgPost = false;
-      const picID = parseInt(Math.random() * 1000000000000).toString();
+      try {
+        let imgPost = false;
+        const picID = parseInt(Math.random() * 1000000000000).toString();
 
-      if (imageOption1 && imageOption2) {
-        imgPost = true;
-        storage
-          .ref(`/posts/${picID}-01`)
-          .put(imageOption1)
-          .then(() => {
-            console.log("post one");
-            storage
-              .ref(`/posts/${picID}-02`)
-              .put(imageOption2)
-              .then(() => {
-                console.log("post two");
+        if (imageOption1 && imageOption2) {
+          imgPost = true;
+          console.log("Setting image 1");
+          await storage.ref(`/posts/${picID}-01`).put(imageOption1);
+          console.log("Setting image 2");
+          await storage.ref(`/posts/${picID}-02`).put(imageOption2);
+        }
 
-                addPost({
-                  postText,
-                  option1,
-                  option2,
-                  userID,
-                  username,
-                  picID,
-                  imgPost,
-                }).then(() => {
-                  setPostText("");
-                  setOption1("");
-                  setOption2("");
-                  history.push("/");
-                });
-              });
-          });
+        console.log("Adding post after setting images");
+        await addPost({
+          postText,
+          option1,
+          option2,
+          userID,
+          username,
+          picID,
+          imgPost,
+        });
+
+        setPostText("");
+        setOption1("");
+        setOption2("");
+        history.push("/");
+      } catch (error) {
+        console.error("THERE IS AN ERROR: ", error);
       }
     }
   };
@@ -149,7 +146,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
               className="bg-orangy h-10 rounded-r-lg text-bluey placeholder-bluey placeholder-opacity-75 w-1/2 focus:placeholder-opacity-25 focus:outline-none"
               type="text"
               placeholder=" Option 2"
-              maxlength="13"
+              maxLength="13"
             ></input>
           </div>
           <button
