@@ -113,6 +113,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
               ></textarea>
             </div>
             <div className={`${pictureUpload ? "" : "hidden"} `}>
+              <h4>Please use same picture orientation for best results</h4>
               <input
                 type="file"
                 onChange={(e) => setImageOption1(e.target.files[0])}
