@@ -68,7 +68,7 @@ const Post = ({ post, user, fetchLatestPosts }) => {
   }, []);
 
   return (
-    <div className="rounded-lg pt-1 m-1 mt-3 bg-bluey font-noto tracking-wide">
+    <div className="rounded-lg pt-1 m-1 mt-3 bg-bluey  tracking-wide">
       <PostHeader
         userData={{
           username: ownerUsername,

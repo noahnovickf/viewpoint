@@ -80,7 +80,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
         </div>
         <div
           onClick={() => sidebarToggle({ toggleView: false })}
-          className={`block h-screen text-grayy font-noto tracking-wide p-2 ${
+          className={`block h-screen text-grayy  tracking-wide p-2 ${
             showSidebar
               ? "opacity-50 z-0"
               : " transition-width duration-500 w-screen z-10 bg-blueGray"

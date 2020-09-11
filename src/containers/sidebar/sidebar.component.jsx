@@ -16,7 +16,7 @@ const Sidebar = ({ logout, sidebarView, fetchLatestPosts }) => {
 
   return (
     <div>
-      <div className="flex flex-col font-noto text-grayy bg-blueGray h-screen w-full text-center text-xl tracking-wide ">
+      <div className="flex flex-col text-grayy bg-blueGray h-screen w-full text-center text-xl tracking-wide ">
         <div className="flex items-center justify-center border-b-2 border-grayy min-w-full flex-grow-0">
           <img
             src={currentUser.avatar_link}
