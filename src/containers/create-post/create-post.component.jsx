@@ -7,6 +7,7 @@ import Sidebar from "containers/sidebar";
 import { storage } from "database";
 
 const CreatePost = ({ history, sidebarToggle, logout }) => {
+  const [postTitle, setPostTitle] = useState("");
   const [postText, setPostText] = useState("");
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
@@ -40,6 +41,7 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
 
         console.log("Adding post after setting images");
         await addPost({
+          postTitle,
           postText,
           option1,
           option2,
@@ -104,6 +106,14 @@ const CreatePost = ({ history, sidebarToggle, logout }) => {
               >
                 Pictures
               </button>
+            </div>
+            <div>
+              <textarea
+                className="border rounded-lg flex justify-center w-full h-8 text-bluey"
+                placeholder="What's your point?"
+                value={postTitle}
+                onChange={(e) => setPostTitle(e.target.value)}
+              ></textarea>
             </div>
             <div className="pt-2">
               <textarea

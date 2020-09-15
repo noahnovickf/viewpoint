@@ -49,7 +49,7 @@ function App({
 
   if (isUserLoading)
     return (
-      <div className="h-screen w-screen bg-blueGray text-grayy flex justify-center items-center text-xl font-noto tracking-wide">
+      <div className="h-screen w-screen bg-blueGray text-grayy flex justify-center items-center text-xl  tracking-wide">
         Loading...
       </div>
     );
