@@ -13,6 +13,7 @@ import { storage } from "database";
 const Post = ({ post, user, fetchLatestPosts }) => {
   const { userId } = user;
   const {
+    title,
     body,
     picID: picID,
     id: postId,
@@ -22,6 +23,7 @@ const Post = ({ post, user, fetchLatestPosts }) => {
     option_b_name: optionBName,
     img_post,
   } = post;
+
   const hasUserVotedForA = post.option_a.includes(user.userId);
   const hasUserVotedForB = post.option_b.includes(user.userId);
   const hasUserVoted = hasUserVotedForA || hasUserVotedForB;
@@ -81,6 +83,7 @@ const Post = ({ post, user, fetchLatestPosts }) => {
         showVoteResults={hasUserVoted}
       />
       <PostBody
+        title={title}
         userData={{ userId }}
         postData={{ body, postId, optionAName, optionBName }}
         showVoteResults={hasUserVoted}

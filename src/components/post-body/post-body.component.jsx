@@ -1,6 +1,7 @@
 import React from "react";
 
 const PostBody = ({
+  title,
   userData,
   postData,
   showVoteResults,
@@ -13,6 +14,7 @@ const PostBody = ({
 
   return (
     <div>
+      <h1 className="pl-2 text-grayy text-lg">{title}</h1>
       <h6
         className={`${
           img1 ? "hidden" : " "
