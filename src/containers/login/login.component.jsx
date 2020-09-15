@@ -13,7 +13,7 @@ const Login = (props) => {
   return (
     <div className="bg-blueGray flex flex-col items-center justify-center text-center h-screen  ">
       <div className="">
-        <h1 className="typewriter text-grayy text-center text-xl font-mono">
+        <h1 className="typewriter text-grayy text-center text-xl ">
           Welcome to ViewPoint.
         </h1>
         <div className="object-center pt-8">

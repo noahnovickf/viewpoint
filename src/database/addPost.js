@@ -1,6 +1,7 @@
 import { db } from "./index";
 
 export const addPost = ({
+  postTitle,
   postText,
   option1,
   option2,
@@ -10,6 +11,7 @@ export const addPost = ({
   imgPost,
 }) => {
   return db.collection("posts").add({
+    title: postTitle,
     body: postText,
     picID: picID,
     created_at: Date.now(),
